@@ -1,77 +1,290 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <meta charset='utf-8'>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-  <title>rubykr/rails_guides @ GitHub</title>
+<title>Ruby on Rails 가이드
+</title>
 
-  <style type="text/css">
-    body {
-      margin-top: 1.0em;
-      background-color: #f25e5b;
-      font-family: "Helvetica,Arial,FreeSans";
-      color: #000000;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-    h1 { font-size: 3.8em; color: #0da1a4; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #0da1a4; }
-    h3 { text-align: center; color: #0da1a4; }
-    a { color: #0da1a4; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-  </style>
+<link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+<link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+<link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
+<link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />
 </head>
-
-<body>
-  <a href="http://github.com/rubykr/rails_guides"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
-
-  <div id="container">
-
-    <div class="download">
-      <a href="http://github.com/rubykr/rails_guides/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/rubykr/rails_guides/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
+<body class="guide">
+  <div id="topNav">
+    <div class="wrapper">
+      <strong>More at <a href="http://rubyonrails.org/">rubyonrails.org:</a> </strong>
+      <a href="http://rubyonrails.org/">Overview</a> |
+      <a href="http://rubyonrails.org/download">Download</a> |
+      <a href="http://rubyonrails.org/deploy">Deploy</a> |
+      <a href="http://rails.lighthouseapp.com/projects/8994-ruby-on-rails/overview">Code</a> |
+      <a href="http://rubyonrails.org/screencasts">Screencasts</a> |
+      <a href="http://rubyonrails.org/documentation">Documentation</a> |
+      <a href="http://rubyonrails.org/ecosystem">Ecosystem</a> |
+      <a href="http://rubyonrails.org/community">Community</a> |
+      <a href="http://weblog.rubyonrails.org/">Blog</a>
     </div>
+  </div>
+  <div id="header">
+    <div class="wrapper clearfix">
+      <h1><a href="index.html" title="Return to home page">Guides.rubyonrails.org</a></h1>
+      <p class="hide"><a href="#mainCol">Skip navigation</a>.</p>
+      <ul class="nav">
+        <li><a href="index.html">홈</a></li>
+        <li class="index"><a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu">목차</a>
+          <div id="guides" class="clearfix" style="display: none;">
+            <hr />
+            <dl class="L">
+              <dt>시작</dt>
+              <dd><a href="getting_started.html">레일즈 시작하기</a></dd>
+              <dt>모델(Models)</dt>
+              <dd><a href="migrations.html">레일즈 데이터베이스 마이그레이션</a></dd>
+              <dd><a href="active_record_validations_callbacks.html">엑티브 레코드 데이터 검증(Validation)과 Callback(콜백)</a></dd>
+              <dd><a href="association_basics.html">엑티브 레코드 Association(관계)</a></dd>
+              <dd><a href="active_record_querying.html">엑티브 레코드 쿼리 인터페이스</a></dd>
+              <dt>뷰(Views)</dt>
+              <dd><a href="layouts_and_rendering.html">레이아웃(Layouts)과 렌더링(Rendering)</a></dd>
+              <dd><a href="form_helpers.html">액션 뷰 폼 핼퍼(Action View Form Helpers)</a></dd>
+              <dt>컨트롤러(Controllers)</dt>
+              <dd><a href="action_controller_overview.html">액션 컨트롤러 둘러보기</a></dd>
+              <dd><a href="routing.html">외부 요청에 대한 레일즈 라우팅</a></dd>
+            </dl>
+            <dl class="R">
+              <dt>심화내용</dt>
+              <dd><a href="active_support_core_extensions.html">엑티브 서포트(Active Support) 확장(Core Extensions)</a></dd>
+              <dd><a href="i18n.html">레일즈 국제화I(nternationalization) API</a></dd>
+              <dd><a href="action_mailer_basics.html">액션 메일러의 기본</a></dd>
+              <dd><a href="testing.html">레일즈 어플리케이션 테스트하기</a></dd>
+              <dd><a href="security.html">레일즈 어플리케이션의 보안</a></dd>
+              <dd><a href="debugging_rails_applications.html">레일즈 어플리케이션 디버깅</a></dd>
+              <dd><a href="performance_testing.html">레일즈 어플리케이션 성능 테스트하기</a></dd>
+              <dd><a href="configuring.html">레일즈 어플리케이션 설정</a></dd>
+              <dd><a href="command_line.html">레일즈 커멘드라인 도구와 Rake 테스크</a></dd>
+              <dd><a href="caching_with_rails.html">레일즈를 이용한 캐싱</a></dd>
 
-    <h1><a href="http://github.com/rubykr/rails_guides">rails_guides</a>
-      <span class="small">by <a href="http://github.com/rubykr">rubykr</a></span></h1>
+              <dt>레일즈 확장하기(Extending Rails)</dt>
+              <dd><a href="plugins.html">레일즈 플러그인 작성의 기본</a></dd>
+              <dd><a href="rails_on_rack.html">렉 위의 레일즈(Rails on Rack)</a></dd>
+              <dd><a href="generators.html">레일즈 제너레이터(Generator) 제작과 수정</a></dd>
 
-    <div class="description">
-      Rails Guides Korean Version Static Contents
+              <dt>루비 온 레이즈에 기여하기</dt>
+              <dd><a href="contributing_to_ruby_on_rails.html">루비 온 레이즈에 기여하기</a></dd>
+              <dd><a href="api_documentation_guidelines.html">API 문서 가이드라인</a></dd>
+              <dd><a href="ruby_on_rails_guides_guidelines.html">루비 온 레일즈 가이드에 대한 가이드라인</a></dd>
+
+              <dt>Release Notes</dt>
+              <dd><a href="3_0_release_notes.html">Ruby on Rails 3.0 Release Notes</a></dd>
+              <dd><a href="2_3_release_notes.html">Ruby on Rails 2.3 Release Notes</a></dd>
+              <dd><a href="2_2_release_notes.html">Ruby on Rails 2.2 Release Notes</a></dd>
+            </dl>
+          </div>
+        </li>
+        <li><a href="contribute.html">기여하기</a></li>
+        <li><a href="credits.html">수고하신 분들</a></li>
+      </ul>
     </div>
+  </div>
+  <hr class="hide" />
 
-    <h2>Authors</h2>
-<p>rubykr<br/>      </p>
-<h2>Contact</h2>
-<p>rubykr (korean.rubyusergroup@gmail.com)<br/>      </p>
+  <div id="feature">
+    <div class="wrapper">
+      <h2>루비 온 레일즈 가이드 (edge)</h2>
+
+<p>
+  이 문서는 Rails 3를 위한 새로운 가이드 입니다. Rails 2.3 을 위한 문서는 다음의 링크에서 볼 수 있습니다.
+  <a href="http://guides.rubyonrails.org/v2.3.8/">http://guides.rubyonrails.org/v2.3.8/</a>.
+</p>
+<p>
+  이 가이드는 생산적인 레일즈 개발과 각 구성 요소의 동작 이해에
+  초점을 맞추고 있습니다.
+</p>
 
 
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="http://github.com/rubykr/rails_guides/zipball/master">zip</a> or
-      <a href="http://github.com/rubykr/rails_guides/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/rubykr/rails_guides</pre>
-    </p>
 
-    <div class="footer">
-      get the source code on GitHub : <a href="http://github.com/rubykr/rails_guides">rubykr/rails_guides</a>
+      <div id="subCol">
+  <dl>
+    <dd class="warning">레일즈 가이든는 <a href="http://hackfest.rubyonrails.org">Guides hackfest</a> 결과의 일환이며 진행 중입니다.</dd>
+    <dd class="work-in-progress">이 아이콘이 표시된 곳은 현재 '작성중'이라는 걸 의미하니다. 진행 중인 문서 역시 유용하지만, 불완전한 정보나 간혹, 잘못된 내용을 포함할 수 있습니다. 내용을 리뷰하고 저자에게 코멘트나 수정 제안으로 기여 할 수 있습니다.</dd>
+  </dl>
+</div>
+
     </div>
-
   </div>
 
-  
+  <div id="container">
+    <div class="wrapper">
+      <div id="mainCol">
+        
+
+
+<h3>시작</h3>
+
+<dl>
+<dt><a href="getting_started.html">레일즈 시작하기</a></dt><dd>
+  <p>레일즈를 설치하고 첫 어플리케이션을 만드는데 필요한 내용</p>
+</dd></dl>
+
+<h3>모델</h3>
+
+<dl>
+<dt><a href="migrations.html">레일즈 데이터베이스 마이그레이션</a></dt><dd>
+  <p>이 가이드는 데이터베이스 변경을 위한 엑티브 레코드 마이그레이션에 관한 구조와 관습을 기술합니다.</p>
+</dd>
+<dt><a href="active_record_validations_callbacks.html">엑티브 레코드 데이터 검증(Validation)과 콜백(Callback)</a></dt><dd>
+  <p>이 가이드는 엑티브 레코드의 데이터 검증(Validation)과 Callback(콜벡)을 사용 방법을 기술합니다.</p>
+</dd>
+<dt><a href="association_basics.html">엑티브 레코드 관계(Association)</a></dt><dd>
+  <p>이 가이드는 엑티브 레코드가 제공하는 관계(Association)를 기술합니다.</p>
+</dd>
+<dt><a href="active_record_querying.html">엑티브 레코드 쿼리 인터페이스</a></dt><dd>
+  <p>이 가이드는 엑티브 레코드가 제공하는 쿼리 인터페이스에 대한 내용을 기술합니다.</p>
+</dd></dl>
+
+<h3>뷰</h3>
+
+<dl>
+<dt><a href="layouts_and_rendering.html">레이아웃(Layouts)과 렌더링(Rendering)</a></dt><dd>
+  <p>이 가이드는 액션 컨트롤러와 액션 뷰의 레이아웃 기본 요소를 기술합니다. (렌더링과 리다이렉트, content_for 블록과 partial 활용을 포함합니다.)</p>
+</dd>
+<dt><a href="form_helpers.html">액션 뷰 폼 핼퍼(Action View Form Helpers)</a></dt><dd class="work-in-progress">Work in progress</dd><dd>
+  <p>내장된 폼 핼퍼 가이드</p>
+</dd></dl>
+
+<h3>컨트롤러</h3>
+
+<dl>
+<dt><a href="action_controller_overview.html">액션 컨트롤러 둘러보기</a></dt><dd>
+  <p>이 가이드는 어플리케이션에서 컨트롤러가 웹요청에 대하여 어떻게 동작하는지 기술합니다. 세션, 필터, 쿠키 데이터 스트리밍과 예외 발생관련 내용을 포함합니다.  </p>
+</dd>
+<dt><a href="routing.html">외부 요청에 대한 레일즈 라우팅</a></dt><dd>
+  <p>이 가이드는 고객이 접하는 레일즈 라우팅에 대한 내용을 기술합니다. 라우팅의 사용 방법을 알려면 이 가이드 부터 보세요.</p>
+</dd></dl>
+
+<h3>심화 내용</h3>
+
+<dl>
+
+<dt><a href="active_support_core_extensions.html">엑티브 서포트(Active Support) 확장(Core Extensions)</a></dt><dd>
+  <p>이 가이드는 액티브 서포트에서 정의된 루비 확장에 대한 문서입니다. </p>
+</dd>
+<dt><a href="i18n.html">레일즈 국제화I(nternationalization) API</a></dt><dd>
+  <p>이 가이드는 국제화 지원에 해단 내용을 다루고 있씁니다. 다른 언어의 지원과 복수형에 대한 규칙, 그리고 국가별 날짜/시간 포멧 등을 포함합니다.</p>
+</dd>
+<dt><a href="action_mailer_basics.html">액션 메일러의 기본</a></dt><dd class="work-in-progress">Work in progress</dd><dd>
+  <p>이 가이드는 액션 메일러를 이용해서 메일을 주고 받는 방법을 다룹니다.</p>
+</dd>
+<dt><a href="testing.html">레일즈 어플리케이션 테스트하기</a></dt><dd class="work-in-progress">Work in progress</dd><dd>
+  <p>이 가이드는 레일즈에서 더 이해하기 쉬운 유닛 테스트와 기능 테스트를 안내합니다. 이 글은 &quot;테스트란 무엇인가?&quot; 부터 테스트 관련 API까지의 모든것을 다룹니다.</p>
+</dd>
+<dt><a href="security.html">레일즈 어플리케이션의 보안</a></dt><dd>
+  <p>이 가이드는 웹 어플리케이션에서 일반적인 보안 문제와 이를 레일즈에서 피하는 방법을 안내합니다.</p>
+</dd>
+<dt><a href="debugging_rails_applications.html">레일즈 어플리케이션 디버깅</a></dt><dd>
+  <p>이 가이드는 레일즈 어플리케이션의 디버깅을 기술합니다. 이 문서는 몇가지 다른 방법과 여러분 코드의 "뒤편에서" 동작하는 방법을 다룹니다.</p>
+</dd>
+<dt><a href="performance_testing.html">레일즈 어플리케이션 성능 테스트하기</a></dt><dd>
+  <p>이 가이드는 루비 온 레일즈 어플리케이션 상에서 다양한 성능 측정 방법을 다룹니다.</p>
+</dd>
+<dt><a href="configuring.html">레일즈 어플리케이션 설정</a></dt><dd>
+  <p>이 문서는 레일즈 어플리케이션의 기본 설정에 대해 기술합니다.</p>
+</dd>
+<dt><a href="command_line.html">레일즈 커멘드라인 도구와 Rake 테스크</a></dt><dd class="work-in-progress">Work in progress</dd><dd>
+  <p>이 문서는 레일즈가 제공하는 커멘드라인 도구와 rake 테스크를 다룹니다.</p>
+</dd>
+<dt><a href="caching_with_rails.html">레일즈를 이용한 캐싱</a></dt><dd class="work-in-progress">Work in progress</dd><dd>
+  <p>레일즈 상에서 다양한 캐싱 기술</p>
+</dd></dl>
+
+<h3>레일즈 확장하기</h3>
+
+<dl>
+  <dt><a href="plugins.html">레일즈 플러그인 작성의 기본</a></dt><dd class="work-in-progress">Work in progress</dd><dd>
+    <p>이 가이드는 레일즈의 기능을 확장하는 플러그인 제작을 다룹니다.</p>
+</dd>
+  <dt><a href="rails_on_rack.html">렉 위의 레일즈(Rails on Rack)</a></dt><dd>
+    <p>이 문서는 렉을 이용한 레일즈 통합, 다른 렉 컴포넌트와 연결을 다룹니다.</p>
+</dd>
+  <dt><a href="generators.html">레일즈 제너레이터(Generator) 제작과 수정</a></dt><dd>
+    <p>이 가이드는 새로운 제너레이터(Generator)를 추가하거나, 레일즈에 내장된 제너레이터를 교체하는 내용을 다룹니다.(예, scaffold(발판) 제너레이터의 테스트 부분을 교체하는 것)</p>
+</dd></dl>
+
+<h3>루비 온 레이즈에 기여하기</h3>
+
+<dl>
+  <dt><a href="contributing_to_ruby_on_rails.html">루비 온 레이즈에 기여하기</a></dt><dd>
+    <p>레일즈는 &quot;다른 프레임워크와&quot; 다르지 않습니다. 이 가이드는 여러분이 레일즈 개발에 도움을 줄수 있는 다양한 방법들을 기술합니다. </p>
+</dd>
+  <dt><a href="api_documentation_guidelines.html">API 문서 가이드라인</a></dt><dd>
+    <p>이 가이드는 루비 온 레일즈의 API 문서화 가이드 라인입니다.</p>
+</dd>
+  <dt><a href="ruby_on_rails_guides_guidelines.html">루비 온 레일즈 가이드에 대한 가이드라인</a></dt><dd>
+    <p>이 가이드는 루비 온 레일즈 가이드에 대한 가이드라인입니다.</p>
+</dd></dl>
+
+<h3>Release Notes</h3>
+
+<dl>
+<dt><a href="3_0_release_notes.html">Ruby on Rails 3.0 Release Notes</a></dt><dd>
+  <p>Release notes for Rails 3.0.</p>
+</dd>
+<dt><a href="2_3_release_notes.html">Ruby on Rails 2.3 Release Notes</a></dt><dd>
+  <p>Release notes for Rails 2.3.</p>
+</dd>
+<dt><a href="2_2_release_notes.html">Ruby on Rails 2.2 Release Notes</a></dt><dd>
+  <p>Release notes for Rails 2.2.</p>
+</dd><dt><a href="about_korean_translation.html">한국어 번역에 대하여</a></dt><dd>
+  <p>번역을 위한 용어 사전 정보와 상태 정보를 포함하고 있습니다.</p>
+</dd></dl>
+
+
+        <h3>Feedback</h3>
+        <p>
+          You're encouraged to help in keeping the quality of this guide.
+        </p>
+        <p>
+          If you see any typos or factual errors you are confident to
+          patch, please clone <a href="https://github.com/lifo/docrails">docrails</a>
+          and push the change yourself. That branch of Rails has public write access.
+          Commits are still reviewed, but that happens after you've submitted your
+          contribution. <a href="https://github.com/lifo/docrails">docrails</a> is
+          cross-merged with master periodically.
+        </p>
+        <p>
+          You may also find incomplete content, or stuff that is not up to date.
+          Please do add any missing documentation for master. Check the
+          <a href="ruby_on_rails_guides_guidelines.html">Ruby on Rails Guides Guidelines</a>
+          for style and conventions.
+        </p>
+        <p>
+          Issues may also be reported in <a href="https://github.com/lifo/docrails/issues">Github</a>.
+        </p>
+        <p>And last but not least, any kind of discussion regarding Ruby on Rails
+          documentation is very welcome in the <a href="http://groups.google.com/group/rubyonrails-docs">rubyonrails-docs mailing list</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="hide" />
+  <div id="footer">
+    <div class="wrapper">
+      <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-Share Alike 3.0</a> License</p>
+      <p>"Rails", "Ruby on Rails", and the Rails logo are trademarks of David Heinemeier Hansson. All rights reserved.</p>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="javascripts/guides.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shCore.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>
+  <script type="text/javascript">
+    SyntaxHighlighter.all()
+  </script>
 </body>
 </html>
