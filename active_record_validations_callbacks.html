@@ -1,0 +1,1389 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Ruby on Rails Guides: 엑티브 레코드 데이터 검증(Validation)과 콜백(Callback)</title>
+
+<link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+<link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+<link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
+<link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />
+</head>
+<body class="guide">
+  <div id="topNav">
+    <div class="wrapper">
+      <strong>More at <a href="http://rubyonrails.org/">rubyonrails.org:</a> </strong>
+      <a href="http://rubyonrails.org/">Overview</a> |
+      <a href="http://rubyonrails.org/download">Download</a> |
+      <a href="http://rubyonrails.org/deploy">Deploy</a> |
+      <a href="http://rails.lighthouseapp.com/projects/8994-ruby-on-rails/overview">Code</a> |
+      <a href="http://rubyonrails.org/screencasts">Screencasts</a> |
+      <a href="http://rubyonrails.org/documentation">Documentation</a> |
+      <a href="http://rubyonrails.org/ecosystem">Ecosystem</a> |
+      <a href="http://rubyonrails.org/community">Community</a> |
+      <a href="http://weblog.rubyonrails.org/">Blog</a>
+    </div>
+  </div>
+  <div id="header">
+    <div class="wrapper clearfix">
+      <h1><a href="index.html" title="Return to home page">Guides.rubyonrails.org</a></h1>
+      <p class="hide"><a href="#mainCol">Skip navigation</a>.</p>
+      <ul class="nav">
+        <li><a href="index.html">홈</a></li>
+        <li class="index"><a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu">목차</a>
+          <div id="guides" class="clearfix" style="display: none;">
+            <hr />
+            <dl class="L">
+              <dt>시작</dt>
+              <dd><a href="getting_started.html">레일즈 시작하기</a></dd>
+              <dt>모델(Models)</dt>
+              <dd><a href="migrations.html">레일즈 데이터베이스 마이그레이션</a></dd>
+              <dd><a href="active_record_validations_callbacks.html">엑티브 레코드 데이터 검증(Validation)과 Callback(콜백)</a></dd>
+              <dd><a href="association_basics.html">엑티브 레코드 Association(관계)</a></dd>
+              <dd><a href="active_record_querying.html">엑티브 레코드 쿼리 인터페이스</a></dd>
+              <dt>뷰(Views)</dt>
+              <dd><a href="layouts_and_rendering.html">레이아웃(Layouts)과 렌더링(Rendering)</a></dd>
+              <dd><a href="form_helpers.html">액션 뷰 폼 핼퍼(Action View Form Helpers)</a></dd>
+              <dt>컨트롤러(Controllers)</dt>
+              <dd><a href="action_controller_overview.html">액션 컨트롤러 둘러보기</a></dd>
+              <dd><a href="routing.html">외부 요청에 대한 레일즈 라우팅</a></dd>
+            </dl>
+            <dl class="R">
+              <dt>심화내용</dt>
+              <dd><a href="active_support_core_extensions.html">엑티브 서포트(Active Support) 확장(Core Extensions)</a></dd>
+              <dd><a href="i18n.html">레일즈 국제화I(nternationalization) API</a></dd>
+              <dd><a href="action_mailer_basics.html">액션 메일러의 기본</a></dd>
+              <dd><a href="testing.html">레일즈 어플리케이션 테스트하기</a></dd>
+              <dd><a href="security.html">레일즈 어플리케이션의 보안</a></dd>
+              <dd><a href="debugging_rails_applications.html">레일즈 어플리케이션 디버깅</a></dd>
+              <dd><a href="performance_testing.html">레일즈 어플리케이션 성능 테스트하기</a></dd>
+              <dd><a href="configuring.html">레일즈 어플리케이션 설정</a></dd>
+              <dd><a href="command_line.html">레일즈 커멘드라인 도구와 Rake 테스크</a></dd>
+              <dd><a href="caching_with_rails.html">레일즈를 이용한 캐싱</a></dd>
+
+              <dt>레일즈 확장하기(Extending Rails)</dt>
+              <dd><a href="plugins.html">레일즈 플러그인 작성의 기본</a></dd>
+              <dd><a href="rails_on_rack.html">렉 위의 레일즈(Rails on Rack)</a></dd>
+              <dd><a href="generators.html">레일즈 제너레이터(Generator) 제작과 수정</a></dd>
+
+              <dt>루비 온 레이즈에 기여하기</dt>
+              <dd><a href="contributing_to_ruby_on_rails.html">루비 온 레이즈에 기여하기</a></dd>
+              <dd><a href="api_documentation_guidelines.html">API 문서 가이드라인</a></dd>
+              <dd><a href="ruby_on_rails_guides_guidelines.html">루비 온 레일즈 가이드에 대한 가이드라인</a></dd>
+
+              <dt>Release Notes</dt>
+              <dd><a href="3_0_release_notes.html">Ruby on Rails 3.0 Release Notes</a></dd>
+              <dd><a href="2_3_release_notes.html">Ruby on Rails 2.3 Release Notes</a></dd>
+              <dd><a href="2_2_release_notes.html">Ruby on Rails 2.2 Release Notes</a></dd>
+            </dl>
+          </div>
+        </li>
+        <li><a href="contribute.html">기여하기</a></li>
+        <li><a href="credits.html">수고하신 분들</a></li>
+      </ul>
+    </div>
+  </div>
+  <hr class="hide" />
+
+  <div id="feature">
+    <div class="wrapper">
+      <h2>엑티브 레코드 데이터 검증(Validation)과 콜백(Callback)</h2>
+<p>이 가이드는 엑티브 레코드 객체의 생명 주기에 관여하는 방법을 안내합니다. 엑티브 레코드가 데이터베이스에 정보를 입력하기 전에 객체의 데이터 검증을 어떻게 할 것인지, 그리고 객체의 생명 주기에서 정확한 부분에 원하는 작업을 수행하는 방법을 배울 것입니다.</p>
+<p>이 가이드를 읽고 주어진 개념을 시험한 후, 다음 내용을 할 수 있는 것을 기대합니다.:</p>
+<ul>
+	<li>엑티브 레코드 객체의 생명 주기에 대한 이해</li>
+	<li>내장된 엑티브 레코드 데이터 검증 헬퍼 사용 방법</li>
+	<li>맞춤형 데이터 검증 메소드 만들기</li>
+	<li>데이터 검증 과정으로 에러 메세지 만들어서 사용하기</li>
+	<li>객체의 생명 주기내에서 이벤트에 대응하는 콜백 메소드 만들기</li>
+	<li>콜백 함수를 위한 공통의 동작들을 캡슐화 한 특별한 클래스 만들기</li>
+	<li>원본 클래스의 바깥에서 생명 주기 이벤트에 반응하는 옵저버 만들기</li>
+</ul>
+
+            <div id="subCol">
+        <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+        <ol class="chapters">
+<li><a href="#the-object-life-cycle">객체 생명 주기</a></li><li><a href="#validations-overview">데이터 검증 둘러보기</a><ul><li><a href="#why-use-validations">왜 데이터 검증을 사용하는가?</a></li> <li><a href="#when-does-validation-happen">데이터 검증은 언제하나?</a></li> <li><a href="#skipping-validations">데이터 검증 무시하기</a></li> <li><a href="#valid-invalid"><tt>valid?</tt> 와 <tt>invalid?</tt></a></li> <li><a href="#validations_overview-errors"><tt>errors[]</tt></a></li></ul></li><li><a href="#validation-helpers">데이터 검증 헬퍼 (Validation helpers)</a><ul><li><a href="#validates_acceptance_of"><tt>validates_acceptance_of</tt> (수락 검증)</a></li> <li><a href="#validates_associated"><tt>validates_associated</tt> (관계 검증)</a></li> <li><a href="#validates_confirmation_of"><tt>validates_confirmation_of</tt> (수락 검증)</a></li> <li><a href="#validates_exclusion_of"><tt>validates_exclusion_of</tt></a></li> <li><a href="#validates_format_of"><tt>validates_format_of</tt> (포맷 검증)</a></li> <li><a href="#validates_inclusion_of"><tt>validates_inclusion_of</tt></a></li> <li><a href="#validates_length_of"><tt>validates_length_of</tt> (길이 검증)</a></li> <li><a href="#validates_numericality_of"><tt>validates_numericality_of</tt> (숫자 검증)</a></li> <li><a href="#validates_presence_of"><tt>validates_presence_of</tt> (존재 검증)</a></li> <li><a href="#validates_uniqueness_of"><tt>validates_uniqueness_of</tt> (유일성 검증)</a></li> <li><a href="#validates_with"><tt>validates_with</tt> (클래스로 검기)</a></li> <li><a href="#validates_each"><tt>validates_each</tt> (블록으로 각 속성 검증)</a></li> <li><a href="#allow_nil-nil"><tt>:allow_nil</tt> (nil 허용)</a></li> <li><a href="#allow_blank"><tt>:allow_blank</tt> (공백 허락)</a></li> <li><a href="#message"><tt>:message</tt> (메세지)</a></li> <li><a href="#on"><tt>:on</tt></a></li></ul></li><li><a href="#conditional-validation">상태에 따른 검증</a><ul><li><a href="#using-a-string-with-if-and-unless"><tt>:if</tt>와 <tt>:unless</tt>에 문자열 사용하기</a></li> <li><a href="#using-a-proc-with-if-and-unless+"><tt>:if</tt>와 <tt>:unless</tt>에 Proc 사용하기</a></li></ul></li><li><a href="#creating-custom-validation-methods">맞춤형 검증 메소드 만들기</a></li><li><a href="#working-with-validation-errors">데이터 검증 에러로 작업하기</a><ul><li><a href="#working_with_validation_errors-errors"><tt>errors</tt></a></li> <li><a href="#working_with_validation_errors-errors-2"><tt>errors[]</tt></a></li> <li><a href="#errors-add"><tt>errors.add</tt></a></li> <li><a href="#errors-base"><tt>errors[:base]</tt></a></li> <li><a href="#errors-clear"><tt>errors.clear</tt></a></li> <li><a href="#errors-size"><tt>errors.size</tt></a></li></ul></li><li><a href="#displaying-validation-errors-in-the-view">뷰에 검증된 에러 출력하기</a><ul><li><a href="#error_messages-and-error_messages_for"><tt>error_messages</tt> 와 <tt>error_messages_for</tt></a></li> <li><a href="#customizing-the-error-messages-css">에러 메세지 <span class="caps">CSS</span> 원하는데로 변경하기</a></li> <li><a href="#customizing-the-error-messages-html">에러 메세지 <span class="caps">HTML</span> 원하는데로 변경하기</a></li></ul></li><li><a href="#callbacks-overview">Callbacks Overview</a><ul><li><a href="#callback-registration">Callback Registration</a></li></ul></li><li><a href="#available-callbacks">Available Callbacks</a><ul><li><a href="#creating-an-object">Creating an Object</a></li> <li><a href="#updating-an-object">Updating an Object</a></li> <li><a href="#destroying-an-object">Destroying an Object</a></li> <li><a href="#after_initialize-and-after_find"><tt>after_initialize</tt> and <tt>after_find</tt></a></li></ul></li><li><a href="#running-callbacks">Running Callbacks</a></li><li><a href="#skipping-callbacks">Skipping Callbacks</a></li><li><a href="#halting-execution">Halting Execution</a></li><li><a href="#relational-callbacks">Relational Callbacks</a></li><li><a href="#conditional-callbacks">Conditional Callbacks</a><ul><li><a href="#using-if-and-unless-with-a-symbol">Using <tt>:if</tt> and <tt>:unless</tt> with a Symbol</a></li> <li><a href="#using-if-and-unless-with-a-string">Using <tt>:if</tt> and <tt>:unless</tt> with a String</a></li> <li><a href="#using-if-and-unless-with-a-proc">Using <tt>:if</tt> and <tt>:unless</tt> with a Proc</a></li> <li><a href="#multiple-conditions-for-callbacks">Multiple Conditions for Callbacks</a></li></ul></li><li><a href="#callback-classes">Callback Classes</a></li><li><a href="#observers">Observers</a><ul><li><a href="#creating-observers">Creating Observers</a></li> <li><a href="#registering-observers">Registering Observers</a></li> <li><a href="#sharing-observers">Sharing Observers</a></li></ul></li><li><a href="#changelog">Changelog</a></li></ol></div>
+    </div>
+  </div>
+
+  <div id="container">
+    <div class="wrapper">
+      <div id="mainCol">
+        <div class='warning'><p>이 가이드의 원본은 영문 버전인 <a href="http://guides.rubyonrails.org/active_record_validations_callbacks.html">Active Record Validations and Callbacks</a> 입니다. 번역 과정에서 원본과 차이가 발생할 수 있습니다. 번역본은 원본의 참고로 생각해 주세요.</p></div>
+<h3 id="the-object-life-cycle">1 객체 생명 주기</h3>
+<p>레일즈 어플리케이션 실행중에, 객체는 만들어지고, 갱신되고, 삭제 됩니다. 엑티브 레코드는 이러한 <em>객체 생명 주기</em>내에서 가로채기(hook)를 제공합니다. 그래서 여러분은 어플리케이션과 데이터를 조종할 수 있습니다.</p>
+<p>데이터 검증은 데이터베이스에 오직 유효만 데이터의 입력을 보장합니다. 콜백과 옵저버는 객체의 상태 변화 전/후에 로직을 실행하도록 허락합니다.</p>
+<h3 id="validations-overview">2 데이터 검증 둘러보기</h3>
+<p>레일즈의 데이터 검증을 자세히 알아보기전에, 여러분은 큰 그림 속에서 어떻게 데이터 검증이 수행되는지 이해해야 합니다.</p>
+<h4 id="why-use-validations">2.1 왜 데이터 검증을 사용하는가?</h4>
+<p>데이터 검증은 오직 유효한 데이터만 데이터베이스에 들어가는 것을 보장합니다. 예를들어, 모든 회원들이 유효한 이메일 주소와 편지 주소를 입력해야 하는 것은 어플리케이션에 중요한 점이 될 수 있습니다.</p>
+<p>여기 데이터베이스에 데이터를 저장하기 전에 데이터 검증을 하는 몇가지 방법이 있습니다. (데이터베이스 고유의 제약사항, 클라이언트 측에서 데이터 검증, 컨트롤러 수준의 데이터 검증, 그리고 모델 수준의 데이터 검증을 포함합니다.)</p>
+<ul>
+	<li>데이터베이스 제약사항과 (혹은) 저장 프로시저(stored proceture)는 데이터베이스 의존적인 데이터 검증 방법입니다. 그리고 이는 테스트하고 관리하기 좀 더 어렵습니다. 그럼에도, 여러분의 데이터베이스를 다른 어플리케이션이 사용한다면, 데이터베이스 수준의 몇몇 제약 사항을 사용하는 건 좋은 생각입니다. 추가로, 데이터베이스 수준 데이터 검증은 다른 방법으로 구현하기 어려울 수 있는 몇가지 것(가령, 자주 사용되는 테이블에서 유일성 검증 따위)를 안전하게 다룰 수 있습니다.</li>
+	<li>클라이언트 측 데이터 검증은 유용할 수 있습니다. 그러나 이것만 사용하면, 일반적으로 믿기 힘듭니다. 만약 자바스크립을 이용해서 구현했다면, 자바스크립트가 꺼져있는 사용자 브라우저 경우에 검사를 우회할 수 있습니다. 그럼에도, 다른 기술들과 함께 사용하면, 클라이언트 측 데이터 검증은 여러분의 사이트에서 즉각적인 피드백을 사용자들에게 줄 수 있어서 사용자에게 편리함을 제공할 수 있습니다.</li>
+	<li>컨트롤러 수준의 데이터 검증은 마음을 끕니다. 그러나 자주 테스트나 유지 보수를 하기 어렵게 만듭니다. 가능하면, <a href="http://weblog.jamisbuck.org/2006/10/18/skinny-controller-fat-model">컨트롤러 가볍게 유지하기</a> 가 좋은 생각입니다. 장기간에 걸처 작업을 할때 이런 습관은 여러분의 어플리케이션을 제작을 더 편하게 만들 겁니다.</li>
+	<li>모델 수준의 데이터 검증은 데이터베이스에 유효한 데이터만 입력하는 가장 좋은 방법입니다. 이 데이터 검증은 데이터베이스를 신뢰하지 않습니다. 그리고 최종 고객이 우회해서 접근할 수 있는 기회도 제공하지 않습니다. 그리고 테스트와 유지보스에 편리합니다. 레일즈는 공통적인 요구 사항에 대한 내장된 헬퍼를 제공하고, 맞춤형 데이터 검증 제작을 손쉽게 할수 있도록 지원합니다.</li>
+</ul>
+<h4 id="when-does-validation-happen">2.2 데이터 검증은 언제하나?</h4>
+<p>엑티브 레코드 객체는 두 종류가 있습니다.:데이터베이스의 한열(row)와 대응하는 것과, 그렇지 않은 것이죠. 새로운 객체를 만들때, 예컨데 <tt>new</tt> 메소드를 이용해서, 이 객체는 아직 데이터베이스와 대응하지 않습니다. 한번이라도 해당 객체에 대해서 <tt>save</tt>를 호출하면 그것은 정확한 데이터메이스 테이블에 저장 됩니다. 엑티브 레코드는 <tt>new_record?</tt> 인스턴스 메소드르 사용해서 해당 객체가 데이터베이스에 연결되었는지를 알 수 있습니다. 다음의 간단한 엑티브 레코드 클래스를 생각해보세요.:</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+end
+</pre>
+</div>
+</notextile>
+
+<p>이것이 어떻게 동작하는지는, 몇가지 <tt>rails console</tt> 결과 관찰로 알 수 있습니다.:</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+&gt;&gt; p = Person.new(:name =&gt; &quot;John Doe&quot;)
+=&gt; #&lt;Person id: nil, name: &quot;John Doe&quot;, created_at: nil, :updated_at: nil&gt;
+&gt;&gt; p.new_record?
+=&gt; true
+&gt;&gt; p.save
+=&gt; true
+&gt;&gt; p.new_record?
+=&gt; false
+</pre>
+</div>
+</notextile>
+
+<p>새로운 레코드 만들기와 저장하기는 데이터베이스에 <tt>INSERT</tt> <span class="caps">SQL</span> 명령을 전달할 것입니다. 존재하는 레코드 정보 갱신은 <tt>UPDATE</tt> <span class="caps">SQL</span> 명령어를 전달합니다. 데이터 검증은 보통 데이터베이스에 이런 명령어를 전달되지 전에 실행 됩니다. 만약에 데이터 검증이 하나라도 실패하면, 해당 객체는 타당하지 않은 객체로 기록되고, 엑티브 레코드는 <tt>INSERT</tt>나 <tt>UPDATE</tt> 명령을 실행하지 않습니다. 이는 데이터베이스에 타당하지 않은 객체 저장 방지를 돕습니다. 여러분은 객체가 만들어때, 저장될때, 갱신될때 확인할 데이터 검증 규칙을 지정할 수 있습니다.</p>
+<div class='warning'><p>데이터베이스 안에서 객체의 상태를 바꾸는 방법은 많습니다. 몇가지 메소드는 데이터 검증을 실행하지만, 몇몇은 그렇지 않겠죠. 이는 여러분이 주의 깊지 못하면, 잘못된 상태로 데이터베이스에 객체를 저장할 가능성이 있다는 것을 의미합니다.</p></div>
+<p>다음은 메소드는 데이터 검증을 실행시킵니다. 그리고 객체가 유효할때만 데이터베이스에 저장합니다.:</p>
+<ul>
+	<li><tt>create</tt></li>
+	<li><tt>create!</tt></li>
+	<li><tt>save</tt></li>
+	<li><tt>save!</tt></li>
+	<li><tt>update</tt></li>
+	<li><tt>update_attributes</tt></li>
+	<li><tt>update_attributes!</tt></li>
+</ul>
+<p>bang(빵!) 버전(e.g <tt>save!</tt>)은 객체가 타당하지 않으면 예외를 발생 시킵니다. non-bang 버전은 발생 시키지 않습니다.:<tt>save</tt>와 <tt>update</tt>와 <tt>update_attributes</tt>는 <tt>false</tt>를 반환하고, <tt>create</tt>와 <tt>update</tt>는 그냥 객체를 반환합니다.</p>
+<h4 id="skipping-validations">2.3 데이터 검증 무시하기</h4>
+<p>다음 메소드는 데이터 검증을 하지 않습니다. 그리고 데이터의 타당성에 개의치 않고 객체를 데이터베이스에 저장합니다. 이 메소드는 주의 깊게 사용해야 합니다.</p>
+<ul>
+	<li><tt>decrement!</tt></li>
+	<li><tt>decrement_counter</tt></li>
+	<li><tt>increment!</tt></li>
+	<li><tt>increment_counter</tt></li>
+	<li><tt>toggle!</tt></li>
+	<li><tt>update_all</tt></li>
+	<li><tt>update_attribute</tt></li>
+	<li><tt>update_counters</tt></li>
+</ul>
+<p><tt>save</tt> 역시 <tt>:validate => false</tt>를 인자로 넘기면 데이터 검증을 하지 않습니다. 이 기법은 신중하게 사용하세요.</p>
+<ul>
+	<li><tt>save(:validate => false)</tt></li>
+</ul>
+<h4 id="valid-invalid">2.4 <tt>valid?</tt> 와 <tt>invalid?</tt></h4>
+<p>객체의 유효 여부를 검사하기 위해 레일즈는 <tt>valid?</tt> 메소드를 사용합니다. 여러분도 이 메소드를 사용할 수 있습니다. <tt>valid?</tt>는 데이터 검증을 실행하고 아무런 에러가 없으면 true(참)을 그렇지 않으면 false(거짓)을 반환합니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  validates :name, :presence =&gt; true
+end
+
+Person.create(:name =&gt; &quot;John Doe&quot;).valid? # =&gt; true
+Person.create(:name =&gt; nil).valid? # =&gt; false
+</pre>
+</div>
+</notextile>
+
+<p>엑티브 레코드가 데이터 검증을 수행 중일때, <tt>errors</tt> 인스턴스 메소드를 통해서 발견된 어떤 에러든지 접근할 수 있습니다. 기본적으로, 데이터 검증을 실행한 후에 <tt>errors</tt> 인스턴스 메소드가 반환한 컬렉션 객체가 비어 있으면, 객체는 유효합니다.</p>
+<p><tt>new</tt>로 생성된 객체는 기술적으로 유효하지 않은 정보를 담고 있더라도, 에러를 보고하지 않는 다는 점에 유의하세요. 데이터 검증은 <tt>new</tt>를 사용중에 동작하지 않기 때문입니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  validates :name, :presence =&gt; true
+end
+
+&gt;&gt; p = Person.new
+=&gt; #&lt;Person id: nil, name: nil&gt;
+&gt;&gt; p.errors
+=&gt; {}
+
+&gt;&gt; p.valid?
+=&gt; false
+&gt;&gt; p.errors
+=&gt; {:name=&gt;[&quot;can't be blank&quot;]}
+
+&gt;&gt; p = Person.create
+=&gt; #&lt;Person id: nil, name: nil&gt;
+&gt;&gt; p.errors
+=&gt; {:name=&gt;[&quot;can't be blank&quot;]}
+
+&gt;&gt; p.save
+=&gt; false
+
+&gt;&gt; p.save!
+=&gt; ActiveRecord::RecordInvalid: Validation failed: Name can't be blank
+
+&gt;&gt; Person.create!
+=&gt; ActiveRecord::RecordInvalid: Validation failed: Name can't be blank
+</pre>
+</div>
+</notextile>
+
+<p><tt>invalid?</tt>는 간단히 <tt>valid?</tt>의 반대입니다. <tt>invalid?</tt>는 데이터 검증을 실행하고, 객체에 어떠한 에러라도 추가되면 true(참)을 반환하고 반대면 false(거짓)을 반환합니다.</p>
+<h4 id="validations_overview-errors">2.5 <tt>errors[]</tt></h4>
+<p>객체가 가진 특정 속성(attribute)의 타당성 확인을 위해서, <tt>errors[:attribute]</tt>를 사용할 수 있습니다. 그것은 <tt>:attribute</tt>을 위한 모든 에러를 가진 배열을 반환합니다. 만약 특정 속성에 대한 에러가 없으면, 비어있는 배열이 반환됩니다.</p>
+<p>이 메소드는 오직 데이터 검증 <em>실행 후</em>에만 유용합니다. 왜냐하면, 오직 에러 컬렉션을 조회할 뿐이고 데이터 검증을 실행하지 않기 때문입니다. 그것은 위에 설명한 <tt>ActiveRecord::Base#invalid?</tt> 메소드와 다릅니다. 왜냐하면, 객체의 타당성 전체를 검사하지는 않기 때문이죠. 그것은 오직 객체의 개발 속성에 대한 에러가 존재하는지 여부만 살핍니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  validates :name, :presence =&gt; true
+end
+
+&gt;&gt; Person.new.errors[:name].any? # =&gt; false
+&gt;&gt; Person.create.errors[:name].any? # =&gt; true
+</pre>
+</div>
+</notextile>
+
+<p>우리는 데이터 검증 에러에 대한 자세한 사항을 <a href="#working-with-validation-errors">데이터 검증 에러로 작업하기</a> 섹션에서 다를 것입니다. 지금은, 레일즈가 제공하는 내장된 데이터 검증 헬퍼로 돌아가죠.</p>
+<h3 id="validation-helpers">3 데이터 검증 헬퍼 (Validation helpers)</h3>
+<p>엑티브 레코드는 미리 정의된 많은 데이터 검증 헬퍼를 제공합니다. 이건 클래스 정의 내부에서 직접 사용할 수 있습니다. 이런 헬퍼는 공통의 데이터 검증 규칙을 제공합니다. 매번 검증이 실패할때, 한 에러 메세지가 해당 객체의 <tt>errors</tt> 컬렉션에 추가되고, 이 메세지는 검증 대상의 필드와 관련있습니다.</p>
+<p>각 헬퍼는 속성을 원하는 숫자 만큼 받아들입니다. 그래서 같은 종류의 검증에  여러개의 속성을 한줄로 추가할 수 있습니다.</p>
+<p>모든 헬퍼는 <tt>:on</tt>과 <tt>:message</tt> 옵션을 받을 수 있습니다. <tt>:message</tt> 옵션은 검증이 실행되고 실패일 경우에 <tt>errors</tt> 컬렉션에 추가될 메세지를 지정할 수 있습니다. <tt>:on</tt> 옵션은 <tt>:save</tt>(기본값), <tt>:create</tt> 또는 <tt>:update</tt> 어느 시점의 값을 검사할 것인지 지정합니다. 데이터 검증 헬퍼 각 메소드는 기본 에러 메세지 값을 가지고 있습니다. 기본 메세지는 <tt>:message</tt>가 지정되지 않았을때 사용됩니다. 자, 사용할 수 있는 헬퍼들을 하나씩 살펴봅시다.</p>
+<h4 id="validates_acceptance_of">3.1 <tt>validates_acceptance_of</tt> (수락 검증)</h4>
+<p>폼이 실행된 후에, 유저 인터페이스 상에서 체크되어 있는 체크박스를 검증합니다. 이것은 보통 사용자가 여러분의 어플리케이션의 서비스 계약 사항의 동의 확인이 필요할때, 어떤 텍스트를 읽었는지 확인하거나 그 비슷한 상황에서 사용됩니다. 이 검증은 웹 어플리케이션에 매우 특화되어 있는 것이고, 이 수락(acceptance)은 데이터베이스 내에 어떤 곳에도 구지 기록될 필요는 없습니다.(만약 이를 위한 필드를 만들어 놓지 않으면, 이 헬퍼는 가상의 속성을 만듭니다.)</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  validates_acceptance_of :terms_of_service
+end
+</pre>
+</div>
+</notextile>
+
+<p><tt>validates_acceptance_of</tt>의 기본 에러 메세지는 &#8220;<em>must be accepted</em>&#8221; 입니다.</p>
+<p><tt>validates_acceptance_of</tt>은 <tt>:accept</tt> 옵션을 받을수 있는데, 이 옵션은 수락시 결정될 값을 의미합니다. 기본값은 &quot;1&quot;이지만 이를 변경할 수 있습니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  validates_acceptance_of :terms_of_service, :accept =&gt; 'yes'
+end
+</pre>
+</div>
+</notextile>
+
+<h4 id="validates_associated">3.2 <tt>validates_associated</tt> (관계 검증)</h4>
+<p>이 헬퍼는 모델과 다른 모델과의 관계와 그들 모두가 데이터 검증이 필요할때 사용합니다. 객체를 저장할때, 관계된 각 객체의 <tt>valid?</tt>가 호출 됩니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Library &lt; ActiveRecord::Base
+  has_many :books
+  validates_associated :books
+end
+</pre>
+</div>
+</notextile>
+
+<p>이 데이터 검증은 관계된 타입의 관계된 타입 모두와 동작할 것입니다.</p>
+<div class='warning'><p>여러분의 관계(associations) 설정되어 있는 양쪽 클래스 모두에게 상호간의 <tt>validates_associated</tt>를 사용하지는 마세요. 그들은 서로를 호출해서 무한 루프를 만들게 될 것 입니다.</p></div>
+<p><tt>validates_associated</tt>를 위한 기본 에러 메세지는 &quot;_is invalid_<tt> 입니다. 각 관계된 객체가 </tt>errors+ 컬렉션에 메세지를 가지고 있다는 부분에 주목하세요.; 에러는 호출되는 모델에 다른 모델의 에러까지 과도하게 쌓이지 않습니다.</p>
+<h4 id="validates_confirmation_of">3.3 <tt>validates_confirmation_of</tt> (수락 검증)</h4>
+<p>이 헬퍼는 완전히 동일한 내용의 두개의 텍스트 필드를 이용할때 사용해야 합니다. 예를들어, 아마도 여러분은 이메일 주소나 암호의 확인하기를 원할 겁니다. 이 검증은 가상 속성을 생성하는데, 이 속성의 이름은 대상 필드에 &quot;_confirmation&quot;을 덧붙인 것 입니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  validates_confirmation_of :email
+end
+</pre>
+</div>
+</notextile>
+
+<p>여러분의 뷰 템플릿에서 다음과 같이 사용하세요.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
+&lt;%= text_field :person, :email %&gt;
+&lt;%= text_field :person, :email_confirmation %&gt;
+</pre>
+</div>
+</notextile>
+
+<p>이 검사는 오직 <tt>email_confirmation</tt>이 <tt>nil</tt>이 아닐때만 동작합니다. 이 검증이 필요하면, 확인 대상 위한 속성에 대한 존재(presence) 검증을 추가하면 실행을 확신할 있습니다. (우리는 이 가이드 뒷 부분에서 <tt>validates_presence_of</tt>를 다룰 것입니다.)</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  validates_confirmation_of :email
+  validates_presence_of :email_confirmation
+end
+</pre>
+</div>
+</notextile>
+
+<p><tt>validates_confirmation_of</tt>을 위한 기본 에러 메세지는  &#8220;<em>doesn&#8217;t match confirmation</em>&#8221; 입니다.</p>
+<h4 id="validates_exclusion_of">3.4 <tt>validates_exclusion_of</tt></h4>
+<p>이 헬퍼는 속성의 값이 가지지 않아야 하는 값을 정의합니다. 사실, 이 헬퍼는 어떤 종류의 열거 객체(enumerable object)든 지정될 수 있습니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Account &lt; ActiveRecord::Base
+  validates_exclusion_of :subdomain, :in =&gt; %w(www us ca jp),
+    :message =&gt; &quot;Subdomain %{value} is reserved.&quot;
+end
+</pre>
+</div>
+</notextile>
+
+<p><tt>validates_exclusion_of</tt> 헬퍼는 <tt>:in</tt> 옵션을 통해서 검증 대상 속성이 허락하지 않는 값들의 집합을 받습니다. <tt>:in</tt> 옵션은 <tt>:within</tt>의 별명(alias)을 가지고 있는데, 이 이름이 사용하기 좋다면, 같은 목적으로 <tt>:within</tt>을 사용할 수 있습니다. 이 예제는 <tt>:message</tt>을 이용해서, 여러분이 속성의 값을 메세지 속에 포함시키는 방법을 보여줍니다.</p>
+<p><tt>validates_exclusion_of</tt>를 위한 기본 에러 메세지는  &#8220;<em>is reserved</em>&#8221; 입니다.</p>
+<h4 id="validates_format_of">3.5 <tt>validates_format_of</tt> (포맷 검증)</h4>
+<p>이 헬퍼는 <tt>:with</tt> 옵션으로 입력된 정규식을 이용해서 속성으 ㅣ값을 검증합니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Product &lt; ActiveRecord::Base
+  validates_format_of :legacy_code, :with =&gt; /\A[a-zA-Z]+\z/,
+    :message =&gt; &quot;Only letters allowed&quot;
+end
+</pre>
+</div>
+</notextile>
+
+<p><tt>validates_format_of</tt>을 위한 기본 에러 메세지는  &#8220;<em>is invalid</em>&#8221; 입니다.</p>
+<h4 id="validates_inclusion_of">3.6 <tt>validates_inclusion_of</tt></h4>
+<p>이 헬퍼는 속성의 값이 속해야만 하는 집합을 정의합니다. 사실, 이 헬퍼는 어떤 종류의 열거 객체(enumerable object)든 지정될 수 있습니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Coffee &lt; ActiveRecord::Base
+  validates_inclusion_of :size, :in =&gt; %w(small medium large),
+    :message =&gt; &quot;%{value} is not a valid size&quot;
+end
+</pre>
+</div>
+</notextile>
+
+<p><tt>validates_inclusion_of</tt> 헬퍼는 <tt>:in</tt> 옵션을 통해서 검증 대상 속성이 허락하는 값들의 집합을 받습니다. <tt>:in</tt> 옵션은 <tt>:within</tt>의 별명(alias)을 가지고 있는데, 이 이름이 사용하기 좋다면, 같은 목적으로 <tt>:within</tt>을 사용할 수 있습니다. 이 예제는 <tt>:message</tt>을 이용해서, 여러분이 속성의 값을 메세지 속에 포함시키는 방법을 보여줍니다.</p>
+<p><tt>validates_inclusion_of</tt>을 위한 에러 메세지는  &#8220;<em>is not included in the list</em>&#8221; 입니다.</p>
+<h4 id="validates_length_of">3.7 <tt>validates_length_of</tt> (길이 검증)</h4>
+<p>이 헬퍼는 속성 값의 길이를 검증합니다. 그것은 다양한 옵션을 제공해서, 여러분은 길이의 각기 다른 방면에서 길이 제약 사항을 부여할 수 있습니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  validates_length_of :name, :minimum =&gt; 2
+  validates_length_of :bio, :maximum =&gt; 500
+  validates_length_of :password, :in =&gt; 6..20
+  validates_length_of :registration_number, :is =&gt; 6
+end
+</pre>
+</div>
+</notextile>
+
+<p>가능한 길이 제약 옵션은 다음과 같습니다.:</p>
+<ul>
+	<li><tt>:minimum</tt> &#8211; 속성은 최소한 주어진 길이보다 작을 수 없습니다.</li>
+	<li><tt>:maximum</tt> &#8211; 속성은 주어진 길이보다 길수 없습니다.</li>
+	<li><tt>:in</tt> (or <tt>:within</tt>) &#8211; 속성의 길이는 반드시 주어진 범위내여야 합니다. 이 옵션의 값은 반드시 범위(range)여야 합니다.</li>
+	<li><tt>:is</tt> &#8211; 속성의 길이는 주어진 값과 동일해야 합니다.</li>
+</ul>
+<p>기본 에러 메세지는 수행된 길이 검증의 종류에 따릅니다. <tt>:wrong_length</tt>, <tt>:too_long</tt> 그리고 <tt>:too_short</tt> 옵션과 제약 길이인 <tt>%{count}</tt>로 에러 메세지를 개인화 할 수 있습니다. 여전히 <tt>:message</tt> 옵션을 이용해서도 에러 메세지를 정의할 수 있습니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  validates_length_of :bio, :maximum =&gt; 1000,
+    :too_long =&gt; &quot;%{count} characters is the maximum allowed&quot;
+end
+</pre>
+</div>
+</notextile>
+
+<p>이 헬퍼는 기본적으로 글자의 갯수를 셉니다. 그러나 <tt>:tokenizer</tt> 옵션을 이용해서 다른 방법으로 값을 자를 수 있습니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Essay &lt; ActiveRecord::Base
+  validates_length_of :content,
+    :minimum   =&gt; 300,
+    :maximum   =&gt; 400,
+    :tokenizer =&gt; lambda { |str| str.scan(/\w+/) },
+    :too_short =&gt; &quot;must have at least %{count} words&quot;,
+    :too_long  =&gt; &quot;must have at most %{count} words&quot;
+end
+</pre>
+</div>
+</notextile>
+
+<p><tt>validates_size_of</tt> 헬퍼는 <tt>validates_length_of</tt>의 별명(Alias)입니다.</p>
+<h4 id="validates_numericality_of">3.8 <tt>validates_numericality_of</tt> (숫자 검증)</h4>
+<p>이 헬퍼는 속성값이 오직 숫자 형태의 값인지 검증합니다. 기본적으로, 이 헬퍼는 정수형 혹은 부동 소수점 형태의 임의 기호인지 확인합니다. 오직 정수형 숫자로 한정하려면 <tt>:only_integer</tt>을 참(true) 갑승로 지정해 주세요.</p>
+<p>만약, <tt>:only_integer</tt>을 참(true) 설정하면, 헬퍼는 다음의</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+/\A[+-]?\d+\Z/
+</pre>
+</div>
+</notextile>
+
+<p>정규식으로 속성의 값을 검증할 것입니다. 다른 방법으로 <tt>Float</tt>를 이용해서 숫자 변환을 시도할 것입니다.
+regular expression to validate the attribute&#8217;s value. Otherwise, it will try to convert the value to a number using <tt>Float</tt>.</p>
+<div class='warning'><p>위의 정규식이 값의 마지막에 개행(newline) 문자를 허용한다는 점을 유의하세요.</p></div>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Player &lt; ActiveRecord::Base
+  validates_numericality_of :points
+  validates_numericality_of :games_played, :only_integer =&gt; true
+end
+</pre>
+</div>
+</notextile>
+
+<p><tt>:only_integer</tt>와 함께, <tt>validates_numericality_of</tt> 헬퍼는 다음의 옵션들을 제약사항으로 추가할 수 있습니다.:</p>
+<ul>
+	<li><tt>:greater_than</tt> &#8211; 속성 값은 반드시 옵션으로 지정된 값보다 커야 합니다. 이 옵션의 에러 메세지는 &#8220;<em>must be greater than %{count}</em>&#8221; 입니다.</li>
+	<li><tt>:greater_than_or_equal_to</tt> &#8211; 속성 값은 옵션으로 지정된 값보다 크거나 같아야 합니다. 이 옵션의 에러 메세지는 &#8220;<em>must be greater than or equal to %{count}</em>&#8221; 입니다.</li>
+	<li><tt>:equal_to</tt> &#8211; 속성 값은 반드시 옵션으로 지정된 값과 같아야 합니다. 이 옵션의 에러 메세지는 &#8220;<em>must be equal to %{count}</em>&#8221; 입니다.</li>
+	<li><tt>:less_than</tt> &#8211; 속성 값은 반드시 옵션으로 지정된 값보다 작아야 합니다. 이 옵션의 에러 메세지는 &#8220;<em>must be less than %{count}</em>&#8221; 입니다.</li>
+	<li><tt>:less_than_or_equal_to</tt> &#8211; 속성 값은 옵션으로 지정된 값보다 작거나 같아야 합니다. 이 옵션의 에러 메세지는 &#8220;<em>must be less than or equal to %{count}</em>&#8221; 입니다.</li>
+	<li><tt>:odd</tt> &#8211; 속성 값은 반드시 홀수 여야 합니다. 이 옵션의 에러 메세지는  &#8220;<em>must be odd</em>&#8221; 입니다.</li>
+	<li><tt>:even</tt> &#8211; 속성 값은 반드시 짝수 여야 합니다. 이 옵션의 에러 메세지는  &#8220;<em>must be even</em>&#8221; 입니다.</li>
+</ul>
+<p><tt>validates_numericality_of</tt>를 위한 기본 에러 메세지는 &#8220;<em>is not a number</em>&#8221; 입니다.</p>
+<h4 id="validates_presence_of">3.9 <tt>validates_presence_of</tt> (존재 검증)</h4>
+<p>이 헬퍼는 지정된 속성이 비어있는지 검증합니다. 그것은 값이 <tt>nil</tt> 이거나 빈 문자열인지 검증하기 위해서 +blank? 메소드를 사용합니다. 이는 빈 문자열이거나 공백 문자로 구성되어 있는 것을 의미합니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  validates :name, :login, :email, :presence =&gt; true
+end
+</pre>
+</div>
+</notextile>
+
+<p>만약 관계하는 모델 존재 여부를 확신하려면, 관계된 객체가 아니라 관계에 이용되는 외래키(foreign key)의 여부를 테스트할 필요가 있습니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class LineItem &lt; ActiveRecord::Base
+  belongs_to :order
+  validates_presence_of :order_id
+end
+</pre>
+</div>
+</notextile>
+
+<p><tt>false.blank?</tt>는 참(true)이므로, Boolean 값의 존재 여부를 확인하려면, <tt>validates_inclusion_of :field_name, :in => [true, false]</tt>를 사용해야 합니다.</p>
+<p><tt>validates_presence_of</tt>을 위한 기본 에러 메세지는 &#8220;<em>can&#8217;t be empty</em>&#8221; 입니다.</p>
+<h4 id="validates_uniqueness_of">3.10 <tt>validates_uniqueness_of</tt> (유일성 검증)</h4>
+<p>이 헬퍼는 객체를 저장하기 전에 속성의 값이 유일한지 검증합니다. 이 헬퍼는 데이터베이스 안에 유일성 관련 제약사항을 만들지는 않습니다. 그래서 데이터베이스에 연결된 다른 두 접속은 유일하기를 원하는 컬럼이 같은 값을 가진 두개의 레코드를 만들 수 있습니다. 이를 피하기 위해, 반드시 여러분의 데이터베이스에 유일한  인덱스(unique index)를 거세요.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Account &lt; ActiveRecord::Base
+  validates_uniqueness_of :email
+end
+</pre>
+</div>
+</notextile>
+
+<p>속성에 같은 값을 가진 레코드 여부를 알아내기 위해서, 모델 테이블에 <span class="caps">SQL</span> 구문 실행으로 검증합니다.</p>
+<p><tt>:scope</tt> 옵션으로 유일성 검사 제한에 다른 속성을 지정해서 사용할 수 있습니다.:
+There is a <tt>:scope</tt> option that you can use to specify other attributes that are used to limit the uniqueness check:</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Holiday &lt; ActiveRecord::Base
+  validates_uniqueness_of :name, :scope =&gt; :year,
+    :message =&gt; &quot;should happen once per year&quot;
+end
+</pre>
+</div>
+</notextile>
+
+<p><tt>:case_sensitive</tt> 옵션으로 대소문자 여부를 유일성 제약에 포함할지 정의할 수 있습니다. 이 옵션의 가본 값은 참(true) 입니다</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  validates_uniqueness_of :name, :case_sensitive =&gt; false
+end
+</pre>
+</div>
+</notextile>
+
+<div class='warning'><p>몇몇 데이터베이스는 대소문자를 가리지 않는 검색으로 설정되어 있다는 점에 유의하세요.</p></div>
+<p><tt>validates_uniqueness_of</tt>을 위한 에러메세지는 &#8220;<em>has already been taken</em>&#8221; 입니다.</p>
+<h4 id="validates_with">3.11 <tt>validates_with</tt> (클래스로 검기)</h4>
+<p>이 헬퍼는 검증을 위해서 분리된 클래스에 레코드를 전달합니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  validates_with GoodnessValidator
+end
+
+class GoodnessValidator &lt; ActiveModel::Validator
+  def validate
+    if record.first_name == &quot;Evil&quot;
+      record.errors[:base] &lt;&lt; &quot;This person is evil&quot;
+    end
+  end
+end
+</pre>
+</div>
+</notextile>
+
+<p><tt>validates_with</tt> 헬퍼는 검증을 위해서 클래스나 클래스 목록을 받아 들입니다. <tt>validates_with</tt>를 위한 기본 에러 메세지는 없습니다. 여러분은 반드시 검증하는 클래스내에 레코드의 에러 컬렉션에 에러를 직접 추가해야 합니다.</p>
+<p>검증 클래스는 기본적으로 두가지의 속성을 가집니다.:</p>
+<ul>
+	<li><tt>record</tt> &#8211; the record to be validated</li>
+	<li><tt>options</tt> &#8211; the extra options that were passed to <tt>validates_with</tt></li>
+</ul>
+<p>다른 모든 검증과 같이, <tt>validates_with</tt>도 <tt>:if</tt>, <tt>:unless</tt> 그리고 <tt>:on</tt> 옵션을 받아들입니다. 만약 여러분이 다른 옵션을 넘긴다면, 이들 옵션은 검증 클레스의 <tt>options</tt>로 전달됩니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  validates_with GoodnessValidator, :fields =&gt; [:first_name, :last_name]
+end
+
+class GoodnessValidator &lt; ActiveRecord::Validator
+  def validate
+    if options[:fields].any?{|field| record.send(field) == &quot;Evil&quot; }
+      record.errors[:base] &lt;&lt; &quot;This person is evil&quot;
+    end
+  end
+end
+</pre>
+</div>
+</notextile>
+
+<h4 id="validates_each">3.12 <tt>validates_each</tt> (블록으로 각 속성 검증)</h4>
+<p>이 헬퍼는 블록을 이용해서 각 속성을 검증합니다. 이 헬퍼는 미리 정의된 검증 함수를 가지지 않습니다. 여러분은 블록을 만들고, <tt>validates_each</tt>은 넘겨받은 모든 속성에 대하여 검사를 진행합니다. 다음의 예제는 성과 이름이 반드시 대문자로 시작하기를 원하는 검증 코드입니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  validates_each :name, :surname do |model, attr, value|
+    model.errors.add(attr, 'must start with upper case') if value =~ /\A[a-z]/
+  end
+end
+</pre>
+</div>
+</notextile>
+
+<p>블록은 모델, 속성의 이름과 값을 받습니다. 블록을 이용해서 하고싶은 어떠한 검사도 할 수 있습니다. 만약 검증에 실패하면, 모델의 에러 메세지 추가해서 그것은 검증 실패로 만들 수 있습니다.</p>
+<h3 class="common-validation-options">공통 검증 옵션</h3>
+<p>모든 헬퍼가 사용할 수 있는 공통 옵션이 몇가지 있습니다. <tt>:if</tt>와 <tt>:unless</tt>를 제외한 이들 옵션은 나중에 <a href="#conditional-validation">상태에 따른 검증</a> 에서 논의 될 것입니다.</p>
+<h4 id="allow_nil-nil">3.13 <tt>:allow_nil</tt> (nil 허용)</h4>
+<p><tt>:allow_nil</tt> 옵션은 검증 중인 값이 <tt>nil</tt>일때 검증을 무시합니다. <tt>validates_presence_of</tt>와 함께 <tt>:allow_nil</tt> 사용해서 <tt>nil</tt>을 존재 검증에서 허용할 수 있습니다. 하지만 <tt>blank?</tt>는 여전히 다른 경우(ex-공백 문자열)를 거부합니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Coffee &lt; ActiveRecord::Base
+  validates_inclusion_of :size, :in =&gt; %w(small medium large),
+    :message =&gt; &quot;%{value} is not a valid size&quot;, :allow_nil =&gt; true
+end
+</pre>
+</div>
+</notextile>
+
+<h4 id="allow_blank">3.14 <tt>:allow_blank</tt> (공백 허락)</h4>
+<p><tt>:allow_blank</tt> 옵션은 <tt>:allow_nil</tt>과 비슷합니다. 이 옵션은 <tt>blank?</tt>가 성공하면 검증을 통과 시길 것입니다. (속성 값의 <tt>nil</tt> 혹은 빈 문자열이 통과 대상입니다.)</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Topic &lt; ActiveRecord::Base
+  validates_length_of :title, :is =&gt; 5, :allow_blank =&gt; true
+end
+
+Topic.create(&quot;title&quot; =&gt; &quot;&quot;).valid? # =&gt; true
+Topic.create(&quot;title&quot; =&gt; nil).valid? # =&gt; true
+</pre>
+</div>
+</notextile>
+
+<h4 id="message">3.15 <tt>:message</tt> (메세지)</h4>
+<p>이미 보았던대로, <tt>:message</tt> 옵션은 검증이 실패했을때 <tt>errors</tt> 컬렉션에 추가되는 메세지를 지정합니다. 이 옵션을 사용하지 않으면, 엑티브 레코드는 각 검증 헬퍼들을 위한 각자의 기본 메세지를 사용할 것입니다.</p>
+<h4 id="on">3.16 <tt>:on</tt></h4>
+<p><tt>:on</tt> 검증이 반드시 발생해야할 때를 지정합니다. 내장된 모든 검증 헬퍼들에 대한 기본 동작은 저장시에 실행됩니다. (새로운 레코드를 만들때와 갱신할때 양쪽 다 포함합니다.) 만약 이를 변경하고 싶으면, <tt>:on => :create</tt>를 사용하면 오직 새로운 레코드를 만들때만 검증을 실행시킬 수 있고, 혹은 <tt>:on => :update</tt>를 사용하면 레코드가 갱신될 때문 검증을 시행 시킬수 있습니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  # it will be possible to update email with a duplicated value
+  validates_uniqueness_of :email, :on =&gt; :create
+
+  # it will be possible to create the record with a non-numerical age
+  validates_numericality_of :age, :on =&gt; :update
+
+  # the default (validates on both create and update)
+  validates :name, :presence =&gt; true, :on =&gt; :save
+end
+</pre>
+</div>
+</notextile>
+
+<h3 id="conditional-validation">4 상태에 따른 검증</h3>
+<p>때로, 영리하게 제공한 조건을 만족할때만 객체를 검증할 필요가 있습니다. <tt>:if</tt>와 <tt>:unless</tt> 옵션에 심볼(symbol), 문자열 혹은 <tt>Proc</tt>을 전달해서 이를 수행할 수 있습니다. 아마 검증을 <strong>반드시</strong> 해야할때 <tt>:if</tt> 옵션을 사용해야 할 것입니다.것입니다. 만약 검증을 <strong>반드시 해야 않을때는</strong>, <tt>:unless</tt> 옵션을 사용해야 할 겁니다.</p>
+<h4 class="using-a-symbol-with-if-and-unless"><tt>:if</tt>와 <tt>:unless</tt>에 심볼(Symbol) 사용하기</h4>
+<p><tt>:if</tt>와 <tt>:unless</tt> 옵션과 검증이 실행되기 전에 실행될 이름의 심볼(Symbol)을 연결할 수 있습니다. 이것은 옵션의 가장 흔한 사용 방법입니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Order &lt; ActiveRecord::Base
+  validates_presence_of :card_number, :if =&gt; :paid_with_card?
+
+  def paid_with_card?
+    payment_type == &quot;card&quot;
+  end
+end
+</pre>
+</div>
+</notextile>
+
+<h4 id="using-a-string-with-if-and-unless">4.1 <tt>:if</tt>와 <tt>:unless</tt>에 문자열 사용하기</h4>
+<p><tt>eval</tt>로 실행되는 유요한 루비코드의 문자열도 이용할 수 있습니다. 문자열이 정말 짧은 조건을 표현할때 이 옵션을 이용하세요.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  validates_presence_of :surname, :if =&gt; &quot;name.nil?&quot;
+end
+</pre>
+</div>
+</notextile>
+
+<p>h4(#using-a-proc-with-if-and-unless<tt>). 4.2 </tt>:if<tt>와 </tt>:unless+에 Proc 사용하기</p>
+<p>마지막으로, <tt>:if</tt>와 <tt>:unless</tt>에 호출될 Proc 객체를 연결하는 것도 가능합니다. <tt>Proc</tt> 객체는 분리된 메소드 대신에 그때마다 즉시 처리하는 조건을 제공합니다. 이 옵션은 한줄 코드에 가장 적합합니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Account &lt; ActiveRecord::Base
+  validates_confirmation_of :password,
+    :unless =&gt; Proc.new { |a| a.password.blank? }
+end
+</pre>
+</div>
+</notextile>
+
+<h3 id="creating-custom-validation-methods">5 맞춤형 검증 메소드 만들기</h3>
+<p>내장된 검증 헬퍼들이 여러분의 요구사항을 만족하지 못하면, 필요한 직접 검증 메소드를 작성할 수 있습니다.</p>
+<p>간단하게 여러분 모델의 상태를 검사하는 메소드를 만드세요. 그리고 검증이 실패하면 <tt>errors</tt> 컬렉션에 메세지를 추가하세요. 이러한 메소드는 반드시 한개 이상의 <tt>validate</tt>, <tt>validate_on_create</tt> 혹은 <tt>validate_on_update</tt> 클래스 메소드에 검증 메소드 이름의 심볼(Symbol)을 넘겨서 등록해야 합니다.</p>
+<p>각 클래스 메소드를 위해서 한개 이상의 심볼을 전달할 수 있습니다. 그리고 각각의 검증은 등록된 순서대로 실행 될 것입니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Invoice &lt; ActiveRecord::Base
+  validate :expiration_date_cannot_be_in_the_past,
+    :discount_cannot_be_greater_than_total_value
+
+  def expiration_date_cannot_be_in_the_past
+    errors.add(:expiration_date, &quot;can't be in the past&quot;) if
+      !expiration_date.blank? and expiration_date &lt; Date.today
+  end
+
+  def discount_cannot_be_greater_than_total_value
+    errors.add(:discount, &quot;can't be greater than total value&quot;) if
+      discount &gt; total_value
+  end
+end
+</pre>
+</div>
+</notextile>
+
+<p>여러분의 검증 헬퍼를 만들고 몇가지 다른 모델에 이를 재사용할 수 있습니다. 예를들어, 설문조사를 관리하는 어플리케이션은 선택 결과의 집합과 관계있는 필드를 표현하게 만드는게 유용하다는 점을 알 수 있습니다.
+You can even create your own validation helpers and reuse them in several different models. For example, an application that manages surveys may find it useful to express that a certain field corresponds to a set of choices:</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+ActiveRecord::Base.class_eval do
+  def self.validates_as_choice(attr_name, n, options={})
+    validates_inclusion_of attr_name, {:in =&gt; 1..n}.merge(options)
+  end
+end
+</pre>
+</div>
+</notextile>
+
+<p>간단히, <tt>ActiveRecord::Base</tt> 다시 열어서 위와 같은 클래스 메소드를 정의하세요. 이런 코드는 일반적으로 <tt>config/initializers</tt> 내에 위치 시킵니다. 그리고 이 헬퍼를 아래와 같이 사용할 수 있습니다.:</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Movie &lt; ActiveRecord::Base
+  validates_as_choice :rating, 5
+end
+</pre>
+</div>
+</notextile>
+
+<h3 id="working-with-validation-errors">6 데이터 검증 에러로 작업하기</h3>
+<p>추가로 <tt>valid?</tt>와 <tt>invalid?</tt> 메소는 이미 다루었죠. 레일즈는 <tt>errors</tt> 컬렉션을 사용하고, 객체의 검증 상태를 질의할 수 있는 몇가지 메소드를 제공합니다.</p>
+<p>이어지는 리스트는 가장 흔하게 사용하는 메소드 입니다. 사용 가능한 모든 메소드는 <tt>ActiveRecord::Errors</tt> 문서를 참고하세요.</p>
+<h4 id="working_with_validation_errors-errors">6.1 <tt>errors</tt></h4>
+<p>모든 에러를 OrderedHash로 반환합니다. 각 키는 속성의 이름이고, 값은 에러를 가진 문자열 배열입니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  validates :name, :presence =&gt; true
+  validates_length_of :name, :minimum =&gt; 3
+end
+
+person = Person.new
+person.valid? # =&gt; false
+person.errors
+ # =&gt; {:name =&gt; [&quot;can't be blank&quot;, &quot;is too short (minimum is 3 characters)&quot;]}
+
+person = Person.new(:name =&gt; &quot;John Doe&quot;)
+person.valid? # =&gt; true
+person.errors # =&gt; []
+</pre>
+</div>
+</notextile>
+
+<h4 id="working_with_validation_errors-errors-2">6.2 <tt>errors[]</tt></h4>
+<p><tt>errors[]</tt>는 원하는 속성의 에러 메세지를 책크하길 원할때 사용합니다. 그것은 주어진 속성을 위한 모든 에러 메세지를 담은 문자열 배열을 반환하는데, 각 문자열이 에러 메세지 하나입니다. 속성에 관계된 에러가 없을때, 빈 배열을 반환합니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  validates :name, :presence =&gt; true
+  validates_length_of :name, :minimum =&gt; 3
+end
+
+person = Person.new(:name =&gt; &quot;John Doe&quot;)
+person.valid? # =&gt; true
+person.errors[:name] # =&gt; []
+
+person = Person.new(:name =&gt; &quot;JD&quot;)
+person.valid? # =&gt; false
+person.errors[:name] # =&gt; [&quot;is too short (minimum is 3 characters)&quot;]
+
+person = Person.new
+person.valid? # =&gt; false
+person.errors[:name]
+ # =&gt; [&quot;can't be blank&quot;, &quot;is too short (minimum is 3 characters)&quot;]
+</pre>
+</div>
+</notextile>
+
+<h4 id="errors-add">6.3 <tt>errors.add</tt></h4>
+<p><tt>add</tt> 메소드는 특정한 속성에 관계된 메세지를 직접 추가할때 사용합니다. 고객을 위해 에러를 폼에 보여주기 위해서 <tt>erros.full_messages</tt> 나 <tt>erros.to_a</tt> 메소드를 사용할 수 있습니다. 이 메세지는 그럴싸한(그리고 첫 글자가 대문자로 되어 있는) 속성 이름을 가집니다. <tt>add</tt>는 메제시에 추가하길 원하는 속성의 이름과 메세지 그 자체를 인자로 받습니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  def a_method_used_for_validation_purposes
+    errors.add(:name, &quot;cannot contain the characters !@#%*()_-+=&quot;)
+  end
+end
+
+person = Person.create(:name =&gt; &quot;!@#&quot;)
+
+person.errors[:name]
+ # =&gt; [&quot;cannot contain the characters !@#%*()_-+=&quot;]
+
+person.errors.full_messages
+ # =&gt; [&quot;Name cannot contain the characters !@#%*()_-+=&quot;]
+</pre>
+</div>
+</notextile>
+
+<p>다른 방법으로 <tt>[]=</tt> 대입자를 사용할 수 있습니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+    def a_method_used_for_validation_purposes
+      errors[:name] = &quot;cannot contain the characters !@#%*()_-+=&quot;
+    end
+  end
+
+  person = Person.create(:name =&gt; &quot;!@#&quot;)
+
+  person.errors[:name]
+   # =&gt; [&quot;cannot contain the characters !@#%*()_-+=&quot;]
+
+  person.errors.to_a
+   # =&gt; [&quot;Name cannot contain the characters !@#%*()_-+=&quot;]
+</pre>
+</div>
+</notextile>
+
+<h4 id="errors-base">6.4 <tt>errors[:base]</tt></h4>
+<p>관계된 속성 대신에, 객체의 전체 상태 관련한 에러 메세지를 추가할 수 있습니다. 속성의 값에 개의치않고, 객체가 타당하지 않다고 이야기하고 싶을때 이 메소드를 사용할 수 있습니다. <tt>errors[:base]</tt>는 배열이므로, 간단하게 문자열을 배열에 넣는 식으로 에러메세지를 사용할 수 있습니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  def a_method_used_for_validation_purposes
+    errors[:base] &lt;&lt; &quot;This person is invalid because ...&quot;
+  end
+end
+</pre>
+</div>
+</notextile>
+
+<h4 id="errors-clear">6.5 <tt>errors.clear</tt></h4>
+<p><tt>clear</tt> 메소드는 <tt>errors</tt> 컬렉션안의 모든 메세지를 강제로 삭제하고 싶을때 사용합니다. 물론, 타당하지 않은 객체에 <tt>errors.clear</tt> 호출한다고 객체가 타당하게 바뀌지는 않습니다.:<tt>errors</tt> 컬렉션은 비워지겠지만, 다음에 <tt>valid?</tt>를 호출하거나 데이터베이스에 저장과 관련된 메소드가 호출되면, 데이터 검증 코드는 다시 실행됩니다. 어떤 검증이라도 실패하면, <tt>errors</tt> 컬렉션은 다시 채워집니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  validates :name, :presence =&gt; true
+  validates_length_of :name, :minimum =&gt; 3
+end
+
+person = Person.new
+person.valid? # =&gt; false
+person.errors[:name]
+ # =&gt; [&quot;can't be blank&quot;, &quot;is too short (minimum is 3 characters)&quot;]
+
+person.errors.clear
+person.errors.empty? # =&gt; true
+
+p.save # =&gt; false
+
+p.errors[:name]
+ # =&gt; [&quot;can't be blank&quot;, &quot;is too short (minimum is 3 characters)&quot;]
+</pre>
+</div>
+</notextile>
+
+<h4 id="errors-size">6.6 <tt>errors.size</tt></h4>
+<p><tt>size</tt> 메소드는 객체에 대한 에러 메세지 갯수를 반환합니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Person &lt; ActiveRecord::Base
+  validates :name, :presence =&gt; true
+  validates_length_of   :name, :minimum =&gt; 3
+  validates_presence_of :email
+end
+
+person = Person.new
+person.valid? # =&gt; false
+person.errors.size # =&gt; 3
+
+person = Person.new(:name =&gt; &quot;Andrea&quot;, :email =&gt; &quot;andrea@example.com&quot;)
+person.valid? # =&gt; true
+person.errors.size # =&gt; 0
+</pre>
+</div>
+</notextile>
+
+<h3 id="displaying-validation-errors-in-the-view">7 뷰에 검증된 에러 출력하기</h3>
+<p>레일즈는 뷰 템플릿에 모델의 에러 메세지를 출력하기 위한 내장 헬퍼들을 제공합니다.</p>
+<h4 id="error_messages-and-error_messages_for">7.1 <tt>error_messages</tt> 와 <tt>error_messages_for</tt></h4>
+<p><tt>form_for</tt> 헬퍼로 폼을 만들때, <tt>error_messages</tt> 메소드를 사용해서, 폼 빌더 상에 현재 모델 인스턴스에 대하여 실패한 검증 메세지를 출력할 수 있습니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Product &lt; ActiveRecord::Base
+  validates_presence_of :description, :value
+  validates_numericality_of :value, :allow_nil =&gt; true
+end
+</pre>
+</div>
+</notextile>
+
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
+&lt;%= form_for(@product) do |f| %&gt;
+  &lt;%= f.error_messages %&gt;
+  &lt;p&gt;
+    &lt;%= f.label :description %&gt;&lt;br /&gt;
+    &lt;%= f.text_field :description %&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;%= f.label :value %&gt;&lt;br /&gt;
+    &lt;%= f.text_field :value %&gt;
+  &lt;/p&gt;
+  &lt;p&gt;
+    &lt;%= f.submit &quot;Create&quot; %&gt;
+  &lt;/p&gt;
+&lt;% end %&gt;
+</pre>
+</div>
+</notextile>
+
+<p>필드를 비운채 폼을 실행하면, 기본적으로 스타일을 비록 읽어버릴 지라도, 여러분은 흔히 뒤로가기를 합니다.:
+To get the idea, if you submit the form with empty fields you typically get this back, though styles are indeed missing by default:</p>
+<p><img src="images/error_messages.png" title="Error messages" alt="Error messages" /></p>
+<p>뷰 템플릿에 할당된 모델의 에러 메세지를 출력하기 위해서 <tt>error_messages_for</tt> 헬퍼도 사용할 수 있습니다. 그것은 이전 예제와 매우 유사하고 정확하게 동일한 결과를 이를 것입니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
+&lt;%= error_messages_for :product %&gt;
+</pre>
+</div>
+</notextile>
+
+<p>에러 메세지를 위해 출력된 텍스트는 항상 에러를 가지는 속성의 대문자로 시작하는 이름과 에러 메세지가 따르는 형태로 구성됩니다.</p>
+<p><tt>form.error_messages</tt> 와 the <tt>error_messages_for</tt> 헬퍼는 맞춤형 메세지를 만들기 위한 옵션을 제공합니다. <tt>div</tt> 요소에 포함되는 메세지를 지정, 헤더의 텍스트를 변경, 헤더 텍스트 아래 메세지와 헤더로 정의된 요소의 태그를 조정할 수 있습니다.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
+&lt;%= f.error_messages :header_message =&gt; &quot;Invalid product!&quot;,
+  :message =&gt; &quot;You'll need to fix the following fields:&quot;,
+  :header_tag =&gt; :h3 %&gt;
+</pre>
+</div>
+</notextile>
+
+<p>다음의 내용이 결과입니다.:</p>
+<p><img src="images/customized_error_messages.png" title="Customized error messages" alt="Customized error messages" /></p>
+<p>만약 이 옵션중에 어떤 것이라고 <tt>nil</tt>을 넘긴다면, 해당 각 색션은 <tt>div</tt>에서 제거될 것입니다.</p>
+<h4 id="customizing-the-error-messages-css">7.2 에러 메세지 <span class="caps">CSS</span> 원하는데로 변경하기</h4>
+<p>에러 메세지의 스타일 변경을 위한 Selector(셀랙터)는 다음과 같습니다.:</p>
+<ul>
+	<li><tt>.field_with_errors</tt> &#8211; 에러를 가진 폼 필드와 라벨을 위한 스타일</li>
+	<li><tt>#errorExplanation</tt> &#8211; 에러를 가진 <tt>div</tt> 요소에 대한 스타일</li>
+	<li><tt>#errorExplanation h2</tt> &#8211; <tt>div</tt> 요소의 헤더를 위한 스타일</li>
+	<li><tt>#errorExplanation p</tt> &#8211; <tt>div</tt> 요소의 헤더 바로 다음에 등장하는 에러 메세지를 포함하는 단락에 대한 스타일</li>
+	<li><tt>#errorExplanation ul li</tt> &#8211; 개발 에러 메세지를 가진 리스트를 위한 스타일</li>
+</ul>
+<p>예제를 위한 발판 작업(Scaffolding)은 위에서 보이듯이 붉은색 계열의 스타일로 정의된 <tt>public/stylesheets/scaffold.css</tt>를 생성한다.</p>
+<p><span class="caps">CSS</span> 클래스(class)와 아이디(id)는 양쪽 헬퍼 모두 <tt>:class</tt>와 <tt>:id</tt> 옵션 변경 변경할 수 있습니다.</p>
+<h4 id="customizing-the-error-messages-html">7.3 에러 메세지 <span class="caps">HTML</span> 원하는데로 변경하기</h4>
+<p>기본적으로, 에러를 가진 폼 필드는 <tt>field_with_errors</tt> <span class="caps">CSS</span> 클래스를 가진 <tt>div</tt> 요소 감싸여서 출력됩니다. 그렇지만, 이것을 덮어 쓰는건 가능합니다.</p>
+<p>The way form fields with errors are treated is defined by <tt>ActionView::Base.field_error_proc</tt>. This is a <tt>Proc</tt> that receives two parameters:</p>
+<ul>
+	<li>A string with the <span class="caps">HTML</span> tag</li>
+	<li>An instance of <tt>ActionView::Helpers::InstanceTag</tt>.</li>
+</ul>
+<p>Here is a simple example where we change the Rails behaviour to always display the error messages in front of each of the form fields with errors. The error messages will be enclosed by a <tt>span</tt> element with a <tt>validation-error</tt> <span class="caps">CSS</span> class. There will be no <tt>div</tt> element enclosing the <tt>input</tt> element, so we get rid of that red border around the text field. You can use the <tt>validation-error</tt> <span class="caps">CSS</span> class to style it anyway you want.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
+  if instance.error_message.kind_of?(Array)
+    %(#{html_tag}&lt;span class=&quot;validation-error&quot;&gt;&amp;nbsp;
+      #{instance.error_message.join(',')}&lt;/span&gt;).html_safe
+  else
+    %(#{html_tag}&lt;span class=&quot;validation-error&quot;&gt;&amp;nbsp;
+      #{instance.error_message}&lt;/span&gt;).html_safe
+  end
+end
+</pre>
+</div>
+</notextile>
+
+<p>This will result in something like the following:</p>
+<p><img src="images/validation_error_messages.png" title="Validation error messages" alt="Validation error messages" /></p>
+<h3 id="callbacks-overview">8 Callbacks Overview</h3>
+<p>Callbacks are methods that get called at certain moments of an object&#8217;s life cycle. With callbacks it&#8217;s possible to write code that will run whenever an Active Record object is created, saved, updated, deleted, validated, or loaded from the database.</p>
+<h4 id="callback-registration">8.1 Callback Registration</h4>
+<p>In order to use the available callbacks, you need to register them. You can do that by implementing them as ordinary methods, and then using a macro-style class method to register them as callbacks.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class User &lt; ActiveRecord::Base
+  validates_presence_of :login, :email
+
+  before_validation :ensure_login_has_a_value
+
+  protected
+  def ensure_login_has_a_value
+    if login.nil?
+      self.login = email unless email.blank?
+    end
+  end
+end
+</pre>
+</div>
+</notextile>
+
+<p>The macro-style class methods can also receive a block. Consider using this style if the code inside your block is so short that it fits in just one line.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class User &lt; ActiveRecord::Base
+  validates_presence_of :login, :email
+
+  before_create {|user| user.name = user.login.capitalize
+	if user.name.blank?}
+end
+</pre>
+</div>
+</notextile>
+
+<p>It&#8217;s considered good practice to declare callback methods as being protected or private. If left public, they can be called from outside of the model and violate the principle of object encapsulation.</p>
+<h3 id="available-callbacks">9 Available Callbacks</h3>
+<p>Here is a list with all the available Active Record callbacks, listed in the same order in which they will get called during the respective operations:</p>
+<h4 id="creating-an-object">9.1 Creating an Object</h4>
+<ul>
+	<li><tt>before_validation</tt></li>
+	<li><tt>after_validation</tt></li>
+	<li><tt>before_save</tt></li>
+	<li><tt>after_save</tt></li>
+	<li><tt>before_create</tt></li>
+	<li><tt>around_create</tt></li>
+	<li><tt>after_create</tt></li>
+</ul>
+<h4 id="updating-an-object">9.2 Updating an Object</h4>
+<ul>
+	<li><tt>before_validation</tt></li>
+	<li><tt>after_validation</tt></li>
+	<li><tt>before_save</tt></li>
+	<li><tt>after_save</tt></li>
+	<li><tt>before_update</tt></li>
+	<li><tt>around_update</tt></li>
+	<li><tt>after_update</tt></li>
+</ul>
+<h4 id="destroying-an-object">9.3 Destroying an Object</h4>
+<ul>
+	<li><tt>before_destroy</tt></li>
+	<li><tt>after_destroy</tt></li>
+	<li><tt>around_destroy</tt></li>
+</ul>
+<div class='warning'><p><tt>after_save</tt> runs both on create and update, but always <em>after</em> the more specific callbacks <tt>after_create</tt> and <tt>after_update</tt>, no matter the order in which the macro calls were executed.</p></div>
+<h4 id="after_initialize-and-after_find">9.4 <tt>after_initialize</tt> and <tt>after_find</tt></h4>
+<p>The <tt>after_initialize</tt> callback will be called whenever an Active Record object is instantiated, either by directly using <tt>new</tt> or when a record is loaded from the database. It can be useful to avoid the need to directly override your Active Record <tt>initialize</tt> method.</p>
+<p>The <tt>after_find</tt> callback will be called whenever Active Record loads a record from the database. <tt>after_find</tt> is called before <tt>after_initialize</tt> if both are defined.</p>
+<p>The <tt>after_initialize</tt> and <tt>after_find</tt> callbacks are a bit different from the others. They have no <tt>before_*</tt> counterparts, and the only way to register them is by defining them as regular methods. If you try to register <tt>after_initialize</tt> or <tt>after_find</tt> using macro-style class methods, they will just be ignored. This behaviour is due to performance reasons, since <tt>after_initialize</tt> and <tt>after_find</tt> will both be called for each record found in the database, significantly slowing down the queries.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class User &lt; ActiveRecord::Base
+  def after_initialize
+    puts &quot;You have initialized an object!&quot;
+  end
+
+  def after_find
+    puts &quot;You have found an object!&quot;
+  end
+end
+
+&gt;&gt; User.new
+You have initialized an object!
+=&gt; #&lt;User id: nil&gt;
+
+&gt;&gt; User.first
+You have found an object!
+You have initialized an object!
+=&gt; #&lt;User id: 1&gt;
+</pre>
+</div>
+</notextile>
+
+<h3 id="running-callbacks">10 Running Callbacks</h3>
+<p>The following methods trigger callbacks:</p>
+<ul>
+	<li><tt>create</tt></li>
+	<li><tt>create!</tt></li>
+	<li><tt>decrement!</tt></li>
+	<li><tt>destroy</tt></li>
+	<li><tt>destroy_all</tt></li>
+	<li><tt>increment!</tt></li>
+	<li><tt>save</tt></li>
+	<li><tt>save!</tt></li>
+	<li><tt>save(false)</tt></li>
+	<li><tt>toggle!</tt></li>
+	<li><tt>update</tt></li>
+	<li><tt>update_attribute</tt></li>
+	<li><tt>update_attributes</tt></li>
+	<li><tt>update_attributes!</tt></li>
+	<li><tt>valid?</tt></li>
+</ul>
+<p>Additionally, the <tt>after_find</tt> callback is triggered by the following finder methods:</p>
+<ul>
+	<li><tt>all</tt></li>
+	<li><tt>first</tt></li>
+	<li><tt>find</tt></li>
+	<li><tt>find_all_by_<em>attribute</em></tt></li>
+	<li><tt>find_by_<em>attribute</em></tt></li>
+	<li><tt>find_by_<em>attribute</em>!</tt></li>
+	<li><tt>last</tt></li>
+</ul>
+<p>The <tt>after_initialize</tt> callback is triggered every time a new object of the class is initialized.</p>
+<h3 id="skipping-callbacks">11 Skipping Callbacks</h3>
+<p>Just as with validations, it&#8217;s also possible to skip callbacks. These methods should be used with caution, however, because important business rules and application logic may be kept in callbacks. Bypassing them without understanding the potential implications may lead to invalid data.</p>
+<ul>
+	<li><tt>decrement</tt></li>
+	<li><tt>decrement_counter</tt></li>
+	<li><tt>delete</tt></li>
+	<li><tt>delete_all</tt></li>
+	<li><tt>find_by_sql</tt></li>
+	<li><tt>increment</tt></li>
+	<li><tt>increment_counter</tt></li>
+	<li><tt>toggle</tt></li>
+	<li><tt>update_all</tt></li>
+	<li><tt>update_counters</tt></li>
+</ul>
+<h3 id="halting-execution">12 Halting Execution</h3>
+<p>As you start registering new callbacks for your models, they will be queued for execution. This queue will include all your model&#8217;s validations, the registered callbacks, and the database operation to be executed.</p>
+<p>The whole callback chain is wrapped in a transaction. If any <em>before</em> callback method returns exactly <tt>false</tt> or raises an exception the execution chain gets halted and a <span class="caps">ROLLBACK</span> is issued; <em>after</em> callbacks can only accomplish that by raising an exception.</p>
+<div class='warning'><p>Raising an arbitrary exception may break code that expects <tt>save</tt> and friends not to fail like that. The <tt>ActiveRecord::Rollback</tt> exception is thought precisely to tell Active Record a rollback is going on. That one is internally captured but not reraised.</p></div>
+<h3 id="relational-callbacks">13 Relational Callbacks</h3>
+<p>Callbacks work through model relationships, and can even be defined by them. Let&#8217;s take an example where a user has many posts. In our example, a user&#8217;s posts should be destroyed if the user is destroyed. So, we&#8217;ll add an <tt>after_destroy</tt> callback to the <tt>User</tt> model by way of its relationship to the <tt>Post</tt> model.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class User &lt; ActiveRecord::Base
+  has_many :posts, :dependent =&gt; :destroy
+end
+
+class Post &lt; ActiveRecord::Base
+  after_destroy :log_destroy_action
+
+  def log_destroy_action
+    puts 'Post destroyed'
+  end
+end
+
+&gt;&gt; user = User.first
+=&gt; #&lt;User id: 1&gt;
+&gt;&gt; user.posts.create!
+=&gt; #&lt;Post id: 1, user_id: 1&gt;
+&gt;&gt; user.destroy
+Post destroyed
+=&gt; #&lt;User id: 1&gt;
+</pre>
+</div>
+</notextile>
+
+<h3 id="conditional-callbacks">14 Conditional Callbacks</h3>
+<p>Like in validations, we can also make our callbacks conditional, calling them only when a given predicate is satisfied. You can do that by using the <tt>:if</tt> and <tt>:unless</tt> options, which can take a symbol, a string or a <tt>Proc</tt>. You may use the <tt>:if</tt> option when you want to specify when the callback <strong>should</strong> get called. If you want to specify when the callback <strong>should not</strong> be called, then you may use the <tt>:unless</tt> option.</p>
+<h4 id="using-if-and-unless-with-a-symbol">14.1 Using <tt>:if</tt> and <tt>:unless</tt> with a Symbol</h4>
+<p>You can associate the <tt>:if</tt> and <tt>:unless</tt> options with a symbol corresponding to the name of a method that will get called right before the callback. When using the <tt>:if</tt> option, the callback won&#8217;t be executed if the method returns false; when using the <tt>:unless</tt> option, the callback won&#8217;t be executed if the method returns true. This is the most common option. Using this form of registration it&#8217;s also possible to register several different methods that should be called to check if the callback should be executed.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Order &lt; ActiveRecord::Base
+  before_save :normalize_card_number, :if =&gt; :paid_with_card?
+end
+</pre>
+</div>
+</notextile>
+
+<h4 id="using-if-and-unless-with-a-string">14.2 Using <tt>:if</tt> and <tt>:unless</tt> with a String</h4>
+<p>You can also use a string that will be evaluated using <tt>eval</tt> and needs to contain valid Ruby code. You should use this option only when the string represents a really short condition.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Order &lt; ActiveRecord::Base
+  before_save :normalize_card_number, :if =&gt; &quot;paid_with_card?&quot;
+end
+</pre>
+</div>
+</notextile>
+
+<h4 id="using-if-and-unless-with-a-proc">14.3 Using <tt>:if</tt> and <tt>:unless</tt> with a Proc</h4>
+<p>Finally, it&#8217;s possible to associate <tt>:if</tt> and <tt>:unless</tt> with a <tt>Proc</tt> object. This option is best suited when writing short validation methods, usually one-liners.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Order &lt; ActiveRecord::Base
+  before_save :normalize_card_number,
+    :if =&gt; Proc.new { |order| order.paid_with_card? }
+end
+</pre>
+</div>
+</notextile>
+
+<h4 id="multiple-conditions-for-callbacks">14.4 Multiple Conditions for Callbacks</h4>
+<p>When writing conditional callbacks, it&#8217;s possible to mix both <tt>:if</tt> and <tt>:unless</tt> in the same callback declaration.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Comment &lt; ActiveRecord::Base
+  after_create :send_email_to_author, :if =&gt; :author_wants_emails?,
+    :unless =&gt; Proc.new { |comment| comment.post.ignore_comments? }
+end
+</pre>
+</div>
+</notextile>
+
+<h3 id="callback-classes">15 Callback Classes</h3>
+<p>Sometimes the callback methods that you&#8217;ll write will be useful enough to be reused by other models. Active Record makes it possible to create classes that encapsulate the callback methods, so it becomes very easy to reuse them.</p>
+<p>Here&#8217;s an example where we create a class with an <tt>after_destroy</tt> callback for a <tt>PictureFile</tt> model.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class PictureFileCallbacks
+  def after_destroy(picture_file)
+    File.delete(picture_file.filepath)
+      if File.exists?(picture_file.filepath)
+  end
+end
+</pre>
+</div>
+</notextile>
+
+<p>When declared inside a class the callback method will receive the model object as a parameter. We can now use it this way:</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class PictureFile &lt; ActiveRecord::Base
+  after_destroy PictureFileCallbacks.new
+end
+</pre>
+</div>
+</notextile>
+
+<p>Note that we needed to instantiate a new <tt>PictureFileCallbacks</tt> object, since we declared our callback as an instance method. Sometimes it will make more sense to have it as a class method.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class PictureFileCallbacks
+  def self.after_destroy(picture_file)
+    File.delete(picture_file.filepath)
+      if File.exists?(picture_file.filepath)
+  end
+end
+</pre>
+</div>
+</notextile>
+
+<p>If the callback method is declared this way, it won&#8217;t be necessary to instantiate a <tt>PictureFileCallbacks</tt> object.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class PictureFile &lt; ActiveRecord::Base
+  after_destroy PictureFileCallbacks
+end
+</pre>
+</div>
+</notextile>
+
+<p>You can declare as many callbacks as you want inside your callback classes.</p>
+<h3 id="observers">16 Observers</h3>
+<p>Observers are similar to callbacks, but with important differences. Whereas callbacks can pollute a model with code that isn&#8217;t directly related to its purpose, observers allow you to add the same functionality outside of a model. For example, it could be argued that a <tt>User</tt> model should not include code to send registration confirmation emails. Whenever you use callbacks with code that isn&#8217;t directly related to your model, you may want to consider creating an observer instead.</p>
+<h4 id="creating-observers">16.1 Creating Observers</h4>
+<p>For example, imagine a <tt>User</tt> model where we want to send an email every time a new user is created. Because sending emails is not directly related to our model&#8217;s purpose, we could create an observer to contain this functionality.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+rails generate observer User
+</pre>
+</div>
+</notextile>
+
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class UserObserver &lt; ActiveRecord::Observer
+  def after_create(model)
+    # code to send confirmation email...
+  end
+end
+</pre>
+</div>
+</notextile>
+
+<p>As with callback classes, the observer&#8217;s methods receive the observed model as a parameter.</p>
+<h4 id="registering-observers">16.2 Registering Observers</h4>
+<p>Observers are conventionally placed inside of your <tt>app/models</tt> directory and registered in your application&#8217;s <tt>config/application.rb</tt> file. For example, the <tt>UserObserver</tt> above would be saved as <tt>app/models/user_observer.rb</tt> and registered in <tt>config/application.rb</tt> this way:</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+# Activate observers that should always be running
+config.active_record.observers = :user_observer
+</pre>
+</div>
+</notextile>
+
+<p>As usual, settings in <tt>config/environments</tt> take precedence over those in <tt>config/application.rb</tt>. So, if you prefer that an observer doesn&#8217;t run in all environments, you can simply register it in a specific environment instead.</p>
+<h4 id="sharing-observers">16.3 Sharing Observers</h4>
+<p>By default, Rails will simply strip &#8220;Observer&#8221; from an observer&#8217;s name to find the model it should observe. However, observers can also be used to add behaviour to more than one model, and so it&#8217;s possible to manually specify the models that our observer should observe.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class MailerObserver &lt; ActiveRecord::Observer
+  observe :registration, :user
+
+  def after_create(model)
+    # code to send confirmation email...
+  end
+end
+</pre>
+</div>
+</notextile>
+
+<p>In this example, the <tt>after_create</tt> method would be called whenever a <tt>Registration</tt> or <tt>User</tt> was created. Note that this new <tt>MailerObserver</tt> would also need to be registered in <tt>config/application.rb</tt> in order to take effect.</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+# Activate observers that should always be running
+config.active_record.observers = :mailer_observer
+</pre>
+</div>
+</notextile>
+
+<h3 id="changelog">17 Changelog</h3>
+<ul>
+	<li>July 20, 2010: Fixed typos and rephrased some paragraphs for clarity. <a href="http://jaimeiniesta.com">Jaime Iniesta</a></li>
+	<li>May 24, 2010: Fixed document to validate <span class="caps">XHTML</span> 1.0 Strict. <a href="http://jaimeiniesta.com">Jaime Iniesta</a></li>
+	<li>May 15, 2010: Validation Errors section updated by <a href="http://www.eparreno.com">Emili Parreño</a></li>
+	<li>March 7, 2009: Callbacks revision by Trevor Turk</li>
+	<li>February 10, 2009: Observers revision by Trevor Turk</li>
+	<li>February 5, 2009: Initial revision by Trevor Turk</li>
+	<li>January 9, 2009: Initial version by <a href="credits.html#cmarques">Cássio Marques</a></li>
+</ul>
+
+        <h3>Feedback</h3>
+        <p>
+          You're encouraged to help in keeping the quality of this guide.
+        </p>
+        <p>
+          If you see any typos or factual errors you are confident to
+          patch, please clone <a href="https://github.com/lifo/docrails">docrails</a>
+          and push the change yourself. That branch of Rails has public write access.
+          Commits are still reviewed, but that happens after you've submitted your
+          contribution. <a href="https://github.com/lifo/docrails">docrails</a> is
+          cross-merged with master periodically.
+        </p>
+        <p>
+          You may also find incomplete content, or stuff that is not up to date.
+          Please do add any missing documentation for master. Check the
+          <a href="ruby_on_rails_guides_guidelines.html">Ruby on Rails Guides Guidelines</a>
+          for style and conventions.
+        </p>
+        <p>
+          Issues may also be reported in <a href="https://github.com/lifo/docrails/issues">Github</a>.
+        </p>
+        <p>And last but not least, any kind of discussion regarding Ruby on Rails
+          documentation is very welcome in the <a href="http://groups.google.com/group/rubyonrails-docs">rubyonrails-docs mailing list</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="hide" />
+  <div id="footer">
+    <div class="wrapper">
+      <p>This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-Share Alike 3.0</a> License</p>
+      <p>"Rails", "Ruby on Rails", and the Rails logo are trademarks of David Heinemeier Hansson. All rights reserved.</p>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="javascripts/guides.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shCore.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>
+  <script type="text/javascript">
+    SyntaxHighlighter.all()
+  </script>
+</body>
+</html>
