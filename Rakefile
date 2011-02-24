@@ -8,10 +8,10 @@ task :make_guides do
   Dir.chdir cur_path do
     system("git pull")
     system("git submodule init;git submodule update")
-    system("git submodule foreach 'git pull'")
   end
 
   Dir.chdir 'docrails' do 
+    system("git pull")
     system("bundle install --path vendor/bundle")
     system("cd railties;bundle exec rake  generate_guides LANGUAGE=ko-KR")
   end
