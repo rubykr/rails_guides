@@ -1,27 +1,25 @@
 require 'rubygems'
 
-namespace :guides do
-  desc "make Korean rails guide"
-  task :make do 
-    cur_path = File.expand_path("..",__FILE__)
-    doc_path = File.expand_path("docrails/railties/guides/output/ko-KR", cur_path)
+desc "make Korean rails guide"
+task :make_guides do 
+  cur_path = File.expand_path("..",__FILE__)
+  doc_path = File.expand_path("docrails/railties/guides/output/ko-KR", cur_path)
 
-    Dir.chdir cur_path do
-      system("git pull")
-      system("git submodule init;git submodule update")
-      #system("git submodule foreach 'git pull'")
-    end
+  Dir.chdir cur_path do
+    system("git pull")
+    system("git submodule init;git submodule update")
+    system("git submodule foreach 'git pull'")
+  end
 
-    Dir.chdir 'docrails' do 
-      system("bundle install --path vendor/bundle")
-      system("cd railties;bundle exec rake  generate_guides LANGUAGE=ko-KR")
-    end
+  Dir.chdir 'docrails' do 
+    system("bundle install --path vendor/bundle")
+    system("cd railties;bundle exec rake  generate_guides LANGUAGE=ko-KR")
+  end
 
-    system("cp -R #{doc_path}/* #{cur_path}")
+  system("cp -R #{doc_path}/* #{cur_path}")
 
-    Dir.chdir cur_path do
-      system("git commit -a -m 'update source'")
-      system("git push")
-    end
+  Dir.chdir cur_path do
+    system("git commit -a -m 'update source'")
+    system("git push")
   end
 end
