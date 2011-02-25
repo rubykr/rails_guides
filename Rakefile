@@ -4,7 +4,7 @@ desc "make Korean rails guide"
 task :make_guides do 
   cur_path = File.expand_path("..",__FILE__)
   doc_path = File.expand_path("lib/docrails/railties/guides/output/ko-KR", cur_path)
-  bun_path = File.expand_path("../rails_guides_bundle/")
+  bun_path = File.expand_path("../rails_guides-bundle/")
 
   Dir.chdir cur_path do
     system("git pull")
