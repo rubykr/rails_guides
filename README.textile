@@ -1,6 +1,6 @@
 Introduction
 
-http://rubykr.github.com/rails_guides
+"http://rubykr.github.com/rails_guides":http://rubykr.github.com/rails_guides
 
-* 이 프로젝트는 "github page":http://page.github.com 기능을 이용해서 "Rails Guides 번역":https://github.com/rubykr/docrails 프로젝트의 지속통합을 진행하는 공간입니다.
-* 매시간 마다 갱신되며 결과는 http://rubykr.github.com/rails_guides 에서 확인할 수 있습니다.
+* 이 프로젝트는 "github page":http://page.github.com 기능을 이용해서 "Rails Guides 번역":https://github.com/rubykr/docrails 프로젝트의 결과를 지속 통합해서 웹에 노출시키는 공간입니다.
+* 주기적으로 갱신되며 결과는 "http://rubykr.github.com/rails_guides":http://rubykr.github.com/rails_guides 에서 확인할 수 있습니다.
