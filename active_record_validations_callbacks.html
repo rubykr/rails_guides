@@ -93,7 +93,7 @@
     <div class="wrapper">
       <h2>엑티브 레코드 데이터 검증(Validation)과 콜백(Callback)</h2>
 <p>이 가이드는 엑티브 레코드 객체의 생명 주기에 관여하는 방법을 안내합니다. 엑티브 레코드가 데이터베이스에 정보를 입력하기 전에 객체의 데이터 검증을 어떻게 할 것인지, 그리고 객체의 생명 주기에서 정확한 부분에 원하는 작업을 수행하는 방법을 배울 것입니다.</p>
-<p>이 가이드를 읽고 주어진 개념을 시험한 후, 다음 내용을 할 수 있는 것을 기대합니다.:</p>
+<p>이 가이드를 읽고 주어진 개념을 시험한 후, 다음 내용을 할 수 있기를 기대합니다.:</p>
 <ul>
 	<li>엑티브 레코드 객체의 생명 주기에 대한 이해</li>
 	<li>내장된 엑티브 레코드 데이터 검증 헬퍼 사용 방법</li>
@@ -107,7 +107,7 @@
             <div id="subCol">
         <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
         <ol class="chapters">
-<li><a href="#the-object-life-cycle">객체 생명 주기</a></li><li><a href="#validations-overview">데이터 검증 둘러보기</a><ul><li><a href="#why-use-validations">왜 데이터 검증을 사용하는가?</a></li> <li><a href="#when-does-validation-happen">데이터 검증은 언제하나?</a></li> <li><a href="#skipping-validations">데이터 검증 무시하기</a></li> <li><a href="#valid-invalid"><tt>valid?</tt> 와 <tt>invalid?</tt></a></li> <li><a href="#validations_overview-errors"><tt>errors[]</tt></a></li></ul></li><li><a href="#validation-helpers">데이터 검증 헬퍼 (Validation helpers)</a><ul><li><a href="#validates_acceptance_of"><tt>validates_acceptance_of</tt> (수락 검증)</a></li> <li><a href="#validates_associated"><tt>validates_associated</tt> (관계 검증)</a></li> <li><a href="#validates_confirmation_of"><tt>validates_confirmation_of</tt> (수락 검증)</a></li> <li><a href="#validates_exclusion_of"><tt>validates_exclusion_of</tt></a></li> <li><a href="#validates_format_of"><tt>validates_format_of</tt> (포맷 검증)</a></li> <li><a href="#validates_inclusion_of"><tt>validates_inclusion_of</tt></a></li> <li><a href="#validates_length_of"><tt>validates_length_of</tt> (길이 검증)</a></li> <li><a href="#validates_numericality_of"><tt>validates_numericality_of</tt> (숫자 검증)</a></li> <li><a href="#validates_presence_of"><tt>validates_presence_of</tt> (존재 검증)</a></li> <li><a href="#validates_uniqueness_of"><tt>validates_uniqueness_of</tt> (유일성 검증)</a></li> <li><a href="#validates_with"><tt>validates_with</tt> (클래스로 검기)</a></li> <li><a href="#validates_each"><tt>validates_each</tt> (블록으로 각 속성 검증)</a></li> <li><a href="#allow_nil-nil"><tt>:allow_nil</tt> (nil 허용)</a></li> <li><a href="#allow_blank"><tt>:allow_blank</tt> (공백 허락)</a></li> <li><a href="#message"><tt>:message</tt> (메세지)</a></li> <li><a href="#on"><tt>:on</tt></a></li></ul></li><li><a href="#conditional-validation">상태에 따른 검증</a><ul><li><a href="#using-a-string-with-if-and-unless"><tt>:if</tt>와 <tt>:unless</tt>에 문자열 사용하기</a></li> <li><a href="#using-a-proc-with-if-and-unless+"><tt>:if</tt>와 <tt>:unless</tt>에 Proc 사용하기</a></li></ul></li><li><a href="#creating-custom-validation-methods">맞춤형 검증 메소드 만들기</a></li><li><a href="#working-with-validation-errors">데이터 검증 에러로 작업하기</a><ul><li><a href="#working_with_validation_errors-errors"><tt>errors</tt></a></li> <li><a href="#working_with_validation_errors-errors-2"><tt>errors[]</tt></a></li> <li><a href="#errors-add"><tt>errors.add</tt></a></li> <li><a href="#errors-base"><tt>errors[:base]</tt></a></li> <li><a href="#errors-clear"><tt>errors.clear</tt></a></li> <li><a href="#errors-size"><tt>errors.size</tt></a></li></ul></li><li><a href="#displaying-validation-errors-in-the-view">뷰에 검증된 에러 출력하기</a><ul><li><a href="#error_messages-and-error_messages_for"><tt>error_messages</tt> 와 <tt>error_messages_for</tt></a></li> <li><a href="#customizing-the-error-messages-css">에러 메세지 <span class="caps">CSS</span> 원하는데로 변경하기</a></li> <li><a href="#customizing-the-error-messages-html">에러 메세지 <span class="caps">HTML</span> 원하는데로 변경하기</a></li></ul></li><li><a href="#callbacks-overview">콜백 둘러보기</a><ul><li><a href="#callback-registration">콜백 등록</a></li></ul></li><li><a href="#available-callbacks">사용 가능한 콜백</a><ul><li><a href="#creating-an-object">객체 생성하기(Create)</a></li> <li><a href="#updating-an-object">객체 갱신하기(Update)</a></li> <li><a href="#destroying-an-object">객체 삭제하기(Destroy)</a></li></ul></li><li><a href="#running-callbacks">Running Callbacks</a></li><li><a href="#skipping-callbacks">Skipping Callbacks</a></li><li><a href="#halting-execution">Halting Execution</a></li><li><a href="#relational-callbacks">Relational Callbacks</a></li><li><a href="#conditional-callbacks">Conditional Callbacks</a><ul><li><a href="#using-if-and-unless-with-a-symbol">Using <tt>:if</tt> and <tt>:unless</tt> with a Symbol</a></li> <li><a href="#using-if-and-unless-with-a-string">Using <tt>:if</tt> and <tt>:unless</tt> with a String</a></li> <li><a href="#using-if-and-unless-with-a-proc">Using <tt>:if</tt> and <tt>:unless</tt> with a Proc</a></li> <li><a href="#multiple-conditions-for-callbacks">Multiple Conditions for Callbacks</a></li></ul></li><li><a href="#callback-classes">Callback Classes</a></li><li><a href="#observers">Observers</a><ul><li><a href="#creating-observers">Creating Observers</a></li> <li><a href="#registering-observers">Registering Observers</a></li> <li><a href="#sharing-observers">Sharing Observers</a></li></ul></li><li><a href="#changelog">Changelog</a></li></ol></div>
+<li><a href="#the-object-life-cycle">객체 생명 주기</a></li><li><a href="#validations-overview">데이터 검증 둘러보기</a><ul><li><a href="#why-use-validations">왜 데이터 검증을 사용하는가?</a></li> <li><a href="#when-does-validation-happen">데이터 검증은 언제하나?</a></li> <li><a href="#skipping-validations">데이터 검증 무시하기</a></li> <li><a href="#valid-invalid"><tt>valid?</tt> 와 <tt>invalid?</tt></a></li> <li><a href="#validations_overview-errors"><tt>errors[]</tt></a></li></ul></li><li><a href="#validation-helpers">데이터 검증 헬퍼 (Validation helpers)</a><ul><li><a href="#validates_acceptance_of"><tt>validates_acceptance_of</tt> (수락 검증)</a></li> <li><a href="#validates_associated"><tt>validates_associated</tt> (관계 검증)</a></li> <li><a href="#validates_confirmation_of"><tt>validates_confirmation_of</tt> (수락 검증)</a></li> <li><a href="#validates_exclusion_of"><tt>validates_exclusion_of</tt></a></li> <li><a href="#validates_format_of"><tt>validates_format_of</tt> (포맷 검증)</a></li> <li><a href="#validates_inclusion_of"><tt>validates_inclusion_of</tt></a></li> <li><a href="#validates_length_of"><tt>validates_length_of</tt> (길이 검증)</a></li> <li><a href="#validates_numericality_of"><tt>validates_numericality_of</tt> (숫자 검증)</a></li> <li><a href="#validates_presence_of"><tt>validates_presence_of</tt> (존재 검증)</a></li> <li><a href="#validates_uniqueness_of"><tt>validates_uniqueness_of</tt> (유일성 검증)</a></li> <li><a href="#validates_with"><tt>validates_with</tt> (클래스로 검기)</a></li> <li><a href="#validates_each"><tt>validates_each</tt> (블록으로 각 속성 검증)</a></li> <li><a href="#allow_nil-nil"><tt>:allow_nil</tt> (nil 허용)</a></li> <li><a href="#allow_blank"><tt>:allow_blank</tt> (공백 허락)</a></li> <li><a href="#message"><tt>:message</tt> (메세지)</a></li> <li><a href="#on"><tt>:on</tt></a></li></ul></li><li><a href="#conditional-validation">조건부 검증</a><ul><li><a href="#using-a-symbol-with-if-and-unless"><tt>:if</tt>와 <tt>:unless</tt>에 심볼(Symbol) 사용하기</a></li> <li><a href="#using-a-string-with-if-and-unless"><tt>:if</tt>와 <tt>:unless</tt>에 문자열 사용하기</a></li> <li><a href="#using-a-proc-with-if-and-unless"><tt>:if</tt>와 <tt>:unless</tt>에 Proc 사용하기</a></li></ul></li><li><a href="#creating-custom-validation-methods">맞춤형 검증 메소드 만들기</a></li><li><a href="#working-with-validation-errors">데이터 검증 에러로 작업하기</a><ul><li><a href="#working_with_validation_errors-errors"><tt>errors</tt></a></li> <li><a href="#working_with_validation_errors-errors-2"><tt>errors[]</tt></a></li> <li><a href="#errors-add"><tt>errors.add</tt></a></li> <li><a href="#errors-base"><tt>errors[:base]</tt></a></li> <li><a href="#errors-clear"><tt>errors.clear</tt></a></li> <li><a href="#errors-size"><tt>errors.size</tt></a></li></ul></li><li><a href="#displaying-validation-errors-in-the-view">뷰에 검증된 에러 출력하기</a><ul><li><a href="#error_messages-and-error_messages_for"><tt>error_messages</tt> 와 <tt>error_messages_for</tt></a></li> <li><a href="#customizing-the-error-messages-css">에러 메세지 <span class="caps">CSS</span> 원하는데로 변경하기</a></li> <li><a href="#customizing-the-error-messages-html">에러 메세지 <span class="caps">HTML</span> 원하는데로 변경하기</a></li></ul></li><li><a href="#callbacks-overview">콜백 둘러보기</a><ul><li><a href="#callback-registration">콜백 등록</a></li></ul></li><li><a href="#available-callbacks">사용 가능한 콜백</a><ul><li><a href="#creating-an-object">객체 생성하기(Create)</a></li> <li><a href="#updating-an-object">객체 갱신하기(Update)</a></li> <li><a href="#destroying-an-object">객체 삭제하기(Destroy)</a></li> <li><a href="#after_initialize-and-after_find"><tt>after_initialize</tt> 와 <tt>after_find</tt></a></li></ul></li><li><a href="#running-callbacks">콜백 실행하기</a></li><li><a href="#relational-callbacks">관계형 콜백</a></li><li><a href="#Conditional-callbacks">조건부 콜백</a><ul><li><a href="#using-a-symbol-with-if-and-unless"><tt>:if</tt>와 <tt>:unless</tt>에 심볼(Symbol) 사용하기</a></li> <li><a href="#using-a-string-with-if-and-unless"><tt>:if</tt>와 <tt>:unless</tt>에 문자열 사용하기</a></li> <li><a href="#using-a-proc-with-if-and-unless"><tt>:if</tt>와 <tt>:unless</tt>에 Proc 사용하기</a></li> <li><a href="#multiple-conditions-for-callbacks">콜백을 위한 다중 조건</a></li></ul></li><li><a href="#callback-classes">콜백 클래스</a></li><li><a href="#observers">옵저버(Observers)</a><ul><li><a href="#creating-observers">옵저버 만들기</a></li> <li><a href="#registering-observers">옵저버 등록하기</a></li> <li><a href="#sharing-observers">옵저버 공유하기</a></li></ul></li><li><a href="#changelog">Changelog</a></li><li><a href="#changelog-for-korean-translation">Changelog for Korean Translation</a></li></ol></div>
     </div>
   </div>
 
@@ -346,10 +346,10 @@ end
 </div>
 </notextile>
 
-<p><tt>validates_exclusion_of</tt> 헬퍼는 <tt>:in</tt> 옵션을 통해서 검증 대상 속성이 허락하지 않는 값들의 집합을 받습니다. <tt>:in</tt> 옵션은 <tt>:within</tt>의 별명(alias)을 가지고 있는데, 이 이름이 사용하기 좋다면, 같은 목적으로 <tt>:within</tt>을 사용할 수 있습니다. 이 예제는 <tt>:message</tt>을 이용해서, 여러분이 속성의 값을 메세지 속에 포함시키는 방법을 보여줍니다.</p>
+<p><tt>validates_exclusion_of</tt> 헬퍼는 <tt>:in</tt> 옵션을 통해서 검증 대상 속성이 허락하지 않는 값 집합을 받습니다. <tt>:in</tt> 옵션은 <tt>:within</tt>의 별명(alias)을 가지고 있는데, 이 이름이 사용하기 좋다면, 같은 목적으로 <tt>:within</tt>을 사용할 수 있습니다. 이 예제는 <tt>:message</tt>을 이용해서, 여러분이 속성의 값을 메세지 속에 포함시키는 방법을 보여줍니다.</p>
 <p><tt>validates_exclusion_of</tt>를 위한 기본 에러 메세지는  &#8220;<em>is reserved</em>&#8221; 입니다.</p>
 <h4 id="validates_format_of">3.5 <tt>validates_format_of</tt> (포맷 검증)</h4>
-<p>이 헬퍼는 <tt>:with</tt> 옵션으로 입력된 정규식을 이용해서 속성으 ㅣ값을 검증합니다.</p>
+<p>이 헬퍼는 <tt>:with</tt> 옵션으로 입력된 정규식을 이용해서 속성의 값을 검증합니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -375,7 +375,7 @@ end
 </div>
 </notextile>
 
-<p><tt>validates_inclusion_of</tt> 헬퍼는 <tt>:in</tt> 옵션을 통해서 검증 대상 속성이 허락하는 값들의 집합을 받습니다. <tt>:in</tt> 옵션은 <tt>:within</tt>의 별명(alias)을 가지고 있는데, 이 이름이 사용하기 좋다면, 같은 목적으로 <tt>:within</tt>을 사용할 수 있습니다. 이 예제는 <tt>:message</tt>을 이용해서, 여러분이 속성의 값을 메세지 속에 포함시키는 방법을 보여줍니다.</p>
+<p><tt>validates_inclusion_of</tt> 헬퍼는 <tt>:in</tt> 옵션을 통해서 검증 대상 속성이 허락하는 값 집합을 받습니다. <tt>:in</tt> 옵션은 <tt>:within</tt>의 별명(alias)을 가지고 있는데, 이 이름이 사용하기 좋다면, 같은 목적으로 <tt>:within</tt>을 사용할 수 있습니다. 이 예제는 <tt>:message</tt>을 이용해서, 여러분이 속성의 값을 메세지 속에 포함시키는 방법을 보여줍니다.</p>
 <p><tt>validates_inclusion_of</tt>을 위한 에러 메세지는  &#8220;<em>is not included in the list</em>&#8221; 입니다.</p>
 <h4 id="validates_length_of">3.7 <tt>validates_length_of</tt> (길이 검증)</h4>
 <p>이 헬퍼는 속성 값의 길이를 검증합니다. 그것은 다양한 옵션을 제공해서, 여러분은 길이의 각기 다른 방면에서 길이 제약 사항을 부여할 수 있습니다.</p>
@@ -395,7 +395,7 @@ end
 <p>가능한 길이 제약 옵션은 다음과 같습니다.:</p>
 <ul>
 	<li><tt>:minimum</tt> &#8211; 속성은 최소한 주어진 길이보다 작을 수 없습니다.</li>
-	<li><tt>:maximum</tt> &#8211; 속성은 주어진 길이보다 길수 없습니다.</li>
+	<li><tt>:maximum</tt> &#8211; 속성은 주어진 길이보다 길 수 없습니다.</li>
 	<li><tt>:in</tt> (or <tt>:within</tt>) &#8211; 속성의 길이는 반드시 주어진 범위내여야 합니다. 이 옵션의 값은 반드시 범위(range)여야 합니다.</li>
 	<li><tt>:is</tt> &#8211; 속성의 길이는 주어진 값과 동일해야 합니다.</li>
 </ul>
@@ -439,8 +439,7 @@ end
 </div>
 </notextile>
 
-<p>정규식으로 속성의 값을 검증할 것입니다. 다른 방법으로 <tt>Float</tt>를 이용해서 숫자 변환을 시도할 것입니다.
-regular expression to validate the attribute&#8217;s value. Otherwise, it will try to convert the value to a number using <tt>Float</tt>.</p>
+<p>정규식으로 속성의 값을 검증할 것입니다. 만약 그렇지 않으면, <tt>Float</tt>를 이용해서 숫자 변환을 시도할 것입니다.</p>
 <div class='warning'><p>위의 정규식이 값의 마지막에 개행(newline) 문자를 허용한다는 점을 유의하세요.</p></div>
 <notextile>
 <div class="code_container">
@@ -503,8 +502,7 @@ end
 </notextile>
 
 <p>속성에 같은 값을 가진 레코드 여부를 알아내기 위해서, 모델 테이블에 <span class="caps">SQL</span> 구문 실행으로 검증합니다.</p>
-<p><tt>:scope</tt> 옵션으로 유일성 검사 제한에 다른 속성을 지정해서 사용할 수 있습니다.:
-There is a <tt>:scope</tt> option that you can use to specify other attributes that are used to limit the uniqueness check:</p>
+<p><tt>:scope</tt> 옵션으로 유일성 검사 제한에 다른 속성을 함께 지정해서 사용할 수 있습니다.:</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -552,8 +550,8 @@ end
 <p><tt>validates_with</tt> 헬퍼는 검증을 위해서 클래스나 클래스 목록을 받아 들입니다. <tt>validates_with</tt>를 위한 기본 에러 메세지는 없습니다. 여러분은 반드시 검증하는 클래스내에 레코드의 에러 컬렉션에 에러를 직접 추가해야 합니다.</p>
 <p>검증 클래스는 기본적으로 두가지의 속성을 가집니다.:</p>
 <ul>
-	<li><tt>record</tt> &#8211; the record to be validated</li>
-	<li><tt>options</tt> &#8211; the extra options that were passed to <tt>validates_with</tt></li>
+	<li><tt>record</tt> &#8211; 검증할 레코드</li>
+	<li><tt>options</tt> &#8211; <tt>validates_with</tt>에 넘길 추가 옵션</li>
 </ul>
 <p>다른 모든 검증과 같이, <tt>validates_with</tt>도 <tt>:if</tt>, <tt>:unless</tt> 그리고 <tt>:on</tt> 옵션을 받아들입니다. 만약 여러분이 다른 옵션을 넘긴다면, 이들 옵션은 검증 클레스의 <tt>options</tt>로 전달됩니다.</p>
 <notextile>
@@ -590,7 +588,7 @@ end
 
 <p>블록은 모델, 속성의 이름과 값을 받습니다. 블록을 이용해서 하고싶은 어떠한 검사도 할 수 있습니다. 만약 검증에 실패하면, 모델의 에러 메세지 추가해서 그것은 검증 실패로 만들 수 있습니다.</p>
 <h3 class="common-validation-options">공통 검증 옵션</h3>
-<p>모든 헬퍼가 사용할 수 있는 공통 옵션이 몇가지 있습니다. <tt>:if</tt>와 <tt>:unless</tt>를 제외한 이들 옵션은 나중에 <a href="#conditional-validation">상태에 따른 검증</a> 에서 논의 될 것입니다.</p>
+<p>모든 헬퍼가 사용할 수 있는 공통 옵션이 몇가지 있습니다. <tt>:if</tt>와 <tt>:unless</tt>를 제외한 이들 옵션은 나중에 <a href="#conditional-validation">조건부 검증</a> 에서 논의 될 것입니다.</p>
 <h4 id="allow_nil-nil">3.13 <tt>:allow_nil</tt> (nil 허용)</h4>
 <p><tt>:allow_nil</tt> 옵션은 검증 중인 값이 <tt>nil</tt>일때 검증을 무시합니다. <tt>validates_presence_of</tt>와 함께 <tt>:allow_nil</tt> 사용해서 <tt>nil</tt>을 존재 검증에서 허용할 수 있습니다. 하지만 <tt>blank?</tt>는 여전히 다른 경우(ex-공백 문자열)를 거부합니다.</p>
 <notextile>
@@ -640,10 +638,10 @@ end
 </div>
 </notextile>
 
-<h3 id="conditional-validation">4 상태에 따른 검증</h3>
+<h3 id="conditional-validation">4 조건부 검증</h3>
 <p>때로, 영리하게 제공한 조건을 만족할때만 객체를 검증할 필요가 있습니다. <tt>:if</tt>와 <tt>:unless</tt> 옵션에 심볼(symbol), 문자열 혹은 <tt>Proc</tt>을 전달해서 이를 수행할 수 있습니다. 아마 검증을 <strong>반드시</strong> 해야할때 <tt>:if</tt> 옵션을 사용해야 할 것입니다.것입니다. 만약 검증을 <strong>반드시 해야 않을때는</strong>, <tt>:unless</tt> 옵션을 사용해야 할 겁니다.</p>
-<h4 class="using-a-symbol-with-if-and-unless"><tt>:if</tt>와 <tt>:unless</tt>에 심볼(Symbol) 사용하기</h4>
-<p><tt>:if</tt>와 <tt>:unless</tt> 옵션과 검증이 실행되기 전에 실행될 이름의 심볼(Symbol)을 연결할 수 있습니다. 이것은 옵션의 가장 흔한 사용 방법입니다.</p>
+<h4 id="using-a-symbol-with-if-and-unless">4.1 <tt>:if</tt>와 <tt>:unless</tt>에 심볼(Symbol) 사용하기</h4>
+<p><tt>:if</tt>와 <tt>:unless</tt> 옵션과 검증이 일어나기 직전에 실행될 메소드 이름의 심볼(Symbol)을 연결할 수 있습니다. 이것은 옵션의 가장 흔한 사용 방법입니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -658,8 +656,8 @@ end
 </div>
 </notextile>
 
-<h4 id="using-a-string-with-if-and-unless">4.1 <tt>:if</tt>와 <tt>:unless</tt>에 문자열 사용하기</h4>
-<p><tt>eval</tt>로 실행되는 유요한 루비코드의 문자열도 이용할 수 있습니다. 문자열이 정말 짧은 조건을 표현할때 이 옵션을 이용하세요.</p>
+<h4 id="using-a-string-with-if-and-unless">4.2 <tt>:if</tt>와 <tt>:unless</tt>에 문자열 사용하기</h4>
+<p><tt>eval</tt>로 실행되는 유효한 루비 코드의 문자열도 이용할 수 있습니다. 문자열이 정말 짧은 조건을 표현할때 이 옵션을 이용하세요.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -670,7 +668,7 @@ end
 </div>
 </notextile>
 
-<p>h4(#using-a-proc-with-if-and-unless<tt>). 4.2 </tt>:if<tt>와 </tt>:unless+에 Proc 사용하기</p>
+<h4 id="using-a-proc-with-if-and-unless">4.3 <tt>:if</tt>와 <tt>:unless</tt>에 Proc 사용하기</h4>
 <p>마지막으로, <tt>:if</tt>와 <tt>:unless</tt>에 호출될 Proc 객체를 연결하는 것도 가능합니다. <tt>Proc</tt> 객체는 분리된 메소드 대신에 그때마다 즉시 처리하는 조건을 제공합니다. 이 옵션은 한줄 코드에 가장 적합합니다.</p>
 <notextile>
 <div class="code_container">
@@ -708,8 +706,7 @@ end
 </div>
 </notextile>
 
-<p>여러분의 검증 헬퍼를 만들고 몇가지 다른 모델에 이를 재사용할 수 있습니다. 예를들어, 설문조사를 관리하는 어플리케이션은 선택 결과의 집합과 관계있는 필드를 표현하게 만드는게 유용하다는 점을 알 수 있습니다.
-You can even create your own validation helpers and reuse them in several different models. For example, an application that manages surveys may find it useful to express that a certain field corresponds to a set of choices:</p>
+<p>여러분의 검증 헬퍼를 만들고 다른 모델에 이를 재사용할 수 있습니다. 예를들어, 설문조사를 관리하는 어플리케이션은 선택 결과의 집합과 관계있는 필드로 검증을 표현하면 유용합니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -925,8 +922,7 @@ end
 </div>
 </notextile>
 
-<p>필드를 비운채 폼을 실행하면, 기본적으로 스타일을 비록 잃어버릴 지라도, 여러분은 흔히 뒤로가기를 합니다.:
-To get the idea, if you submit the form with empty fields you typically get this back, though styles are indeed missing by default:</p>
+<p>이해를 위해서, 필드를 비운채 실행하면 기본적으로 스타일은 좀 잃어버리더라도 다음과 같은 화면을 확인할 수 있습니다.</p>
 <p><img src="images/error_messages.png" title="Error messages" alt="Error messages" /></p>
 <p>뷰 템플릿에 할당된 모델의 에러 메세지를 출력하기 위해서 <tt>error_messages_for</tt> 헬퍼도 사용할 수 있습니다. 그것은 이전 예제와 매우 유사하고 정확하게 동일한 결과를 이를 것입니다.</p>
 <notextile>
@@ -961,7 +957,7 @@ To get the idea, if you submit the form with empty fields you typically get this
 	<li><tt>#errorExplanation p</tt> &#8211; <tt>div</tt> 요소의 헤더 바로 다음에 등장하는 에러 메세지를 포함하는 단락에 대한 스타일</li>
 	<li><tt>#errorExplanation ul li</tt> &#8211; 개발 에러 메세지를 가진 리스트를 위한 스타일</li>
 </ul>
-<p>예제를 위한 발판 작업(Scaffolding)은 위에서 보이듯이 붉은색 계열의 스타일로 정의된 <tt>public/stylesheets/scaffold.css</tt>를 생성한다.</p>
+<p>예제를 위한 발판 작업(Scaffolding)은 위에서 보이듯이 붉은색 계열의 스타일로 정의된 <tt>public/stylesheets/scaffold.css</tt>를 생성합니다.</p>
 <p><span class="caps">CSS</span> 클래스(class)와 아이디(id)는 양쪽 헬퍼 모두 <tt>:class</tt>와 <tt>:id</tt> 옵션 변경 변경할 수 있습니다.</p>
 <h4 id="customizing-the-error-messages-html">7.3 에러 메세지 <span class="caps">HTML</span> 원하는데로 변경하기</h4>
 <p>기본적으로, 에러를 가진 폼 필드는 <tt>field_with_errors</tt> <span class="caps">CSS</span> 클래스를 가진 <tt>div</tt> 요소 감싸여서 출력됩니다. 그렇지만, 이것을 덮어 쓰는건 가능합니다.</p>
@@ -1028,8 +1024,7 @@ end
 
 <p>protected 나 private 로 콜백 메소드를 선언하는 것은 좋은 습관입니다. public 으로 남겨두면, 이 메소드는 모델의 바깥에서 호출될 수 있고 객체의 캡슐화 원칙을 깨트립니다.</p>
 <h3 id="available-callbacks">9 사용 가능한 콜백</h3>
-<p>여기에 사용 가능한 엑티브 레코드 콜백 전체 리스트가 있습니다. 개별 연상 호출되는 순서로 나열되어 있습니다.
-Here is a list with all the available Active Record callbacks, listed in the same order in which they will get called during the respective operations:</p>
+<p>여기에 사용 가능한 엑티브 레코드 콜백 전체 리스트가 있습니다. 저마다의 작업 중에 호출되는 순서로 나열되어 있습니다.:</p>
 <h4 id="creating-an-object">9.1 객체 생성하기(Create)</h4>
 <ul>
 	<li><tt>before_validation</tt></li>
@@ -1057,10 +1052,10 @@ Here is a list with all the available Active Record callbacks, listed in the sam
 	<li><tt>around_destroy</tt></li>
 </ul>
 <div class='warning'><p><tt>after_save</tt>는 생성, 갱신 양쪽 모든 상황에서 실행되지만, 그외 모든 <em>after</em> 는 <tt>after_create</tt> 와 <tt>after_update</tt> 콜백 같이 좀 더 구체적인 시점을 지정하기 때문에, 호출되는 매크로의 순서가 그리 중요하지는 않습니다.</p></div>
-<p>h4#(after_initialize-and-after_find). <tt>after_initialize</tt> 와 <tt>after_find</tt></p>
+<h4 id="after_initialize-and-after_find">9.4 <tt>after_initialize</tt> 와 <tt>after_find</tt></h4>
 <p><tt>after_initialize</tt>는 <tt>new</tt>를 사용하든 데이터베이스에서 정보를 로드하든, 엑티브 레코드 객체가 생성될 때마다 호출 됩니다. 그것은 직접 엑티브 레코드의 <tt>initialize</tt> 메소드를 덮어쓰고(override) 싶을때 덮어쓰지 않고 기능을 추가할 수 있어서 유용합니다.</p>
-<p>The <tt>after_find</tt> callback will be called whenever Active Record loads a record from the database. <tt>after_find</tt> is called before <tt>after_initialize</tt> if both are defined.</p>
-<p>The <tt>after_initialize</tt> and <tt>after_find</tt> callbacks are a bit different from the others. They have no <tt>before_*</tt> counterparts, and the only way to register them is by defining them as regular methods. If you try to register <tt>after_initialize</tt> or <tt>after_find</tt> using macro-style class methods, they will just be ignored. This behaviour is due to performance reasons, since <tt>after_initialize</tt> and <tt>after_find</tt> will both be called for each record found in the database, significantly slowing down the queries.</p>
+<p><tt>after_find</tt> 콜백은 데이터베이스에서 엑티브 레코드가 로드될 때마다 호출됩니다. <tt>after_find</tt>는 <tt>after_initialize</tt> 전에 (양쪽 모두 정의되어 있다면,) 호출됩니다.</p>
+<p><tt>after_initialize</tt> 와 <tt>after_find</tt> 콜백은 다른 콜백과 약간 다릅니다. 그들에게는 반대 메소드인 <tt>before_*</tt>가 존재하지 않고, 표준 메소드처럼 정의하는 것이 그들을 등록할 수 있는 유일한 방법입니다. 만약 <tt>after_initialize</tt> 나 <tt>after_find</tt>를 매크로 형태로 등록하려 시도하면, 이들은 무시됩니다. 이러한 동작 방식은 성능 때문입니다. 왜냐하면, <tt>after_initialize</tt>와 <tt>after_find</tt> 메소드는 데이터베이스에서 각 레코드를 호출할때마다 불리고, 이는 눈에 띄게 요청을 느리게 만들수 있습니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -1086,8 +1081,8 @@ You have initialized an object!
 </div>
 </notextile>
 
-<h3 id="running-callbacks">10 Running Callbacks</h3>
-<p>The following methods trigger callbacks:</p>
+<h3 id="running-callbacks">10 콜백 실행하기</h3>
+<p>이어지는 메소드들은 콜백에게 방아쇠 역할을 합니다.:</p>
 <ul>
 	<li><tt>create</tt></li>
 	<li><tt>create!</tt></li>
@@ -1105,7 +1100,7 @@ You have initialized an object!
 	<li><tt>update_attributes!</tt></li>
 	<li><tt>valid?</tt></li>
 </ul>
-<p>Additionally, the <tt>after_find</tt> callback is triggered by the following finder methods:</p>
+<p>추가로, <tt>after_find</tt> 콜백에게 이어지는 찾기 메소드들이 방아쇠 역할을 합니다.</p>
 <ul>
 	<li><tt>all</tt></li>
 	<li><tt>first</tt></li>
@@ -1115,9 +1110,9 @@ You have initialized an object!
 	<li><tt>find_by_<em>attribute</em>!</tt></li>
 	<li><tt>last</tt></li>
 </ul>
-<p>The <tt>after_initialize</tt> callback is triggered every time a new object of the class is initialized.</p>
-<h3 id="skipping-callbacks">11 Skipping Callbacks</h3>
-<p>Just as with validations, it&#8217;s also possible to skip callbacks. These methods should be used with caution, however, because important business rules and application logic may be kept in callbacks. Bypassing them without understanding the potential implications may lead to invalid data.</p>
+<p><tt>after_initialize</tt> 콜백은 클래스의 새로운 객체가 초기화 될때 항상 실행됩니다.</p>
+<h3 class="skipping-callbacks">콜백 건너뛰기</h3>
+<p>그냥 데이터 검증으로서, 콜백을 건너뛰는 것도 가능하다. 이 메소드는 신중하게 사용해야하는데, 왜냐하면 중요한 비지니스 규칙과 어플리케이션 로직이 아마도 콜백안에 남아 있을지도 모르기 때문이다. 잠재적인 함축 의미의 이해 없이 우회 한다면 잘못된 데이터를 유발할 수 있다.</p>
 <ul>
 	<li><tt>decrement</tt></li>
 	<li><tt>decrement_counter</tt></li>
@@ -1130,12 +1125,12 @@ You have initialized an object!
 	<li><tt>update_all</tt></li>
 	<li><tt>update_counters</tt></li>
 </ul>
-<h3 id="halting-execution">12 Halting Execution</h3>
-<p>As you start registering new callbacks for your models, they will be queued for execution. This queue will include all your model&#8217;s validations, the registered callbacks, and the database operation to be executed.</p>
-<p>The whole callback chain is wrapped in a transaction. If any <em>before</em> callback method returns exactly <tt>false</tt> or raises an exception the execution chain gets halted and a <span class="caps">ROLLBACK</span> is issued; <em>after</em> callbacks can only accomplish that by raising an exception.</p>
-<div class='warning'><p>Raising an arbitrary exception may break code that expects <tt>save</tt> and friends not to fail like that. The <tt>ActiveRecord::Rollback</tt> exception is thought precisely to tell Active Record a rollback is going on. That one is internally captured but not reraised.</p></div>
-<h3 id="relational-callbacks">13 Relational Callbacks</h3>
-<p>Callbacks work through model relationships, and can even be defined by them. Let&#8217;s take an example where a user has many posts. In our example, a user&#8217;s posts should be destroyed if the user is destroyed. So, we&#8217;ll add an <tt>after_destroy</tt> callback to the <tt>User</tt> model by way of its relationship to the <tt>Post</tt> model.</p>
+<h3 class="halting-execution">실행 중지</h3>
+<p>모델에 새로운 콜백 등록 시작할때, 이들의 작업은 큐에 쌓입니다. 이 큐는 모델의 데이터 검증, 등록된 콜백, 그리고 실행을 위한 데이터베이스 작업들을 모두 포함합니다.</p>
+<p>전체 콜백 체인은 트랜잭션에서 실행됩니다. 만약 어떠한 <em>before</em> 콜백 메소드가 정확히 <tt>false</tt>를 반환하거나, 예외(exception)가 발생하면, 실행 체인은 중지되고, <span class="caps">ROLLBACK</span> 이 발생됩니다.;<em>after</em> 콜백은 오직 예외가 발생될때만 이렇게 동작합니다.</p>
+<div class='warning'><p>임의 예외 발생은 아마도 실패한 <tt>save</tt> 류의 코드들을 중지 시킵니다. <tt>ActiveRecord::Rollback</tt> 예외는 엑티브 레코드에게 롤백을 하라고 전달합니다. 이 예외는 내부적으로 잡히고, 상위로 전파되지 않습니다.</p></div>
+<h3 id="relational-callbacks">11 관계형 콜백</h3>
+<p>콜백은 관계를 통해서 동작하고,관계에 의해 정의될 수도 있습니다. 한 사용자가 많은 글(post)를 가지고 있는 예제를 생각해 봅시다. 예제에서 사용자의 글(post)는 만약 사용자가 삭제되면, 함께 삭제되어야 합니다. 그래서 <tt>User</tt> 모델과 <tt>Post</tt> 모델간의 관계를 이용해서 <tt>after_destroy</tt> 콜백을 <tt>User</tt> 모델에 추가할 것입니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -1162,10 +1157,10 @@ Post destroyed
 </div>
 </notextile>
 
-<h3 id="conditional-callbacks">14 Conditional Callbacks</h3>
-<p>Like in validations, we can also make our callbacks conditional, calling them only when a given predicate is satisfied. You can do that by using the <tt>:if</tt> and <tt>:unless</tt> options, which can take a symbol, a string or a <tt>Proc</tt>. You may use the <tt>:if</tt> option when you want to specify when the callback <strong>should</strong> get called. If you want to specify when the callback <strong>should not</strong> be called, then you may use the <tt>:unless</tt> option.</p>
-<h4 id="using-if-and-unless-with-a-symbol">14.1 Using <tt>:if</tt> and <tt>:unless</tt> with a Symbol</h4>
-<p>You can associate the <tt>:if</tt> and <tt>:unless</tt> options with a symbol corresponding to the name of a method that will get called right before the callback. When using the <tt>:if</tt> option, the callback won&#8217;t be executed if the method returns false; when using the <tt>:unless</tt> option, the callback won&#8217;t be executed if the method returns true. This is the most common option. Using this form of registration it&#8217;s also possible to register several different methods that should be called to check if the callback should be executed.</p>
+<h3 id="Conditional-callbacks">12 조건부 콜백</h3>
+<p>데이터 검증과 비슷하게, 콜백도 제공된 조건을 만족할때만 동작하도록 만들 수 있습니다. <tt>:if</tt> 와 <tt>:unless</tt> 옵션에 심볼, 문자열 혹은 <tt>Proc</tt>을 넘겨서 수행할 수 있습니다. <tt>:if</tt> 옵션은 주어진 조건에서 <strong>반드시 실행</strong>하고 싶을때 사용할 수 있습니다. 만약, 조건에서 <strong>반드시 실행하기 싶지 않으면</strong>, <tt>:unless</tt>을 사용할 수 있습니다.</p>
+<h4 id="using-a-symbol-with-if-and-unless">12.1 <tt>:if</tt>와 <tt>:unless</tt>에 심볼(Symbol) 사용하기</h4>
+<p><tt>:if</tt>와 <tt>:unless</tt> 옵션과 콜백 바로 전에 실행될 메소드 이름의 심볼(Symbol)을 연결할 수 있습니다. <tt>:if</tt> 옵션을 사용중, 만약 해당 메소드가 거짓(false)을 반환하면 콜백은 실행되지 않습니다.; <tt>:unless</tt> 옵션 사용중에는 해당 메소드가 참(true)를 반환하면 콜백이 실행되지 않습니다. 이 것은 가장 흔한 옵션입니다. 이 방식으로 콜백의 실행 할 여부를 검사하는 몇가지 다른 메소드를 등록할 수 있습니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -1176,8 +1171,8 @@ end
 </div>
 </notextile>
 
-<h4 id="using-if-and-unless-with-a-string">14.2 Using <tt>:if</tt> and <tt>:unless</tt> with a String</h4>
-<p>You can also use a string that will be evaluated using <tt>eval</tt> and needs to contain valid Ruby code. You should use this option only when the string represents a really short condition.</p>
+<h4 id="using-a-string-with-if-and-unless">12.2 <tt>:if</tt>와 <tt>:unless</tt>에 문자열 사용하기</h4>
+<p><tt>eval</tt>로 실행되는 유효한 루비 코드의 문자열도 이용할 수 있습니다. 문자열이 정말 짧은 조건을 표현할때 이 옵션을 이용하세요.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -1188,8 +1183,8 @@ end
 </div>
 </notextile>
 
-<h4 id="using-if-and-unless-with-a-proc">14.3 Using <tt>:if</tt> and <tt>:unless</tt> with a Proc</h4>
-<p>Finally, it&#8217;s possible to associate <tt>:if</tt> and <tt>:unless</tt> with a <tt>Proc</tt> object. This option is best suited when writing short validation methods, usually one-liners.</p>
+<h4 id="using-a-proc-with-if-and-unless">12.3 <tt>:if</tt>와 <tt>:unless</tt>에 Proc 사용하기</h4>
+<p>마지막으로, <tt>:if</tt>와 <tt>:unless</tt>에 호출될 Proc 객체를 연결하는 것도 가능합니다. <tt>Proc</tt> 객체는 분리된 메소드 대신에 그때마다 즉시 처리하는 조건을 제공합니다. 이 옵션은 한줄 코드에 가장 적합합니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -1201,8 +1196,8 @@ end
 </div>
 </notextile>
 
-<h4 id="multiple-conditions-for-callbacks">14.4 Multiple Conditions for Callbacks</h4>
-<p>When writing conditional callbacks, it&#8217;s possible to mix both <tt>:if</tt> and <tt>:unless</tt> in the same callback declaration.</p>
+<h4 id="multiple-conditions-for-callbacks">12.4 콜백을 위한 다중 조건</h4>
+<p>조건부 콜백을 작성할때, 같은 콜백 선언에서 <tt>:if</tt>와 <tt>:unless</tt> 둘다 섞어 사용할 수 있습니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -1214,9 +1209,9 @@ end
 </div>
 </notextile>
 
-<h3 id="callback-classes">15 Callback Classes</h3>
-<p>Sometimes the callback methods that you&#8217;ll write will be useful enough to be reused by other models. Active Record makes it possible to create classes that encapsulate the callback methods, so it becomes very easy to reuse them.</p>
-<p>Here&#8217;s an example where we create a class with an <tt>after_destroy</tt> callback for a <tt>PictureFile</tt> model.</p>
+<h3 id="callback-classes">13 콜백 클래스</h3>
+<p>때로 여러분이 작성할 콜백 메소드는 다른 모델에 재사용 할만 하기도 합니다. 엑티브 레코드에는 콜백 메소드를 캡슐화한 클래스를 만드는 것도 가능합니다. 그래서 그들을 재사용하는건 매우 쉽습니다.</p>
+<p>여기에 <tt>PictureFile</tt> 모델을 위한 <tt>after_destroy</tt> 콜백을 클래스로 만든 예제가 있습니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -1230,7 +1225,7 @@ end
 </div>
 </notextile>
 
-<p>When declared inside a class the callback method will receive the model object as a parameter. We can now use it this way:</p>
+<p>클래스 내부의 선언된 콜백 메소드는 인자로 모델 객체를 받습니다. 이제 이런 방식으로 사용할 수 있습니다.:</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -1241,7 +1236,7 @@ end
 </div>
 </notextile>
 
-<p>Note that we needed to instantiate a new <tt>PictureFileCallbacks</tt> object, since we declared our callback as an instance method. Sometimes it will make more sense to have it as a class method.</p>
+<p>인스턴스 메소드로서 콜백을 선언했으므로, 새로운 <tt>PictureFileCallbacks</tt> 객체를 만들어야 한다는 점에 유의하세요. 때로 클래스 메소드로서 그것을 선언하는 것이 좀 더 이해하기 편합니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -1255,7 +1250,7 @@ end
 </div>
 </notextile>
 
-<p>If the callback method is declared this way, it won&#8217;t be necessary to instantiate a <tt>PictureFileCallbacks</tt> object.</p>
+<p>만약 콜백 메소드가 이런 방법으로 선언되었다면, <tt>PictureFileCallbacks</tt> 객체를 만들어 줄 필요가 없습니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -1266,11 +1261,11 @@ end
 </div>
 </notextile>
 
-<p>You can declare as many callbacks as you want inside your callback classes.</p>
-<h3 id="observers">16 Observers</h3>
-<p>Observers are similar to callbacks, but with important differences. Whereas callbacks can pollute a model with code that isn&#8217;t directly related to its purpose, observers allow you to add the same functionality outside of a model. For example, it could be argued that a <tt>User</tt> model should not include code to send registration confirmation emails. Whenever you use callbacks with code that isn&#8217;t directly related to your model, you may want to consider creating an observer instead.</p>
-<h4 id="creating-observers">16.1 Creating Observers</h4>
-<p>For example, imagine a <tt>User</tt> model where we want to send an email every time a new user is created. Because sending emails is not directly related to our model&#8217;s purpose, we could create an observer to contain this functionality.</p>
+<p>여러분은 콜백 클래스내에 원하는 만큼 많은 콜백을 선언할 수 있습니다.</p>
+<h3 id="observers">14 옵저버(Observers)</h3>
+<p>옵저버는 콜백과 유사하지만 중요한 다른점이 있습니다. 콜백은 그것의 목적이 직접 관계없는 코드로 모델을 더럽힐 수 있는데 반하여, 옵저버는 모델의 바깥에서 같은 기능 추가를 할수 있습니다. 예를들어, <tt>User</tt> 모델은 결코 수락 이메일을 전송하는 코드를 포함하지 않아야 한다고 논의 되었습니다. 모델에 직접 관계하지 않는 코드를 콜백을 사용할때 마다, 여러분은 콜백 대신에 옵저버 사용을 원할 것입니다.</p>
+<h4 id="creating-observers">14.1 옵저버 만들기</h4>
+<p>예를들어, 매번 새로운 사용자가 만들어질때 메일을 발송하기를 원하는 <tt>User</tt> 모델이 있다고 상상하겠습니다. 메일 보내기는 모델의 목적과 직접적인 관계가 없기 때문에, 우리는 이 기능을 옵저버에 담고 싶습니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -1291,9 +1286,9 @@ end
 </div>
 </notextile>
 
-<p>As with callback classes, the observer&#8217;s methods receive the observed model as a parameter.</p>
-<h4 id="registering-observers">16.2 Registering Observers</h4>
-<p>Observers are conventionally placed inside of your <tt>app/models</tt> directory and registered in your application&#8217;s <tt>config/application.rb</tt> file. For example, the <tt>UserObserver</tt> above would be saved as <tt>app/models/user_observer.rb</tt> and registered in <tt>config/application.rb</tt> this way:</p>
+<p>콜백 클래스 같이, 옵저버의 메소드는 인자로 대상 모델을 받습니다.</p>
+<h4 id="registering-observers">14.2 옵저버 등록하기</h4>
+<p>옵저버는 관습적으로 <tt>app/models</tt> 디렉토리에 위치하고, <tt>config/application.rb</tt> 파일에서 등록합니다. 예를들어, <tt>UserObserver</tt>는 <tt>app/models/user_observer.rb</tt> 파일로 저장되고, <tt>config/application.rb</tt> 내에서 이런 방식으로 등록합니다.:</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -1303,9 +1298,9 @@ config.active_record.observers = :user_observer
 </div>
 </notextile>
 
-<p>As usual, settings in <tt>config/environments</tt> take precedence over those in <tt>config/application.rb</tt>. So, if you prefer that an observer doesn&#8217;t run in all environments, you can simply register it in a specific environment instead.</p>
-<h4 id="sharing-observers">16.3 Sharing Observers</h4>
-<p>By default, Rails will simply strip &#8220;Observer&#8221; from an observer&#8217;s name to find the model it should observe. However, observers can also be used to add behaviour to more than one model, and so it&#8217;s possible to manually specify the models that our observer should observe.</p>
+<p>평소처럼, <tt>config/environments</tt>의 세팅은 <tt>config/application.rb</tt> 내에 세팅보다 우선합니다. 그래서 만약 옵저버가 모든 환경에서 실행되는걸 원하지 않는다면, 간단하게 특정 환경만 지정해서 등록할 수 있습니다.</p>
+<h4 id="sharing-observers">14.3 옵저버 공유하기</h4>
+<p>기본적으로, 레일즈는 간단히 감시할 모델을 찾기위해서 옵저버의 이름에서 &quot;Observer&quot;를 제거합니다. 그렇지만 옵저버도 여러 모델에 재사용할 수 있고, 그래서 옵저버가 감시할 모델을 직접 지정할 수도 있습니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -1320,7 +1315,7 @@ end
 </div>
 </notextile>
 
-<p>In this example, the <tt>after_create</tt> method would be called whenever a <tt>Registration</tt> or <tt>User</tt> was created. Note that this new <tt>MailerObserver</tt> would also need to be registered in <tt>config/application.rb</tt> in order to take effect.</p>
+<p>이 예제에서는, <tt>after_create</tt> 메소드는 <tt>Registration</tt>이나 <tt>Uer</tt>가 생성될때마다 호출됩니다. 이 새로운 <tt>MailerObserver</tt>도 효과를 보려면 <tt>config/application.rb</tt> 내에서 등록해야 한다는 점에 유의하세요.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -1330,7 +1325,7 @@ config.active_record.observers = :mailer_observer
 </div>
 </notextile>
 
-<h3 id="changelog">17 Changelog</h3>
+<h3 id="changelog">15 Changelog</h3>
 <ul>
 	<li>July 20, 2010: Fixed typos and rephrased some paragraphs for clarity. <a href="http://jaimeiniesta.com">Jaime Iniesta</a></li>
 	<li>May 24, 2010: Fixed document to validate <span class="caps">XHTML</span> 1.0 Strict. <a href="http://jaimeiniesta.com">Jaime Iniesta</a></li>
@@ -1339,6 +1334,10 @@ config.active_record.observers = :mailer_observer
 	<li>February 10, 2009: Observers revision by Trevor Turk</li>
 	<li>February 5, 2009: Initial revision by Trevor Turk</li>
 	<li>January 9, 2009: Initial version by <a href="credits.html#cmarques">Cássio Marques</a></li>
+</ul>
+<h3 id="changelog-for-korean-translation">16 Changelog for Korean Translation</h3>
+<ul>
+	<li>2011년 3월 1일 1차 완료 by <a href="http://neocoin.net">Sangmin Ryu</a></li>
 </ul>
 
         <h3>Feedback</h3>
