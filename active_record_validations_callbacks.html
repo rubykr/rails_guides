@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Ruby on Rails Guides: 엑티브 레코드 데이터 검증(Validation)과 콜백(Callback)</title>
+<title>Ruby on Rails Guides: 액티브 레코드 데이터 검증(Validation)과 콜백(Callback)</title>
 
 <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
@@ -42,9 +42,9 @@
               <dd><a href="getting_started.html">레일즈 시작하기</a></dd>
               <dt>모델(Models)</dt>
               <dd><a href="migrations.html">레일즈 데이터베이스 마이그레이션</a></dd>
-              <dd><a href="active_record_validations_callbacks.html">엑티브 레코드 데이터 검증(Validation)과 Callback(콜백)</a></dd>
-              <dd><a href="association_basics.html">엑티브 레코드 Association(관계)</a></dd>
-              <dd><a href="active_record_querying.html">엑티브 레코드 쿼리 인터페이스</a></dd>
+              <dd><a href="active_record_validations_callbacks.html">액티브 레코드 데이터 검증(Validation)과 Callback(콜백)</a></dd>
+              <dd><a href="association_basics.html">액티브 레코드 Association(관계)</a></dd>
+              <dd><a href="active_record_querying.html">액티브 레코드 쿼리 인터페이스</a></dd>
               <dt>뷰(Views)</dt>
               <dd><a href="layouts_and_rendering.html">레이아웃(Layouts)과 렌더링(Rendering)</a></dd>
               <dd><a href="form_helpers.html">액션 뷰 폼 핼퍼(Action View Form Helpers)</a></dd>
@@ -54,7 +54,7 @@
             </dl>
             <dl class="R">
               <dt>심화내용</dt>
-              <dd><a href="active_support_core_extensions.html">엑티브 서포트(Active Support) 확장(Core Extensions)</a></dd>
+              <dd><a href="active_support_core_extensions.html">액티브 서포트(Active Support) 확장(Core Extensions)</a></dd>
               <dd><a href="i18n.html">레일즈 국제화I(nternationalization) API</a></dd>
               <dd><a href="action_mailer_basics.html">액션 메일러의 기본</a></dd>
               <dd><a href="testing.html">레일즈 어플리케이션 테스트하기</a></dd>
@@ -91,12 +91,12 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2>엑티브 레코드 데이터 검증(Validation)과 콜백(Callback)</h2>
-<p>이 가이드는 엑티브 레코드 객체의 생명 주기에 관여하는 방법을 안내합니다. 엑티브 레코드가 데이터베이스에 정보를 입력하기 전에 객체의 데이터 검증을 어떻게 할 것인지, 그리고 객체의 생명 주기에서 정확한 부분에 원하는 작업을 수행하는 방법을 배울 것입니다.</p>
+      <h2>액티브 레코드 데이터 검증(Validation)과 콜백(Callback)</h2>
+<p>이 가이드는 액티브 레코드 객체의 생명 주기에 관여하는 방법을 안내합니다. 액티브 레코드가 데이터베이스에 정보를 입력하기 전에 객체의 데이터 검증을 어떻게 할 것인지, 그리고 객체의 생명 주기에서 정확한 부분에 원하는 작업을 수행하는 방법을 배울 것입니다.</p>
 <p>이 가이드를 읽고 주어진 개념을 시험한 후, 다음 내용을 할 수 있기를 기대합니다.:</p>
 <ul>
-	<li>엑티브 레코드 객체의 생명 주기에 대한 이해</li>
-	<li>내장된 엑티브 레코드 데이터 검증 헬퍼 사용 방법</li>
+	<li>액티브 레코드 객체의 생명 주기에 대한 이해</li>
+	<li>내장된 액티브 레코드 데이터 검증 헬퍼 사용 방법</li>
 	<li>맞춤형 데이터 검증 메소드 만들기</li>
 	<li>데이터 검증 과정으로 에러 메세지 만들어서 사용하기</li>
 	<li>객체의 생명 주기내에서 이벤트에 대응하는 콜백 메소드 만들기</li>
@@ -116,7 +116,7 @@
       <div id="mainCol">
         <div class='warning'><p>이 가이드의 원본은 영문 버전인 <a href="http://guides.rubyonrails.org/active_record_validations_callbacks.html">Active Record Validations and Callbacks</a> 입니다. 번역 과정에서 원본과 차이가 발생할 수 있습니다. 번역본은 원본의 참고로 생각해 주세요.</p></div>
 <h3 id="the-object-life-cycle">1 객체 생명 주기</h3>
-<p>레일즈 어플리케이션 실행중에, 객체는 만들어지고, 갱신되고, 삭제 됩니다. 엑티브 레코드는 이러한 <em>객체 생명 주기</em>내에서 가로채기(hook)를 제공합니다. 그래서 여러분은 어플리케이션과 데이터를 조종할 수 있습니다.</p>
+<p>레일즈 어플리케이션 실행중에, 객체는 만들어지고, 갱신되고, 삭제 됩니다. 액티브 레코드는 이러한 <em>객체 생명 주기</em>내에서 가로채기(hook)를 제공합니다. 그래서 여러분은 어플리케이션과 데이터를 조종할 수 있습니다.</p>
 <p>데이터 검증은 데이터베이스에 오직 유효만 데이터의 입력을 보장합니다. 콜백과 옵저버는 객체의 상태 변화 전/후에 로직을 실행하도록 허락합니다.</p>
 <h3 id="validations-overview">2 데이터 검증 둘러보기</h3>
 <p>레일즈의 데이터 검증을 자세히 알아보기전에, 여러분은 큰 그림 속에서 어떻게 데이터 검증이 수행되는지 이해해야 합니다.</p>
@@ -130,7 +130,7 @@
 	<li>모델 수준의 데이터 검증은 데이터베이스에 유효한 데이터만 입력하는 가장 좋은 방법입니다. 이 데이터 검증은 데이터베이스를 신뢰하지 않습니다. 그리고 최종 고객이 우회해서 접근할 수 있는 기회도 제공하지 않습니다. 그리고 테스트와 유지보스에 편리합니다. 레일즈는 공통적인 요구 사항에 대한 내장된 헬퍼를 제공하고, 맞춤형 데이터 검증 제작을 손쉽게 할수 있도록 지원합니다.</li>
 </ul>
 <h4 id="when-does-validation-happen">2.2 데이터 검증은 언제하나?</h4>
-<p>엑티브 레코드 객체는 두 종류가 있습니다.:데이터베이스의 한열(row)와 대응하는 것과, 그렇지 않은 것이죠. 새로운 객체를 만들때, 예컨데 <tt>new</tt> 메소드를 이용해서, 이 객체는 아직 데이터베이스와 대응하지 않습니다. 한번이라도 해당 객체에 대해서 <tt>save</tt>를 호출하면 그것은 정확한 데이터메이스 테이블에 저장 됩니다. 엑티브 레코드는 <tt>new_record?</tt> 인스턴스 메소드르 사용해서 해당 객체가 데이터베이스에 연결되었는지를 알 수 있습니다. 다음의 간단한 엑티브 레코드 클래스를 생각해보세요.:</p>
+<p>액티브 레코드 객체는 두 종류가 있습니다.:데이터베이스의 한열(row)와 대응하는 것과, 그렇지 않은 것이죠. 새로운 객체를 만들때, 예컨데 <tt>new</tt> 메소드를 이용해서, 이 객체는 아직 데이터베이스와 대응하지 않습니다. 한번이라도 해당 객체에 대해서 <tt>save</tt>를 호출하면 그것은 정확한 데이터메이스 테이블에 저장 됩니다. 액티브 레코드는 <tt>new_record?</tt> 인스턴스 메소드르 사용해서 해당 객체가 데이터베이스에 연결되었는지를 알 수 있습니다. 다음의 간단한 액티브 레코드 클래스를 생각해보세요.:</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -156,7 +156,7 @@ end
 </div>
 </notextile>
 
-<p>새로운 레코드 만들기와 저장하기는 데이터베이스에 <tt>INSERT</tt> <span class="caps">SQL</span> 명령을 전달할 것입니다. 존재하는 레코드 정보 갱신은 <tt>UPDATE</tt> <span class="caps">SQL</span> 명령어를 전달합니다. 데이터 검증은 보통 데이터베이스에 이런 명령어를 전달되지 전에 실행 됩니다. 만약에 데이터 검증이 하나라도 실패하면, 해당 객체는 타당하지 않은 객체로 기록되고, 엑티브 레코드는 <tt>INSERT</tt>나 <tt>UPDATE</tt> 명령을 실행하지 않습니다. 이는 데이터베이스에 타당하지 않은 객체 저장 방지를 돕습니다. 여러분은 객체가 만들어때, 저장될때, 갱신될때 확인할 데이터 검증 규칙을 지정할 수 있습니다.</p>
+<p>새로운 레코드 만들기와 저장하기는 데이터베이스에 <tt>INSERT</tt> <span class="caps">SQL</span> 명령을 전달할 것입니다. 존재하는 레코드 정보 갱신은 <tt>UPDATE</tt> <span class="caps">SQL</span> 명령어를 전달합니다. 데이터 검증은 보통 데이터베이스에 이런 명령어를 전달되지 전에 실행 됩니다. 만약에 데이터 검증이 하나라도 실패하면, 해당 객체는 타당하지 않은 객체로 기록되고, 액티브 레코드는 <tt>INSERT</tt>나 <tt>UPDATE</tt> 명령을 실행하지 않습니다. 이는 데이터베이스에 타당하지 않은 객체 저장 방지를 돕습니다. 여러분은 객체가 만들어때, 저장될때, 갱신될때 확인할 데이터 검증 규칙을 지정할 수 있습니다.</p>
 <div class='warning'><p>데이터베이스 안에서 객체의 상태를 바꾸는 방법은 많습니다. 몇가지 메소드는 데이터 검증을 실행하지만, 몇몇은 그렇지 않겠죠. 이는 여러분이 주의 깊지 못하면, 잘못된 상태로 데이터베이스에 객체를 저장할 가능성이 있다는 것을 의미합니다.</p></div>
 <p>다음은 메소드는 데이터 검증을 실행시킵니다. 그리고 객체가 유효할때만 데이터베이스에 저장합니다.:</p>
 <ul>
@@ -200,7 +200,7 @@ Person.create(:name =&gt; nil).valid? # =&gt; false
 </div>
 </notextile>
 
-<p>엑티브 레코드가 데이터 검증을 수행 중일때, <tt>errors</tt> 인스턴스 메소드를 통해서 발견된 어떤 에러든지 접근할 수 있습니다. 기본적으로, 데이터 검증을 실행한 후에 <tt>errors</tt> 인스턴스 메소드가 반환한 컬렉션 객체가 비어 있으면, 객체는 유효합니다.</p>
+<p>액티브 레코드가 데이터 검증을 수행 중일때, <tt>errors</tt> 인스턴스 메소드를 통해서 발견된 어떤 에러든지 접근할 수 있습니다. 기본적으로, 데이터 검증을 실행한 후에 <tt>errors</tt> 인스턴스 메소드가 반환한 컬렉션 객체가 비어 있으면, 객체는 유효합니다.</p>
 <p><tt>new</tt>로 생성된 객체는 기술적으로 유효하지 않은 정보를 담고 있더라도, 에러를 보고하지 않는 다는 점에 유의하세요. 데이터 검증은 <tt>new</tt>를 사용중에 동작하지 않기 때문입니다.</p>
 <notextile>
 <div class="code_container">
@@ -255,7 +255,7 @@ end
 
 <p>우리는 데이터 검증 에러에 대한 자세한 사항을 <a href="#working-with-validation-errors">데이터 검증 에러로 작업하기</a> 섹션에서 다를 것입니다. 지금은, 레일즈가 제공하는 내장된 데이터 검증 헬퍼로 돌아가죠.</p>
 <h3 id="validation-helpers">3 데이터 검증 헬퍼 (Validation helpers)</h3>
-<p>엑티브 레코드는 미리 정의된 많은 데이터 검증 헬퍼를 제공합니다. 이건 클래스 정의 내부에서 직접 사용할 수 있습니다. 이런 헬퍼는 공통의 데이터 검증 규칙을 제공합니다. 매번 검증이 실패할때, 한 에러 메세지가 해당 객체의 <tt>errors</tt> 컬렉션에 추가되고, 이 메세지는 검증 대상의 필드와 관련있습니다.</p>
+<p>액티브 레코드는 미리 정의된 많은 데이터 검증 헬퍼를 제공합니다. 이건 클래스 정의 내부에서 직접 사용할 수 있습니다. 이런 헬퍼는 공통의 데이터 검증 규칙을 제공합니다. 매번 검증이 실패할때, 한 에러 메세지가 해당 객체의 <tt>errors</tt> 컬렉션에 추가되고, 이 메세지는 검증 대상의 필드와 관련있습니다.</p>
 <p>각 헬퍼는 속성을 원하는 숫자 만큼 받아들입니다. 그래서 같은 종류의 검증에  여러개의 속성을 한줄로 추가할 수 있습니다.</p>
 <p>모든 헬퍼는 <tt>:on</tt>과 <tt>:message</tt> 옵션을 받을 수 있습니다. <tt>:message</tt> 옵션은 검증이 실행되고 실패일 경우에 <tt>errors</tt> 컬렉션에 추가될 메세지를 지정할 수 있습니다. <tt>:on</tt> 옵션은 <tt>:save</tt>(기본값), <tt>:create</tt> 또는 <tt>:update</tt> 어느 시점의 값을 검사할 것인지 지정합니다. 데이터 검증 헬퍼 각 메소드는 기본 에러 메세지 값을 가지고 있습니다. 기본 메세지는 <tt>:message</tt>가 지정되지 않았을때 사용됩니다. 자, 사용할 수 있는 헬퍼들을 하나씩 살펴봅시다.</p>
 <h4 id="validates_acceptance_of">3.1 <tt>validates_acceptance_of</tt> (수락 검증)</h4>
@@ -618,7 +618,7 @@ Topic.create(&quot;title&quot; =&gt; nil).valid? # =&gt; true
 </notextile>
 
 <h4 id="message">3.15 <tt>:message</tt> (메세지)</h4>
-<p>이미 보았던대로, <tt>:message</tt> 옵션은 검증이 실패했을때 <tt>errors</tt> 컬렉션에 추가되는 메세지를 지정합니다. 이 옵션을 사용하지 않으면, 엑티브 레코드는 각 검증 헬퍼들을 위한 각자의 기본 메세지를 사용할 것입니다.</p>
+<p>이미 보았던대로, <tt>:message</tt> 옵션은 검증이 실패했을때 <tt>errors</tt> 컬렉션에 추가되는 메세지를 지정합니다. 이 옵션을 사용하지 않으면, 액티브 레코드는 각 검증 헬퍼들을 위한 각자의 기본 메세지를 사용할 것입니다.</p>
 <h4 id="on">3.16 <tt>:on</tt></h4>
 <p><tt>:on</tt> 검증이 반드시 발생해야할 때를 지정합니다. 내장된 모든 검증 헬퍼들에 대한 기본 동작은 저장시에 실행됩니다. (새로운 레코드를 만들때와 갱신할때 양쪽 다 포함합니다.) 만약 이를 변경하고 싶으면, <tt>:on => :create</tt>를 사용하면 오직 새로운 레코드를 만들때만 검증을 실행시킬 수 있고, 혹은 <tt>:on => :update</tt>를 사용하면 레코드가 갱신될 때문 검증을 시행 시킬수 있습니다.</p>
 <notextile>
@@ -986,7 +986,7 @@ end
 <p>이러헥 고친 것은 다음과 같은 결과를 가져옵니다.:</p>
 <p><img src="images/validation_error_messages.png" title="Validation error messages" alt="Validation error messages" /></p>
 <h3 id="callbacks-overview">8 콜백 둘러보기</h3>
-<p>콜백은 객체의 생명 주기의 특정한 순간에 호출되는 메소드입니다. 콜백을 이용해서, 엑티브 레코드 객제의 데이터베이스로 부터 생성, 저장, 갱신, 삭제, 검증, 혹은 로드 각 경우에 실행할 코드를 작성하는게 가능합니다.</p>
+<p>콜백은 객체의 생명 주기의 특정한 순간에 호출되는 메소드입니다. 콜백을 이용해서, 액티브 레코드 객제의 데이터베이스로 부터 생성, 저장, 갱신, 삭제, 검증, 혹은 로드 각 경우에 실행할 코드를 작성하는게 가능합니다.</p>
 <h4 id="callback-registration">8.1 콜백 등록</h4>
 <p>가능한 콜백을 이용하기 위해서, 이들 등록이 필요합니다. 여러분은 평범한 메소드 처럼 콜백을 구현하고, 콜백으로 등록하기 위해 메크로 스타일의 메소드를 사용할 수 있습니다.</p>
 <notextile>
@@ -1024,7 +1024,7 @@ end
 
 <p>protected 나 private 로 콜백 메소드를 선언하는 것은 좋은 습관입니다. public 으로 남겨두면, 이 메소드는 모델의 바깥에서 호출될 수 있고 객체의 캡슐화 원칙을 깨트립니다.</p>
 <h3 id="available-callbacks">9 사용 가능한 콜백</h3>
-<p>여기에 사용 가능한 엑티브 레코드 콜백 전체 리스트가 있습니다. 저마다의 작업 중에 호출되는 순서로 나열되어 있습니다.:</p>
+<p>여기에 사용 가능한 액티브 레코드 콜백 전체 리스트가 있습니다. 저마다의 작업 중에 호출되는 순서로 나열되어 있습니다.:</p>
 <h4 id="creating-an-object">9.1 객체 생성하기(Create)</h4>
 <ul>
 	<li><tt>before_validation</tt></li>
@@ -1053,8 +1053,8 @@ end
 </ul>
 <div class='warning'><p><tt>after_save</tt>는 생성, 갱신 양쪽 모든 상황에서 실행되지만, 그외 모든 <em>after</em> 는 <tt>after_create</tt> 와 <tt>after_update</tt> 콜백 같이 좀 더 구체적인 시점을 지정하기 때문에, 호출되는 매크로의 순서가 그리 중요하지는 않습니다.</p></div>
 <h4 id="after_initialize-and-after_find">9.4 <tt>after_initialize</tt> 와 <tt>after_find</tt></h4>
-<p><tt>after_initialize</tt>는 <tt>new</tt>를 사용하든 데이터베이스에서 정보를 로드하든, 엑티브 레코드 객체가 생성될 때마다 호출 됩니다. 그것은 직접 엑티브 레코드의 <tt>initialize</tt> 메소드를 덮어쓰고(override) 싶을때 덮어쓰지 않고 기능을 추가할 수 있어서 유용합니다.</p>
-<p><tt>after_find</tt> 콜백은 데이터베이스에서 엑티브 레코드가 로드될 때마다 호출됩니다. <tt>after_find</tt>는 <tt>after_initialize</tt> 전에 (양쪽 모두 정의되어 있다면,) 호출됩니다.</p>
+<p><tt>after_initialize</tt>는 <tt>new</tt>를 사용하든 데이터베이스에서 정보를 로드하든, 액티브 레코드 객체가 생성될 때마다 호출 됩니다. 그것은 직접 액티브 레코드의 <tt>initialize</tt> 메소드를 덮어쓰고(override) 싶을때 덮어쓰지 않고 기능을 추가할 수 있어서 유용합니다.</p>
+<p><tt>after_find</tt> 콜백은 데이터베이스에서 액티브 레코드가 로드될 때마다 호출됩니다. <tt>after_find</tt>는 <tt>after_initialize</tt> 전에 (양쪽 모두 정의되어 있다면,) 호출됩니다.</p>
 <p><tt>after_initialize</tt> 와 <tt>after_find</tt> 콜백은 다른 콜백과 약간 다릅니다. 그들에게는 반대 메소드인 <tt>before_*</tt>가 존재하지 않고, 표준 메소드처럼 정의하는 것이 그들을 등록할 수 있는 유일한 방법입니다. 만약 <tt>after_initialize</tt> 나 <tt>after_find</tt>를 매크로 형태로 등록하려 시도하면, 이들은 무시됩니다. 이러한 동작 방식은 성능 때문입니다. 왜냐하면, <tt>after_initialize</tt>와 <tt>after_find</tt> 메소드는 데이터베이스에서 각 레코드를 호출할때마다 불리고, 이는 눈에 띄게 요청을 느리게 만들수 있습니다.</p>
 <notextile>
 <div class="code_container">
@@ -1128,7 +1128,7 @@ You have initialized an object!
 <h3 class="halting-execution">실행 중지</h3>
 <p>모델에 새로운 콜백 등록 시작할때, 이들의 작업은 큐에 쌓입니다. 이 큐는 모델의 데이터 검증, 등록된 콜백, 그리고 실행을 위한 데이터베이스 작업들을 모두 포함합니다.</p>
 <p>전체 콜백 체인은 트랜잭션에서 실행됩니다. 만약 어떠한 <em>before</em> 콜백 메소드가 정확히 <tt>false</tt>를 반환하거나, 예외(exception)가 발생하면, 실행 체인은 중지되고, <span class="caps">ROLLBACK</span> 이 발생됩니다.;<em>after</em> 콜백은 오직 예외가 발생될때만 이렇게 동작합니다.</p>
-<div class='warning'><p>임의 예외 발생은 아마도 실패한 <tt>save</tt> 류의 코드들을 중지 시킵니다. <tt>ActiveRecord::Rollback</tt> 예외는 엑티브 레코드에게 롤백을 하라고 전달합니다. 이 예외는 내부적으로 잡히고, 상위로 전파되지 않습니다.</p></div>
+<div class='warning'><p>임의 예외 발생은 아마도 실패한 <tt>save</tt> 류의 코드들을 중지 시킵니다. <tt>ActiveRecord::Rollback</tt> 예외는 액티브 레코드에게 롤백을 하라고 전달합니다. 이 예외는 내부적으로 잡히고, 상위로 전파되지 않습니다.</p></div>
 <h3 id="relational-callbacks">11 관계형 콜백</h3>
 <p>콜백은 관계를 통해서 동작하고,관계에 의해 정의될 수도 있습니다. 한 사용자가 많은 글(post)를 가지고 있는 예제를 생각해 봅시다. 예제에서 사용자의 글(post)는 만약 사용자가 삭제되면, 함께 삭제되어야 합니다. 그래서 <tt>User</tt> 모델과 <tt>Post</tt> 모델간의 관계를 이용해서 <tt>after_destroy</tt> 콜백을 <tt>User</tt> 모델에 추가할 것입니다.</p>
 <notextile>
@@ -1210,7 +1210,7 @@ end
 </notextile>
 
 <h3 id="callback-classes">13 콜백 클래스</h3>
-<p>때로 여러분이 작성할 콜백 메소드는 다른 모델에 재사용 할만 하기도 합니다. 엑티브 레코드에는 콜백 메소드를 캡슐화한 클래스를 만드는 것도 가능합니다. 그래서 그들을 재사용하는건 매우 쉽습니다.</p>
+<p>때로 여러분이 작성할 콜백 메소드는 다른 모델에 재사용 할만 하기도 합니다. 액티브 레코드에는 콜백 메소드를 캡슐화한 클래스를 만드는 것도 가능합니다. 그래서 그들을 재사용하는건 매우 쉽습니다.</p>
 <p>여기에 <tt>PictureFile</tt> 모델을 위한 <tt>after_destroy</tt> 콜백을 클래스로 만든 예제가 있습니다.</p>
 <notextile>
 <div class="code_container">

@@ -42,9 +42,9 @@
               <dd><a href="getting_started.html">레일즈 시작하기</a></dd>
               <dt>모델(Models)</dt>
               <dd><a href="migrations.html">레일즈 데이터베이스 마이그레이션</a></dd>
-              <dd><a href="active_record_validations_callbacks.html">엑티브 레코드 데이터 검증(Validation)과 Callback(콜백)</a></dd>
-              <dd><a href="association_basics.html">엑티브 레코드 Association(관계)</a></dd>
-              <dd><a href="active_record_querying.html">엑티브 레코드 쿼리 인터페이스</a></dd>
+              <dd><a href="active_record_validations_callbacks.html">액티브 레코드 데이터 검증(Validation)과 Callback(콜백)</a></dd>
+              <dd><a href="association_basics.html">액티브 레코드 Association(관계)</a></dd>
+              <dd><a href="active_record_querying.html">액티브 레코드 쿼리 인터페이스</a></dd>
               <dt>뷰(Views)</dt>
               <dd><a href="layouts_and_rendering.html">레이아웃(Layouts)과 렌더링(Rendering)</a></dd>
               <dd><a href="form_helpers.html">액션 뷰 폼 핼퍼(Action View Form Helpers)</a></dd>
@@ -54,7 +54,7 @@
             </dl>
             <dl class="R">
               <dt>심화내용</dt>
-              <dd><a href="active_support_core_extensions.html">엑티브 서포트(Active Support) 확장(Core Extensions)</a></dd>
+              <dd><a href="active_support_core_extensions.html">액티브 서포트(Active Support) 확장(Core Extensions)</a></dd>
               <dd><a href="i18n.html">레일즈 국제화I(nternationalization) API</a></dd>
               <dd><a href="action_mailer_basics.html">액션 메일러의 기본</a></dd>
               <dd><a href="testing.html">레일즈 어플리케이션 테스트하기</a></dd>
@@ -177,11 +177,11 @@
 <h5 id="Action-Mailer">2.2.5 액션 메일러(Action Mailer)</h5>
 <p>액션 메일러는 내장된 이메일 서비스 프레임워크 입니다. 엑션 메일러를 이용해서 유연한 템플릿을 기반으로 간단한 텍스트 부터 복잡한(multipart) 메일을 처리할수 있습니다.</p>
 <h5 id="Active-Model">2.2.6 액티브 모델(Active Model)</h5>
-<p>엑티브 모델은 액션 팩(Action Pack) 서비스와 <acronym title="Object Relation Mapping"><span class="caps">ORM</span></acronym> 잼과 인터페이스를 정의합니다.(ORM으로, 액티브 레코드(Active Record)가 있습니다.) 액티브 모델은 여러분이 원한다면, 다른 <span class="caps">ORM</span> 프레임워크를 사용할 수 있게 합니다.</p>
+<p>액티브 모델은 액션 팩(Action Pack) 서비스와 <acronym title="Object Relation Mapping"><span class="caps">ORM</span></acronym> 잼과 인터페이스를 정의합니다.(ORM으로, 액티브 레코드(Active Record)가 있습니다.) 액티브 모델은 여러분이 원한다면, 다른 <span class="caps">ORM</span> 프레임워크를 사용할 수 있게 합니다.</p>
 <h5 id="Active-Record">2.2.7 액티브 레코드(Active Record)</h5>
-<p>엑티브 레코드는 레일즈 어플리케이션에서 모델의 기초입니다. 엑티브 레코드는 데이터베이스 추상화와 기본 <span class="caps">CRUD</span> 기능, 고급 검색 능력과 객체들 간의 관계를 정의하는 기능을 제공합니다.</p>
+<p>액티브 레코드는 레일즈 어플리케이션에서 모델의 기초입니다. 액티브 레코드는 데이터베이스 추상화와 기본 <span class="caps">CRUD</span> 기능, 고급 검색 능력과 객체들 간의 관계를 정의하는 기능을 제공합니다.</p>
 <h5 id="Active-Resource">2.2.8 액티브 리소스(Active Resource)</h5>
-<p>액티브 리소스는 비지니스 객체와 RESTful 웹 서비스간의 연결 관리를 위한 프레임워크 입니다. 엑티브 리소스는 웹 기반의 자원을 로컬 객체의 <span class="caps">CRUD</span> 처럼 매핑시킵니다.</p>
+<p>액티브 리소스는 비지니스 객체와 RESTful 웹 서비스간의 연결 관리를 위한 프레임워크 입니다. 액티브 리소스는 웹 기반의 자원을 로컬 객체의 <span class="caps">CRUD</span> 처럼 매핑시킵니다.</p>
 <h5 id="Active-Support">2.2.9 액티브 서포트(Active Support)</h5>
 <p>액티브 서포트는 레일즈가 사용하는  유틸리티 클레스와 표준 루비 확장 모음입니다.</p>
 <h5 id="Railties">2.2.10 레일티즈(Railties)</h5>
@@ -605,7 +605,7 @@ end
 </div>
 </notextile>
 
-<p>이 파일에는 별 내용이 없습니다. &#8211; 그러나 <tt>Post</tt> 클레스는 <tt>ActiveRecord::Base</tt>를 상속합니다. 엑티브 레코드(Active Record)는 레일즈 모델을 자유롭게 다루는데 훌륭한 기능을 제공합니다. 기본 데이터베이스 <acronym title="생성(Create"><span class="caps">CRUD</span></acronym>, 읽기(Read), 갱신(Update), 삭제(Destroy) 기능, 데이터 검증, 복잡한 검색과 복합적인 모델 관계 지원  이런 것들을 포함합니다.</p>
+<p>이 파일에는 별 내용이 없습니다. &#8211; 그러나 <tt>Post</tt> 클레스는 <tt>ActiveRecord::Base</tt>를 상속합니다. 액티브 레코드(Active Record)는 레일즈 모델을 자유롭게 다루는데 훌륭한 기능을 제공합니다. 기본 데이터베이스 <acronym title="생성(Create"><span class="caps">CRUD</span></acronym>, 읽기(Read), 갱신(Update), 삭제(Destroy) 기능, 데이터 검증, 복잡한 검색과 복합적인 모델 관계 지원  이런 것들을 포함합니다.</p>
 <h4 id="Adding-Some-Validataion">6.5 몇 가지 데이터 검증(Validation) 추가하기</h4>
 <p>레일즈는 데이터를 저장할때 데이터가 적합한지 확인하는 데이터 검증 메소드를 가지고 있습니다. <tt>app/models/post.rb</tt> 파일을 열어서 다음과 같이 수정하세요.:</p>
 <notextile>
@@ -670,7 +670,7 @@ end
 </notextile>
 
 <p><tt>Post.all</tt>은 현재 데이터베이스에 있는 모든 글(posts) 정보를 <tt>Post</tt> 모델로 반환하는 메소드 입니다. 이 호출의 결과는 글(post)의 배열이고 <tt>@posts</tt> 변수에 저장됩니다.</p>
-<div class='info'><p>엑티브 레코드(Active Record)에 관한 더 자세한 정보는 <a href="active_record_querying.html">엑티브 레코드 쿼리 인터페이스</a> 글을 참고하세요.</p></div>
+<div class='info'><p>액티브 레코드(Active Record)에 관한 더 자세한 정보는 <a href="active_record_querying.html">액티브 레코드 쿼리 인터페이스</a> 글을 참고하세요.</p></div>
 <p><tt>respond_to</tt> 블록은 이 액션에 대한 HTML과 <span class="caps">XML</span> 양쪽 모두 취급합니다. 브라우저에게 <a href="http://localhost:3000/posts.xml">http://localhost:3000/posts.xml</a> 요청하게 하면, <span class="caps">XML</span> 포멧의 글 목록(posts)을 확인할 수 있습니다. 액션 이름에 연결되는 <span class="caps">HTML</span> 포멧은 <tt>app/views/posts/</tt> 폴더 안에서 찾을 수 있습니다. 레일즈는 액션에서 사용되는 모든 인스턴스 변수를 뷰안에서 사용할 수 있게 구성되어 있습니다. <tt>app/views/posts/index.html.erb</tt> 내용 입니다.:</p>
 <notextile>
 <div class="code_container">
@@ -951,7 +951,7 @@ end
 </div>
 </notextile>
 
-<p>엑티브 레코드 인스턴스의 <tt>destroy</tt> 메소드는 데이터베이스의 관련 레코드를 삭제합니다. 이 작업이 완료되면, 보여줄 정보가 존재하지 않아서, 레일즈는 사용자 브라우저를 모델을 위한 index 뷰로 리다이렉트 시킵니다.</p>
+<p>액티브 레코드 인스턴스의 <tt>destroy</tt> 메소드는 데이터베이스의 관련 레코드를 삭제합니다. 이 작업이 완료되면, 보여줄 정보가 존재하지 않아서, 레일즈는 사용자 브라우저를 모델을 위한 index 뷰로 리다이렉트 시킵니다.</p>
 <h3 id="Adding-a-Second-Model">7 두번째 모델 추가하기</h3>
 <p>발판(scaffolding) 작업으로 만들어진 이와 같은 모델들이 어떻게 동작하는지 알게되었습니다. 이제 어플리케이션에 두번째 모델을 추가할때죠. 두번째 모델은 블로그 글(blog post)의 댓글(comment)를 다루게 됩니다.</p>
 <h4 id="Generating-a-Model">7.1 모델 만들기</h4>
@@ -981,7 +981,7 @@ end
 </div>
 </notextile>
 
-<p>이 파일은 이전에 보았던 <tt>post.rb</tt> 모델과 매우 비슷합니다. 다른 점은 <tt>belongs_to :post</tt> 가 존재하는 건데, 이건 엑티브 레코드의 <em>관계(association)</em> 을 정의하는 규칙입니다. 이 가이드의 다음 색션에서 관계(association)에 대해서 조금 더 배우게 될 겁니다.</p>
+<p>이 파일은 이전에 보았던 <tt>post.rb</tt> 모델과 매우 비슷합니다. 다른 점은 <tt>belongs_to :post</tt> 가 존재하는 건데, 이건 액티브 레코드의 <em>관계(association)</em> 을 정의하는 규칙입니다. 이 가이드의 다음 색션에서 관계(association)에 대해서 조금 더 배우게 될 겁니다.</p>
 <p>모델과 더불어, 레일즈는 이와 대응하는 데이터베이스 테이블 생성 마이그레이션도 만듭니다.:</p>
 <notextile>
 <div class="code_container">
@@ -1029,7 +1029,7 @@ $ rake db:migrate
 </notextile>
 
 <h4 id="Associating-Models">7.2 모델 관계 설정하기</h4>
-<p>엑티브 레코드 관계(Association)은 두개의 모델의 관계를 손쉽게 정의하게 만들어 줍니다. 글(Post)와 댓글(Comment)의 경우에 관계는 다음과 같이 표현할 수 있습니다.:</p>
+<p>액티브 레코드 관계(Association)은 두개의 모델의 관계를 손쉽게 정의하게 만들어 줍니다. 글(Post)와 댓글(Comment)의 경우에 관계는 다음과 같이 표현할 수 있습니다.:</p>
 <ul>
 	<li>각 댓글(comment)는 하나의 글(Post)에 속한다.</li>
 	<li>하나의 글(Post)는 많은 댓글(comment)를 가질수 있다.</li>
@@ -1061,7 +1061,7 @@ end
 </notextile>
 
 <p>이 두개의 정의는 자동으로 멋진 기능을 추가합니다. 예를 들자면, 글 정보를 가지고 있는 <tt>@post</tt> 인스턴스 변수를 가지고 있다면, <tt>@post.comments</tt> 코드를 통해서 글에 속한 모든 댓들(comment)의 배열을 가지고 올 수 있습니다.</p>
-<div class='info'><p>엑티브 레코드 관계(Associations)에 대한 더 많은 정보는 <a href="association_basics.html" title="관계">엑티브 레코드 Association</a> 가이드를 참고하세요.</p></div>
+<div class='info'><p>액티브 레코드 관계(Associations)에 대한 더 많은 정보는 <a href="association_basics.html" title="관계">액티브 레코드 Association</a> 가이드를 참고하세요.</p></div>
 <h4 id="Adding-a-Route-for-Comments">7.3 댓글(Comments)를 위한 라우팅 규칙 추가하기</h4>
 <p><tt>home</tt> 컨트롤러 같이, 라우팅 규칙을 추가해서 레일즈가 <tt>comments</tt>로 가는 방법을 알게 만들 겁니다. <tt>config/routes.rb</tt> 파일을 다시 여세요. 발판(scaffold) 제너레이터에 의해서 파일의 꼭대기 근처에 <tt>posts</tt>를 위한 규칙이 자동으로 추가된 것을 볼 수 있을 꺼에요. <tt>resources :posts</tt> 를 다음과 같이 수정합니다. :</p>
 <notextile>
