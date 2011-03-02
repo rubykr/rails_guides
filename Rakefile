@@ -5,6 +5,7 @@ task :make_guides do
   cur_path = File.expand_path("..",__FILE__)
   doc_path = File.expand_path("lib/docrails/railties/guides/output/ko-KR", cur_path)
   bun_path = File.expand_path("../rails_guides-bundle/")
+  log = ""
 
   Dir.chdir cur_path do
     system("git pull")
@@ -21,7 +22,7 @@ task :make_guides do
   system("cp -R #{doc_path}/* #{cur_path}")
 
   Dir.chdir cur_path do
-    system("git commit -a -m 'update source'")
+    system(%Q[git commit -a -m #{"auto update #{log}".inspect}])
     system("git push")
   end
 end
