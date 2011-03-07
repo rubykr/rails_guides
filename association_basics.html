@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Ruby on Rails Guides: A Guide to Active Record Associations</title>
+<title>Ruby on Rails Guides: 활성 레코드관계(Active Record Association)에 대한 안내</title>
 
 <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
@@ -42,9 +42,9 @@
               <dd><a href="getting_started.html">레일즈 시작하기</a></dd>
               <dt>모델(Models)</dt>
               <dd><a href="migrations.html">레일즈 데이터베이스 마이그레이션</a></dd>
-              <dd><a href="active_record_validations_callbacks.html">엑티브 레코드 데이터 검증(Validation)과 Callback(콜백)</a></dd>
-              <dd><a href="association_basics.html">엑티브 레코드 Association(관계)</a></dd>
-              <dd><a href="active_record_querying.html">엑티브 레코드 쿼리 인터페이스</a></dd>
+              <dd><a href="active_record_validations_callbacks.html">액티브 레코드 데이터 검증(Validation)과 Callback(콜백)</a></dd>
+              <dd><a href="association_basics.html">액티브 레코드 Association(관계)</a></dd>
+              <dd><a href="active_record_querying.html">액티브 레코드 쿼리 인터페이스</a></dd>
               <dt>뷰(Views)</dt>
               <dd><a href="layouts_and_rendering.html">레이아웃(Layouts)과 렌더링(Rendering)</a></dd>
               <dd><a href="form_helpers.html">액션 뷰 폼 핼퍼(Action View Form Helpers)</a></dd>
@@ -54,7 +54,7 @@
             </dl>
             <dl class="R">
               <dt>심화내용</dt>
-              <dd><a href="active_support_core_extensions.html">엑티브 서포트(Active Support) 확장(Core Extensions)</a></dd>
+              <dd><a href="active_support_core_extensions.html">액티브 서포트(Active Support) 확장(Core Extensions)</a></dd>
               <dd><a href="i18n.html">레일즈 국제화I(nternationalization) API</a></dd>
               <dd><a href="action_mailer_basics.html">액션 메일러의 기본</a></dd>
               <dd><a href="testing.html">레일즈 어플리케이션 테스트하기</a></dd>
@@ -91,26 +91,27 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2>A Guide to Active Record Associations</h2>
-<p>This guide covers the association features of Active Record. By referring to this guide, you will be able to:</p>
+      <h2>활성 레코드관계(Active Record Association)에 대한 안내</h2>
+<p>본 안내문서는 액티브 레코드의 여러가지 관계(associations) 특성들을 다루고 있습니다. 이 문서의 참고를 통해서 당신은</p>
 <ul>
-	<li>Declare associations between Active Record models</li>
-	<li>Understand the various types of Active Record associations</li>
-	<li>Use the methods added to your models by creating associations</li>
+	<li>활성 레코드 모델들 간의 관계 선언</li>
+	<li>활성 레코드 관계들의 여러가지 형태에 대한 이해</li>
+	<li>관계 생성을 통한 추가된 모델 함수 및 데이터의 사용
+등을 하실 수 있게 될 것입니다.</li>
 </ul>
 
             <div id="subCol">
         <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
         <ol class="chapters">
-<li><a href="#why-associations">Why Associations?</a></li><li><a href="#the-types-of-associations">The Types of Associations</a><ul><li><a href="#the-belongs_to-association">The <tt>belongs_to</tt> Association</a></li> <li><a href="#the-has_one-association">The <tt>has_one</tt> Association</a></li> <li><a href="#the-has_many-association">The <tt>has_many</tt> Association</a></li> <li><a href="#the-has_many-through-association">The <tt>has_many :through</tt> Association</a></li> <li><a href="#the-has_one-through-association">The <tt>has_one :through</tt> Association</a></li> <li><a href="#the-has_and_belongs_to_many-association">The <tt>has_and_belongs_to_many</tt> Association</a></li> <li><a href="#choosing-between-belongs_to-and-has_one">Choosing Between <tt>belongs_to</tt> and <tt>has_one</tt></a></li> <li><a href="#choosing-between-has_many-through-and-has_and_belongs_to_many">Choosing Between <tt>has_many :through</tt> and <tt>has_and_belongs_to_many</tt></a></li> <li><a href="#polymorphic-associations">Polymorphic Associations</a></li> <li><a href="#self-joins">Self Joins</a></li></ul></li><li><a href="#tips-tricks-and-warnings">Tips, Tricks, and Warnings</a><ul><li><a href="#controlling-caching">Controlling Caching</a></li> <li><a href="#avoiding-name-collisions">Avoiding Name Collisions</a></li> <li><a href="#updating-the-schema">Updating the Schema</a></li> <li><a href="#controlling-association-scope">Controlling Association Scope</a></li></ul></li><li><a href="#detailed-association-reference">Detailed Association Reference</a><ul><li><a href="#belongs_to-association-reference"><tt>belongs_to</tt> Association Reference</a></li> <li><a href="#has_one-association-reference"><tt>has_one</tt> Association Reference</a></li> <li><a href="#has_many-association-reference"><tt>has_many</tt> Association Reference</a></li> <li><a href="#has_and_belongs_to_many-association-reference"><tt>has_and_belongs_to_many</tt> Association Reference</a></li> <li><a href="#association-callbacks">Association Callbacks</a></li> <li><a href="#association-extensions">Association Extensions</a></li></ul></li><li><a href="#changelog">Changelog</a></li></ol></div>
+<li><a href="#">왜 ``관계&#8217;&#8217;인가?</a></li><li><a href="#">관계의 유형들</a><ul><li><a href="#belongs_to"><tt>belongs_to</tt> 관련</a></li> <li><a href="#has_one"><tt>has_one</tt> 관련</a></li> <li><a href="#has_many"><tt>has_many</tt> 관련</a></li> <li><a href="#has_many-through"><tt>has_many : through</tt> 관계</a></li> <li><a href="#has_one-through"><tt>has_one :through</tt> 관련</a></li> <li><a href="#has_and_belongs_to_many"><tt>has_and_belongs_to_many</tt> 관련</a></li> <li><a href="#belongs_to-has_one"><tt>belongs_to</tt> 와 <tt>has_one</tt> 의 선택</a></li> <li><a href="#has_many-through-has_and_belongs_to_many"><tt>has_many :through</tt> 와 <tt>has_and_belongs_to_many</tt> 의 선택</a></li> <li><a href="#polymorphic">폴리모픽(polymorphic: 다중) 관계</a></li> <li><a href="#">자체 연결</a></li></ul></li><li><a href="#">팁, 묘수, 그리고 경고</a><ul><li><a href="#">케쉬 제어하기</a></li> <li><a href="#">이름 충돌 피하기</a></li> <li><a href="#">스키마 갱신하기</a></li> <li><a href="#">관계 범위 제어하기</a></li></ul></li><li><a href="#">자세한 관계 참고자료</a><ul><li><a href="#belongs_to"><tt>belongs_to</tt> 관계 참고자료</a></li> <li><a href="#has_one-association-reference"><tt>has_one</tt> Association Reference</a></li> <li><a href="#has_many-association-reference"><tt>has_many</tt> Association Reference</a></li> <li><a href="#has_and_belongs_to_many-association-reference"><tt>has_and_belongs_to_many</tt> Association Reference</a></li> <li><a href="#association-callbacks">Association Callbacks</a></li> <li><a href="#association-extensions">Association Extensions</a></li></ul></li><li><a href="#changelog">Changelog</a></li></ol></div>
     </div>
   </div>
 
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="why-associations">1 Why Associations?</h3>
-<p>Why do we need associations between models? Because they make common operations simpler and easier in your code. For example, consider a simple Rails application that includes a model for customers and a model for orders. Each customer can have many orders. Without associations, the model declarations would look like this:</p>
+        <p>h3(#). 1 왜 ``관계&#8217;&#8217;인가?</p>
+<p>왜 우린 모델들사이에 관계가 필요한 것일까요? 그것은 관계가 연결된 모델들을 보다 간단하고 쉽게 동시에 처리를 해주기 때문입니다. 예를 들어서 간단한 레일즈 응용프로그램이 고객모델과 주문모델을 가지고 있다고 가정합시다. 각각의 고객은 다른 많은 주문을 가지고 있다면, 관계를  사용하지 않는 경우 이 모델들의 선언이 다음과 같이 될 것입니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -123,7 +124,7 @@ end
 </div>
 </notextile>
 
-<p>Now, suppose we wanted to add a new order for an existing customer. We&#8217;d need to do something like this:</p>
+<p>여기서, 이미 존재하는 한 고객의 새로운 주문을 추가하길 원하다고 가정해 봅시다. 우리는 다음과 같이 해야 할 것입니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -133,7 +134,7 @@ end
 </div>
 </notextile>
 
-<p>Or consider deleting a customer, and ensuring that all of its orders get deleted as well:</p>
+<p>또는 고객을 삭제하고, 그 고객 관련 모든 주문도 삭제해야 한다면 이런 코드를 보시게 될 겁니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -146,7 +147,7 @@ end
 </div>
 </notextile>
 
-<p>With Active Record associations, we can streamline these &#8212; and other &#8212; operations by declaratively telling Rails that there is a connection between the two models. Here&#8217;s the revised code for setting up customers and orders:</p>
+<p>활성 레코드 관계를 사용한다면, 이 두 <em>고객과 주문</em> 모델 사이에 관계가 있음을 선언해 줌으로써 일괄 처리가 가능해 집니다. 여기 수정된 코드를 보시죠.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -161,7 +162,7 @@ end
 </div>
 </notextile>
 
-<p>With this change, creating a new order for a particular customer is easier:</p>
+<p>이 수정을 통해서 우리는 한 고객의 새로운 주문 생성이 쉬워졌음을 다음과 같이 알수 있습니다. (떨렁 한줄이예요.)</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -170,7 +171,7 @@ end
 </div>
 </notextile>
 
-<p>Deleting a customer and all of its orders is <em>much</em> easier:</p>
+<p>한 고객과 관련된 모든 주문의 삭제는 더더욱 쉬워 졌어요. 다음을 보세요.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -179,9 +180,9 @@ end
 </div>
 </notextile>
 
-<p>To learn more about the different types of associations, read the next section of this guide. That&#8217;s followed by some tips and tricks for working with associations, and then by a complete reference to the methods and options for associations in Rails.</p>
-<h3 id="the-types-of-associations">2 The Types of Associations</h3>
-<p>In Rails, an <em>association</em> is a connection between two Active Record models. Associations are implemented using macro-style calls, so that you can declaratively add features to your models. For example, by declaring that one model <tt>belongs_to</tt> another, you instruct Rails to maintain Primary Key–Foreign Key information between instances of the two models, and you also get a number of utility methods added to your model. Rails supports six types of associations:</p>
+<p>다양한 관계의 종류를 더 배우시길 원하신다면, 다음 안내서의절(section)을 읽어 주세요. 다음에 소개되는 것들로는 (1) 관계와 관련된 기법들, 묘수들, (2)레일즈에서 제공되는 관계와 연관된 함수들, 그리고 옵션들을 완전하게 설명하는 참고자료가 되겠습니다.</p>
+<p>h3(#). 2 관계의 유형들</p>
+<p>레일즈에서, <em>관계</em> 는 활성 레코드 모델들간의 연관을 말합니다. 관련은 매크로 스타일의 호출로 구현되어 있어서, 우리가 선언만 하면 모델들 사이에 만들어 집니다. 예를 들면, 한 모델이 다른 모델에 속해있다는 뜻의 <tt>belongs_to</tt>  관계를 선언하면 당신은 주열쇠(primary key)-외부열쇠(foreign key) 정보를 이들 모델들의 예(인스턴스, instance)들 사이에 생성하라는 명령을 레일즈에 하게 되는 것입니다.  게다가 이들 모델에 여러 유용함수들이 추가되어 사용할수 있게 됩니다. 레일즈은 다음  여섯 가지의 관계형을 지원합니다.</p>
 <ul>
 	<li><tt>belongs_to</tt></li>
 	<li><tt>has_one</tt></li>
@@ -190,9 +191,10 @@ end
 	<li><tt>has_one :through</tt></li>
 	<li><tt>has_and_belongs_to_many</tt></li>
 </ul>
-<p>In the remainder of this guide, you&#8217;ll learn how to declare and use the various forms of associations. But first, a quick introduction to the situations where each association type is appropriate.</p>
-<h4 id="the-belongs_to-association">2.1 The <tt>belongs_to</tt> Association</h4>
-<p>A <tt>belongs_to</tt> association sets up a one-to-one connection with another model, such that each instance of the declaring model &#8220;belongs to&#8221; one instance of the other model. For example, if your application includes customers and orders, and each order can be assigned to exactly one customer, you&#8217;d declare the order model this way:</p>
+<p>각각의 의미로는 <tt>belongs_to</tt> B는 B &#8220;객체의 예에 속해있다&#8221;, <tt>has_one</tt> B는 B &#8220;객체의 예를 하나 갖는다&#8221;, <tt>has_many</tt> B는 B &#8220;객체의 예를 여러개 갖는다&#8221;, <tt>has_many: through</tt> B는 B &#8220;객체의 예를 통해서 여러개 갖는다&#8221;, <tt>has_one :through</tt> B는 B &#8220;객체의 예를를 통해서 하나 갖는다&#8221;, 마지막으로 <tt>has_and_belongs_to_many</tt> B는 B &#8220;객체의 예에 속해 있으면서 동시에 B 객체의 예를 많이 갖는다&#8221; 입니다.</p>
+<p>이 이후로, 당신은 여러 형태의 관계를 어떻게 선언하고 사용하는 지를 배우게 될 것입니다.  이에 앞서서  각각의 관련 유형이 사용되는 상황을 간략하게 먼저 설명드리겠습니다.</p>
+<h4 id="belongs_to">2.1 <tt>belongs_to</tt> 관련</h4>
+<p>하나의 <tt>belongs_to</tt> 관련은 다른 모델과의 1: 1 연관을 정의하는데, 한 모델의 예가 다른 모델의 예에 속하게 됩니다. 예를 들어서, 당신의 응용 프로그램이 앞서 설명한 고객과 주문을 포함한다고 가정하겠습니다. 이때 하나의 주문이 오직 하나의 고객에만 관련되어 있다면 당신은 주문 모델을 다음과 같이 선언하게 될것입니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -204,8 +206,8 @@ end
 </notextile>
 
 <p><img src="images/belongs_to.png" title="belongs_to Association Diagram" alt="belongs_to Association Diagram" /></p>
-<h4 id="the-has_one-association">2.2 The <tt>has_one</tt> Association</h4>
-<p>A <tt>has_one</tt> association also sets up a one-to-one connection with another model, but with somewhat different semantics (and consequences). This association indicates that each instance of a model contains or possesses one instance of another model. For example, if each supplier in your application has only one account, you&#8217;d declare the supplier model like this:</p>
+<h4 id="has_one">2.2 <tt>has_one</tt> 관련</h4>
+<p><tt>has_one</tt> 관련 또한 다른 모델과의 1:1 관계를 규정합니만 다른 의미와 결과를 갖이게 됩니다. 이 관계는 하나의 모델의 일예가 다른 모델의 일예를 소유하거나 포함하는 것을 의미합니다. 예를 들면당신의 응용프로그램에서 구매부서에서 사용되며 납품회사를 관린한다고 칩시다. 각 납품회사 각각 하나의 계정을 가지고 있다면, 우리는 이납품회사모델을 다음과 같이 선언할 것입니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -217,8 +219,8 @@ end
 </notextile>
 
 <p><img src="images/has_one.png" title="has_one Association Diagram" alt="has_one Association Diagram" /></p>
-<h4 id="the-has_many-association">2.3 The <tt>has_many</tt> Association</h4>
-<p>A <tt>has_many</tt> association indicates a one-to-many connection with another model. You&#8217;ll often find this association on the &#8220;other side&#8221; of a <tt>belongs_to</tt> association. This association indicates that each instance of the model has zero or more instances of another model. For example, in an application containing customers and orders, the customer model could be declared like this:</p>
+<h4 id="has_many">2.3 <tt>has_many</tt> 관련</h4>
+<p><tt>has_many</tt> 다른 모델과 1:다(多:많음) 관계를 말합니다.  아마도 당신은 이 관계가 <tt>belong_to</tt>관계의 반대 관점이라는 것을 알게 될 것입니다. 이 관계는 다를 모델의 예를 하나도 가지고 있지 않거나 또는 복수개 가지고 있을 때(즉,  0개에서 여러개를 가지고 있을 때) 에 사용하게 됩니다. 예를 들면, 고객과 주문을 처리하는 당신의 응용 프로그램에서 고객 모델이 다음과 같이 선언될 수 있겠습니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -229,10 +231,10 @@ end
 </div>
 </notextile>
 
-<div class='note'><p>The name of the other model is pluralized when declaring a <tt>has_many</tt> association.</p></div>
+<p>주의: <tt>has_many</tt> B 관계를 선언하는 경우에orders 와 같이 B가 복수형의 이름을 갖게되는 것을 주목해 주세요.</p>
 <p><img src="images/has_many.png" title="has_many Association Diagram" alt="has_many Association Diagram" /></p>
-<h4 id="the-has_many-through-association">2.4 The <tt>has_many :through</tt> Association</h4>
-<p>A <tt>has_many :through</tt> association is often used to set up a many-to-many connection with another model. This association indicates that the declaring model can be matched with zero or more instances of another model by proceeding <em>through</em> a third model. For example, consider a medical practice where patients make appointments to see physicians. The relevant association declarations could look like this:</p>
+<h4 id="has_many-through">2.4 <tt>has_many : through</tt> 관계</h4>
+<p><tt>has_many : through</tt> 관계는 다른 모델과의 多:多 관계를 설정할 때 종종 사용됩니다. 이 관계는 다른 복수(0포함)개의 모델을 제3의 모델을 <em>통해서</em> 가지게 됨을 말합니다. 예를 들면, 내과 의사께서 환자들을 의료 검진하는 상황을 생각해 봅시다.  일반적으로 의료 검진이 예약을 통해서만 가능하기에, 이에 상응하는 관계를 다음과 같이 정의 될 수 있겠습니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -255,7 +257,7 @@ end
 </notextile>
 
 <p><img src="images/has_many_through.png" title="has_many :through Association Diagram" alt="has_many :through Association Diagram" /></p>
-<p>The collection of join models can be managed via the <span class="caps">API</span>. For example, if you assign</p>
+<p>연결모델 집합은 API를 통해서 관리됩니다. 예를 들어 내과 의사 객체 예 physician에는 patients API가 있는데 이것에 다른 집한 patients를 대입할 수 있습니다. 다음을 보시죠.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -264,9 +266,9 @@ physician.patients = patients
 </div>
 </notextile>
 
-<p>new join models are created for newly associated objects, and if some are gone their rows are deleted.</p>
-<div class='warning'><p>Automatic deletion of join models is direct, no destroy callbacks are triggered.</p></div>
-<p>The <tt>has_many :through</tt> association is also useful for setting up &#8220;shortcuts&#8221; through nested <tt>has_many</tt> associations. For example, if a document has many sections, and a section has many paragraphs, you may sometimes want to get a simple collection of all paragraphs in the document. You could set that up this way:</p>
+<p>새로운 연결 모델들은 새롭게 연관된 객체 예들로 생성되고, 데이터 베이스의 행이 사라진다면 관련 객체들도 사라질 것입니다.</p>
+<p>경고: 연결 모델의 자동 삭제는 직접적이어서 파괴 되부름 함수(destroy callback)의 호출이 없음을 주의해 주세요.</p>
+<p><tt>has_many :through</tt> 관계는 중첩된 <tt>has_many</tt> 관계를 간략하게 하는 &quot;지름길&quot;로 유용하게 사용되곤 합니다. 예를 들면 만약 하나의 문서가 여러 절을 가지고 있고, 하나의 절은 많은 문단을 가지고 있을때 만약 한문서의 모든 문단의 단순 집합을 얻길 희망한다면, 다음과 같이 설정이 가능합니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -287,8 +289,17 @@ end
 </div>
 </notextile>
 
-<h4 id="the-has_one-through-association">2.5 The <tt>has_one :through</tt> Association</h4>
-<p>A <tt>has_one :through</tt> association sets up a one-to-one connection with another model. This association indicates that the declaring model can be matched with one instance of another model by proceeding <em>through</em> a third model. For example, if each supplier has one account, and each account is associated with one account history, then the customer model could look like this:</p>
+<p>With <tt>:through => :sections</tt> specified, Rails will now understand:</p>
+<notextile>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+@document.paragraphs
+</pre>
+</div>
+</notextile>
+
+<h4 id="has_one-through">2.5 <tt>has_one :through</tt> 관련</h4>
+<p><tt>has_one :through</tt> 관련은 또 다른 모델과의 1:1 연관을 설정합니다. 이 관련은 선언 모델이 제삼의 모델을 <em>통해서</em> 다른 모델과 관련을 갖게 됩니다. 예를 들면, 각각의 납품회사가 하나의 계정을 갖고, 각 계정은 계정내역을 가지고 있을떄에, 다음과 같은 모델을 생성하게 됩니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -310,8 +321,8 @@ end
 </notextile>
 
 <p><img src="images/has_one_through.png" title="has_one :through Association Diagram" alt="has_one :through Association Diagram" /></p>
-<h4 id="the-has_and_belongs_to_many-association">2.6 The <tt>has_and_belongs_to_many</tt> Association</h4>
-<p>A <tt>has_and_belongs_to_many</tt> association creates a direct many-to-many connection with another model, with no intervening model. For example, if your application includes assemblies and parts, with each assembly having many parts and each part appearing in many assemblies, you could declare the models this way:</p>
+<h4 id="has_and_belongs_to_many">2.6 <tt>has_and_belongs_to_many</tt> 관련</h4>
+<p><tt>has_and_belongs_to_many</tt> 관련은 다른 모델과다多:多 연결을 사이에 그 어떤 모델도 없이 직접 생성한다.  예를 들어, 응용 프로그램이 부품과 이의 조립품을 포함하는데, 조립품은 많은 부품을 가지면, 한 부품은 많은 부품에 사용된다면, 우리는 다음의 모델을 선언하게 된다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -327,9 +338,9 @@ end
 </notextile>
 
 <p><img src="images/habtm.png" title="has_and_belongs_to_many Association Diagram" alt="has_and_belongs_to_many Association Diagram" /></p>
-<h4 id="choosing-between-belongs_to-and-has_one">2.7 Choosing Between <tt>belongs_to</tt> and <tt>has_one</tt></h4>
-<p>If you want to set up a 1–1 relationship between two models, you&#8217;ll need to add <tt>belongs_to</tt> to one, and <tt>has_one</tt> to the other. How do you know which is which?</p>
-<p>The distinction is in where you place the foreign key (it goes on the table for the class declaring the <tt>belongs_to</tt> association), but you should give some thought to the actual meaning of the data as well. The <tt>has_one</tt> relationship says that one of something is yours &#8211; that is, that something points back to you. For example, it makes more sense to say that a supplier owns an account than that an account owns a supplier. This suggests that the correct relationships are like this:</p>
+<h4 id="belongs_to-has_one">2.7 <tt>belongs_to</tt> 와 <tt>has_one</tt> 의 선택</h4>
+<p>만약 당신이 두 모델 사이의 1:1  연관을 설정하고자 하고,  한 모델에게는 <tt>belongs_to</tt> 를  다른 모델에는 <tt>has_one</tt>  를 설정해야 할 경우, 어떤 모델을 어떻게 선택해야 할까요?</p>
+<p>구별법으로는 어디에 외부열쇠(foreign key)를 (이것은<tt>belongs_to</tt>  관계를 선언하는 객체의 데이터 베이스 테이블에 부착된다) 넣을 것인지에 달려있습니다. 그렇지만 당신은 실재 데이터의 의미 생각해야합니다.  <tt>has_one</tt> 관계는 어떤 사물이 당신의 것이라는 것을 말하며  그 사물은 당신에 속해있음을  가리키게 됩니다. 예를 들면, 납품 회사가 계정을 가지고 있는 것이 계정이 납품회사를 가지는 것보다 더 그럴듯 하지 않나요?  다음의 예를 보시죠.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -344,7 +355,7 @@ end
 </div>
 </notextile>
 
-<p>The corresponding migration might look like this:</p>
+<p>생성된 마이그레이션 코드는 다음과 같이 생기게  됩니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -371,9 +382,9 @@ end
 </div>
 </notextile>
 
-<div class='note'><p>Using <tt>t.integer :supplier_id</tt> makes the foreign key naming obvious and explicit. In current versions of Rails, you can abstract away this implementation detail by using <tt>t.references :supplier</tt> instead.</p></div>
-<h4 id="choosing-between-has_many-through-and-has_and_belongs_to_many">2.8 Choosing Between <tt>has_many :through</tt> and <tt>has_and_belongs_to_many</tt></h4>
-<p>Rails offers two different ways to declare a many-to-many relationship between models. The simpler way is to use <tt>has_and_belongs_to_many</tt>, which allows you to make the association directly:</p>
+<p>주의:  <tt>t.integer :supplier_id</tt>  의 사용은 외부 열쇠의 이름을 명확하게 한다. 현재 레일즈 버전에서는 당신은<tt>t.references :supplier</tt>을 사용하여 구체적인 구현을 추상화 할수 있다.</p>
+<h4 id="has_many-through-has_and_belongs_to_many">2.8 <tt>has_many :through</tt> 와 <tt>has_and_belongs_to_many</tt> 의 선택</h4>
+<p>레일즈는 모델들간에 두개의 多:多 관계를 선언하는 방법을 지원합니다.  그중 간단한 방법은 <tt>has_and_belongs_to_many</tt> 을 사용하는 것인다, 이 방법은 “직접적”으로 관계를 만들게 됩니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -388,7 +399,7 @@ end
 </div>
 </notextile>
 
-<p>The second way to declare a many-to-many relationship is to use <tt>has_many :through</tt>. This makes the association indirectly, through a join model:</p>
+<p>두번째 多:多 관계를 정의하는 방법인  <tt>has_many :through</tt>은 연결모델을 통해서 “간접적”으로 관계를 만듭니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -410,10 +421,10 @@ end
 </div>
 </notextile>
 
-<p>The simplest rule of thumb is that you should set up a <tt>has_many :through</tt> relationship if you need to work with the relationship model as an independent entity. If you don&#8217;t need to do anything with the relationship model, it may be simpler to set up a <tt>has_and_belongs_to_many</tt> relationship (though you&#8217;ll need to remember to create the joining table in the database).</p>
-<p>You should use <tt>has_many :through</tt> if you need validations, callbacks, or extra attributes on the join model.</p>
-<h4 id="polymorphic-associations">2.9 Polymorphic Associations</h4>
-<p>A slightly more advanced twist on associations is the <em>polymorphic association</em>. With polymorphic associations, a model can belong to more than one other model, on a single association. For example, you might have a picture model that belongs to either an employee model or a product model. Here&#8217;s how this could be declared:</p>
+<p>가장 기본이 되는 원칙중 하나는, 우리가 연결 모델을 만들때에 이것이 “독립된” 것으로 간주되어야 할 경우에는<tt>has_many :through</tt>를 사용하는 것이 더 좋다는 것입니다.  만약, 우리가 그 어떤 것도 연결 모델 자체가 필요 치 않더면<tt>has_and_belongs_to_many</tt> 관계를 사용하는 게 더 단순한 방법이고 따라서 바람직합니다(하지만 이방법도 데이터베이스의 연결테이블(joining table)이 생성된다는 것 잊지 마세요).</p>
+<p>만약 연결 모델상에 검증(validations), 되부름, 추가 속성등이 필요하다면, <tt>has_many :through</tt>를 사용하셔야 합니다.</p>
+<h4 id="polymorphic">2.9 폴리모픽(polymorphic: 다중) 관계</h4>
+<p>약간은 진일보한 관계로써,  <em>폴리모픽 관계</em> 라는 것이 있습니다. 이 폴리모펙 관계를 이용하면, 하나의 모델이 하나 또는 여러 모델에 속할 수 있습니다. 예를 들면,  우리가 사진(picture)이라는 모델을 가지고 있다고 가정해 보겠습니다. 사진이라는 모델이 직원(employee) 모델 또는 생산품(product) 모델에 속할 수 있다면 다음과 같이 정의될 수 있겠습니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -432,9 +443,9 @@ end
 </div>
 </notextile>
 
-<p>You can think of a polymorphic <tt>belongs_to</tt> declaration as setting up an interface that any other model can use. From an instance of the <tt>Employee</tt> model, you can retrieve a collection of pictures: <tt>@employee.pictures</tt>.</p>
-<p>Similarly, you can retrieve <tt>@product.pictures</tt>.</p>
-<p>If you have an instance of the <tt>Picture</tt> model, you can get to its parent via <tt>@picture.imageable</tt>. To make this work, you need to declare both a foreign key column and a type column in the model that declares the polymorphic interface:</p>
+<p>당신은 폴리모픽 <tt>belongs_to</tt> 선언을 그 어떤 다른모델도 사용할 수 있는 인터페이스를 설정한 것으로 생각할 수도 있습니다. <tt>Employee</tt>모델의 실예에서 당신은 <tt>@employee.pictures</tt> 처럼 사진집합을 접근하여 읽어들일 수 있습니다.</p>
+<p>단순히, <tt>@product.pictures</tt> 라고 불러 사용할 수 있습니다.</p>
+<p>만약 <tt>Picture</tt> 모델의 실예를 하나 가지고 있다면, 우리는<tt>@picture.imageable</tt> 호출을 통해서 이것이 속한 부(parent)를 접근할수 있습니다. 이것이 작동하기 위해서는,  우린 이 폴리모픽 인터페이스를 선언하는 외부 열쇠 행과 유형 행 모두를 다음과 같이 선언하여야 합니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -456,7 +467,7 @@ end
 </div>
 </notextile>
 
-<p>This migration can be simplified by using the <tt>t.references</tt> form:</p>
+<p>이 마이그레이션은 <tt>t.references</tt> 형식(폼)을 이용해 다음과 같이 더 간략화 될수 있겠습니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -478,8 +489,8 @@ end
 </notextile>
 
 <p><img src="images/polymorphic.png" title="Polymorphic Association Diagram" alt="Polymorphic Association Diagram" /></p>
-<h4 id="self-joins">2.10 Self Joins</h4>
-<p>In designing a data model, you will sometimes find a model that should have a relation to itself. For example, you may want to store all employees in a single database model, but be able to trace relationships such as between manager and subordinates. This situation can be modeled with self-joining associations:</p>
+<p>h4(#). 2.10 자체 연결</p>
+<p>데이터 모델을 설계할 때에 당신은 한 모델이 그 모델 자신과 연관이 있는 경우를 종종 발견하게 될 것입니다. 예를 들면, 모든 직원들을 하나의 데이터 베이스 모델로 저장하길 원하지만, 직원들 중 관리자(manager)와 팀원(subordinates)의 관계를 추적하고 싶어한다고 가정해 보겠습니다. 이러한 상황은 자체연결 관계로 다음과 같이 모델링 될수 있습니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -492,45 +503,44 @@ end
 </div>
 </notextile>
 
-<p>With this setup, you can retrieve <tt>@employee.subordinates</tt> and <tt>@employee.manager</tt>.</p>
-<h3 id="tips-tricks-and-warnings">3 Tips, Tricks, and Warnings</h3>
-<p>Here are a few things you should know to make efficient use of Active Record associations in your Rails applications:</p>
+<p>이 설정을 사용할 때에 우리는<tt>@employee.subordinates</tt> 와 <tt>@employee.manager</tt> 를 접근하여 사용할 수 있습니다.</p>
+<p>h3(#). 3 팁, 묘수, 그리고 경고</p>
+<p>여기서 우리가 레일즈 응용프로그램에서 효과적으로 활성 레크도관계를 사용하기 위해 몇가지 알아야 할 것들이 있습니다.</p>
 <ul>
-	<li>Controlling caching</li>
-	<li>Avoiding name collisions</li>
-	<li>Updating the schema</li>
-	<li>Controlling association scope</li>
+	<li>케쉬(chach임시저장)  제어하기</li>
+	<li>이름 충돌 피하기</li>
+	<li>스키마(schema) 만들기</li>
+	<li>관련 범위 제어하기</li>
 </ul>
-<h4 id="controlling-caching">3.1 Controlling Caching</h4>
-<p>All of the association methods are built around caching, which keeps the result of the most recent query available for further operations. The cache is even shared across methods. For example:</p>
+<p>h4(#). 3.1 케쉬 제어하기</p>
+<p>관계와 관련된 모든 함수는 임시 저장을 하게되는데, 이 말은 가장 최근들어 수행된 데이터베이스 질의를 결과를 기억한다는 것을 말합니다.  이 임시저장은 함수들 사이에서 심지어 공유되기도 합니다. 다음 예를 보시죠.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-customer.orders                 # retrieves orders from the database
-customer.orders.size            # uses the cached copy of orders
-customer.orders.empty?          # uses the cached copy of orders
+customer.orders                 #  데이터베이스의 주문들 을 읽음
+customer.orders.size            #  데이터 베이스의 케쉬 사용
+customer.orders.empty?          #  데이퍼 베이스의  케쉬 사용
 </pre>
 </div>
 </notextile>
 
-<p>But what if you want to reload the cache, because data might have been changed by some other part of the application? Just pass <tt>true</tt> to the association call:</p>
+<p>만약 응응 프로그램의 다른 부분에서 관련된 데이터를 수정하여 메모리상의 케쉬를 갱신하고 싶은 경우에는 다음과 같이<tt>true</tt> 를 관계호출시에 인자로 넘겨 주시면 됩니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-customer.orders                 # retrieves orders from the database
-customer.orders.size            # uses the cached copy of orders
-customer.orders(true).empty?    # discards the cached copy of orders
-                                # and goes back to the database
+customer.orders                 #  데이터 베이스의 주문들을 읽음
+customer.orders.size            #  데이터 베이스의 케쉬 사용
+customer.orders(true).empty?    #  케쉬를 무시하고 데이터 베이스 읽음
 </pre>
 </div>
 </notextile>
 
-<h4 id="avoiding-name-collisions">3.2 Avoiding Name Collisions</h4>
-<p>You are not free to use just any name for your associations. Because creating an association adds a method with that name to the model, it is a bad idea to give an association a name that is already used for an instance method of <tt>ActiveRecord::Base</tt>. The association method would override the base method and break things. For instance, <tt>attributes</tt> or <tt>connection</tt> are bad names for associations.</p>
-<h4 id="updating-the-schema">3.3 Updating the Schema</h4>
-<p>Associations are extremely useful, but they are not magic. You are responsible for maintaining your database schema to match your associations. In practice, this means two things, depending on what sort of associations you are creating. For <tt>belongs_to</tt> associations you need to create foreign keys, and for <tt>has_and_belongs_to_many</tt> associations you need to create the appropriate join table.</p>
-<h5 id="creating-foreign-keys-for-belongs_to-associations">3.3.1 Creating Foreign Keys for <tt>belongs_to</tt> Associations</h5>
-<p>When you declare a <tt>belongs_to</tt> association, you need to create foreign keys as appropriate. For example, consider this model:</p>
+<p>h4(#). 3.2 이름 충돌 피하기</p>
+당신은 관계를 정의할 때에 아무이름이나 사용할 수 있는 것은 아닙니다.  관계를 생성할 때에 관련된 모델에 관계명과 동일한 함수가 생성되기 때문에<tt>ActiveRecord::Base</tt> 의 함수와 동일한 이름을 관계명으로 사용하는 것은 바람직 하지 않습니다. 이렇게 할 경우, 관계 함수가 활성 레코드 기초함수를 덮어써버리게 되기 때문입니다. 예를 들어, <tt>attributes</tt>  또는 <tt>connection</tt> 은 관계 명으로  바람직 하지 않습니다.
+<p>h4(#). 3.3 스키마 갱신하기</p>
+<p>관계는 대단히 유용합니다. 그렇지만 이것이 마술일 수는 없습니다. 우리에게는 관계와 데이타 베이스  스키마가  부합 되도록 관리할 책임이 있습니다. 실재로 이 말은 우리가 만들 관계의 종류에 따라서 두가지 의미를 갖습니다.  <tt>belongs_to</tt> 관계를 사용한다면, 외래 열쇠를 생성해야 할 것이고,  <tt>has_and_belongs_to_many</tt> 에 대해서는 올바른 연결 테이블을 생성해야 합니다.</p>
+<h5 id="belongs_to">3.3.1 <tt>belongs_to</tt> 관계를 위한 외래 열쇠 만들기</h5>
+<p><tt>belongs_to</tt> 관계를 만들때에, 당신은 올바른 외래키를 만들 필요가 있다. 예를 들어 다음 모델을 생각해 보자.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -541,7 +551,7 @@ end
 </div>
 </notextile>
 
-<p>This declaration needs to be backed up by the proper foreign key declaration on the orders table:</p>
+<p>이 선언은 올바른 외래 열쇠의 선언을 다른 주문 테이블에 저장해야 한다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -562,11 +572,11 @@ end
 </div>
 </notextile>
 
-<p>If you create an association some time after you build the underlying model, you need to remember to create an <tt>add_column</tt> migration to provide the necessary foreign key.</p>
-<h5 id="creating-join-tables-for-has_and_belongs_to_many-associations">3.3.2 Creating Join Tables for <tt>has_and_belongs_to_many</tt> Associations</h5>
-<p>If you create a <tt>has_and_belongs_to_many</tt> association, you need to explicitly create the joining table. Unless the name of the join table is explicitly specified by using the <tt>:join_table</tt> option, Active Record creates the name by using the lexical order of the class names. So a join between customer and order models will give the default join table name of &#8220;customers_orders&#8221; because &#8220;c&#8221; outranks &#8220;o&#8221; in lexical ordering.</p>
-<div class='warning'><p>The precedence between model names is calculated using the <tt>&lt;</tt> operator for <tt>String</tt>. This means that if the strings are of different lengths, and the strings are equal when compared up to the shortest length, then the longer string is considered of higher lexical precedence than the shorter one. For example, one would expect the tables &#8220;paper_boxes&#8221; and &#8220;papers&#8221; to generate a join table name of &#8220;papers_paper_boxes&#8221; because of the length of the name &#8220;paper_boxes&#8221;, but it in fact generates a join table name of &#8220;paper_boxes_papers&#8221; (because the underscore &#8216;_&#8217; is lexicographically <em>less</em> than &#8216;s&#8217; in common encodings).</p></div>
-<p>Whatever the name, you must manually generate the join table with an appropriate migration. For example, consider these associations:</p>
+만약 당신이 모델을 만든 한참 후에 관계를 생성했다면, 당신은 필요한 외래 열쇠를 제공하고자 <tt>belongs_to</tt> 마이그레이션을 생성하는 것을 기억해야 한다.
+<h5 id="has_and_belongs_to_many">3.3.2 <tt>has_and_belongs_to_many</tt> 관계를 위한 연결테이블 생성하기</h5>
+<p>만약 우리가<tt>has_and_belongs_to_many</tt> 관계를 생성한다면, 우리는 연결 테이블을 명확하게 생성할 필요가 있습니다. <tt>:join_table</tt> 옵션을 사용하여연결 테이블의 이름을 명확하게 밝히지 않는 이상에는, 활성 레코드는 클래스명을 알파벳 순으로 배열한 이름을 사용할 것입니다. 따라서 고객(customer)과 주문(order) 모델사이의 연결은 &#8220;customers_orders&#8221; 명을 연결 테이블의 이름으로 사용하게 될텐데 그 이유는 고객의 영문단어 첫글자 &quot;c&quot;가 주문의 영문단어 첫글자 &#8220;o&#8221; 보다 알파벳 순으로 먼저이기 때문입니다.</p>
+<p>모델명간의 우선순우를  알파벳 순으로 결정할 때에 문자열을 위한 객체<tt>String</tt> 에 정의된 <tt>&lt;</tt> 연산자(operator)가 사용됩니다. 이 말은 비교되는 문자열의 길이가 다르때에는  짧은  문자열의 길이까지만을 서로 비교하게 되는데, 이래고 같을 경우에는, 길이가 긴 문자열이 알파벳 순으로 더 뒤에 놓이게 됩니다. 예를 들면두 모델 &#8220;paper_boxes&#8221; 와 &#8220;papers&#8221; 를 연결하는 테이블의 생성시를 생각해 보겠습니다.  짧은 문자열의 길이까지만을 비교함으로 내부적으로&quot;paper_” 와 &#8220;papers&#8221; 를 비교하게 되고, 문자&#8217;_&#8217;  보다 &#8216;s&#8217; 가 더 <em>앞서</em>  므로, 연결 테이블 이름은 &#8220;papers_paper_boxes&#8221;  로 생성되지 않고, 대신 &#8220;papers_paper_boxes&#8221; 으로 생성됩니다.</p>
+<p>이름이 무엇이던 간에, 우리는 올바른 마이그레이션을 통해 연결 테이블을 손수 생성해야만 합니다.  예를 들면 다음 관계예제들과 같이 말입니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -581,7 +591,7 @@ end
 </div>
 </notextile>
 
-<p>These need to be backed up by a migration to create the <tt>assemblies_parts</tt> table. This table should be created without a primary key:</p>
+<p>이 모델들은 <tt>assemblies_parts</tt>  테이블의 생성을 위해서 마이그레이션이 필요합니다. 이 테이블은 주열쇠 없이 생성되어야만 합니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -601,9 +611,9 @@ end
 </div>
 </notextile>
 
-<p>We pass <tt>:id => false</tt> to <tt>create_table</tt> because that table does not represent a model. That&#8217;s required for the association to work properly. If you observe any strange behaviour in a <tt>has_and_belongs_to_many</tt> association like mangled models IDs, or exceptions about conflicting IDs chances are you forgot that bit.</p>
-<h4 id="controlling-association-scope">3.4 Controlling Association Scope</h4>
-<p>By default, associations look for objects only within the current module&#8217;s scope. This can be important when you declare Active Record models within a module. For example:</p>
+<p>우리는<tt>:id => false</tt> 를  <tt>create_table</tt>를 인자로 넘겼습니다. 그 이유는 그 테이블이 모델을 표현하고 있지 않기 때문이며 제대로 작동하기 위해서 관계는 그러한 인자가 필요합니다.  만약 당신이<tt>has_and_belongs_to_many</tt>관계를 사용할 때에 깨진 모델 아이디나 아이디 충돌 예외처리와 같은 이상한 수행결과를 발견한다면, 아마도 이와 같이 인자를 넘기지 않았기 때문일 수 있습니다.</p>
+<p>h4(#). 3.4 관계 범위 제어하기</p>
+<p>기본으로 관계는 현 모델의 범위내에서 객체의 예들을 찾습니다. 이것은 우리가 활성 레코드 모델을 선언할 때에 중요할 수 있습니다. 다음 예를 보시죠.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -622,7 +632,7 @@ end
 </div>
 </notextile>
 
-<p>This will work fine, because both the <tt>Supplier</tt> and the <tt>Account</tt> class are defined within the same scope. But the following will <em>not</em> work, because <tt>Supplier</tt> and <tt>Account</tt> are defined in different scopes:</p>
+<p>이 예제 코드는 문제 없이 작동 할 것입니다. 왜냐하면<tt>Supplier</tt> 와 <tt>Account</tt> 객체가 동일한 범위, 즉, 모듈내에서 정의가 됐기 때문입니다.  반대로, 다음의 예에서는  <tt>Supplier</tt> 와  <tt>Account</tt> 제대로 작동하지 않을텐데 그 이유는 이들이 다른 범위에서 정의됐기 때문이죠.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -643,7 +653,7 @@ end
 </div>
 </notextile>
 
-<p>To associate a model with a model in a different namespace, you must specify the complete class name in your association declaration:</p>
+<p>다른 이름공간(namespace)에 정의된 모델들 사이를 관계 맺고자 할 경우, 우리는 완전한 객체 명을 관계정의에 명시해야 됩니다. 다음을 보시죠.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -666,19 +676,20 @@ end
 </div>
 </notextile>
 
-<h3 id="detailed-association-reference">4 Detailed Association Reference</h3>
-<p>The following sections give the details of each type of association, including the methods that they add and the options that you can use when declaring an association.</p>
-<h4 id="belongs_to-association-reference">4.1 <tt>belongs_to</tt> Association Reference</h4>
-<p>The <tt>belongs_to</tt> association creates a one-to-one match with another model. In database terms, this association says that this class contains the foreign key. If the other class contains the foreign key, then you should use <tt>has_one</tt> instead.</p>
-<h5 id="methods-added-by-belongs_to">4.1.1 Methods Added by <tt>belongs_to</tt></h5>
-<p>When you declare a <tt>belongs_to</tt> association, the declaring class automatically gains four methods related to the association:</p>
+<p>h3(#). 4 자세한 관계 참고자료</p>
+<p>The following sections give the details of each type of association, including the methods that they add and the options that you can use when declaring an association.
+다음 절은 각 관계의 유형별 상세자료를 담고 있습는데,   생성되는 객체 함수들과 이들의 옵션들을 보시게 될 것입니다.</p>
+<h4 id="belongs_to">4.1 <tt>belongs_to</tt> 관계 참고자료</h4>
+<p><tt>belongs_to</tt> 관계는 다른 모델과의 1:1 관계를 생성한다. 데이터베이스 용어로는 이 관계객체가 외래 열쇠를 갖게된다고 말합니다. 만약  관련된 다른 객체가 외래 열쇠를 가지게 된다면,  우리는<tt>has_one</tt> 관계를 대신 사용해야 합니다.</p>
+<h5 id="belongs_to">4.1.1 <tt>belongs_to</tt> 에 의해서 추가되는 함수들</h5>
+<p><tt>belongs_to</tt> 관계를 선언할 때에,  선언하는 클래스는 자동으로 다음의 네가지 함수들을 가지게 됩니다.</p>
 <ul>
 	<li><tt><em>association</em>(force_reload = false)</tt></li>
 	<li><tt><em>association</em>=(associate)</tt></li>
 	<li><tt>build_<em>association</em>(attributes = {})</tt></li>
 	<li><tt>create_<em>association</em>(attributes = {})</tt></li>
 </ul>
-<p>In all of these methods, <tt><em>association</em></tt> is replaced with the symbol passed as the first argument to <tt>belongs_to</tt>. For example, given the declaration:</p>
+<p>이 모든 함수들에서<tt><em>association</em></tt>는<tt>belongs_to</tt> 관계에 정의된 모델명으로 바뀌어야 합니다. 다음의 예를 보시죠.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -689,7 +700,7 @@ end
 </div>
 </notextile>
 
-<p>Each instance of the order model will have these methods:</p>
+<p>각 모델의 실예는 이러한 함수들을 갖게 됩니다. 즉, 주문(order)의 실예(instance)는 관련된 다음의 함수를 가지게 됩니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -701,9 +712,8 @@ create_customer
 </div>
 </notextile>
 
-<div class='note'><p>When initializing a new <tt>has_one</tt> or <tt>belongs_to</tt> association you must use the <tt>build_</tt> prefix to build the association, rather than the <tt>association.build</tt> method that would be used for <tt>has_many</tt> or <tt>has_and_belongs_to_many</tt> associations. To create one, use the <tt>create_</tt> prefix.</p></div>
 <h6 id="belongs_to-association">4.1.1.1 <tt><em>association</em>(force_reload = false)</tt></h6>
-<p>The <tt><em>association</em></tt> method returns the associated object, if any. If no associated object is found, it returns <tt>nil</tt>.</p>
+<tt><em>association</em></tt> 메서드는 관련된 객체를 반환하는데, 만약, 관련된 객체가 존재하지 않으면 <tt>nil</tt> 을 반환합니다.
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -712,9 +722,9 @@ create_customer
 </div>
 </notextile>
 
-<p>If the associated object has already been retrieved from the database for this object, the cached version will be returned. To override this behavior (and force a database read), pass <tt>true</tt> as the <tt>force_reload</tt> argument.</p>
+<p>만약 데이터베이스로부터 관련객체을 벌써 읽었다면 이 것은  임시저장소(케쉬)의 것이 반환될 것입니다.  캐쉬의 것을  사용하는 이 방법을 무시하고 데이터 베이스의 것을 읽기를 원한다면,  <tt>force_reload</tt> 에 해당하는  인자값을  <tt>true</tt> 로 넘기셔야 합니다.</p>
 <h6 id="belongs_to-association_equal">4.1.1.2 <tt><em>association</em>=(associate)</tt></h6>
-<p>The <tt><em>association</em>=</tt> method assigns an associated object to this object. Behind the scenes, this means extracting the primary key from the associate object and setting this object&#8217;s foreign key to the same value.</p>
+<tt><em>association</em>=</tt> 메서드는 관련된 객체를 설정할 것입니다.  내부적으로 이것은  관련 객체의 (데이터 베이스의) 주 열쇠값을 꺼내와 (데이터베이스의) 외부 열쇠로 복사하는 것과 같습니다.
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">

@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Ruby on Rails Guides: Active Record Query Interface</title>
+<title>Ruby on Rails Guides: 액티브 레코드 쿼리 인터페이스</title>
 
 <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
@@ -42,9 +42,9 @@
               <dd><a href="getting_started.html">레일즈 시작하기</a></dd>
               <dt>모델(Models)</dt>
               <dd><a href="migrations.html">레일즈 데이터베이스 마이그레이션</a></dd>
-              <dd><a href="active_record_validations_callbacks.html">엑티브 레코드 데이터 검증(Validation)과 Callback(콜백)</a></dd>
-              <dd><a href="association_basics.html">엑티브 레코드 Association(관계)</a></dd>
-              <dd><a href="active_record_querying.html">엑티브 레코드 쿼리 인터페이스</a></dd>
+              <dd><a href="active_record_validations_callbacks.html">액티브 레코드 데이터 검증(Validation)과 Callback(콜백)</a></dd>
+              <dd><a href="association_basics.html">액티브 레코드 Association(관계)</a></dd>
+              <dd><a href="active_record_querying.html">액티브 레코드 쿼리 인터페이스</a></dd>
               <dt>뷰(Views)</dt>
               <dd><a href="layouts_and_rendering.html">레이아웃(Layouts)과 렌더링(Rendering)</a></dd>
               <dd><a href="form_helpers.html">액션 뷰 폼 핼퍼(Action View Form Helpers)</a></dd>
@@ -54,7 +54,7 @@
             </dl>
             <dl class="R">
               <dt>심화내용</dt>
-              <dd><a href="active_support_core_extensions.html">엑티브 서포트(Active Support) 확장(Core Extensions)</a></dd>
+              <dd><a href="active_support_core_extensions.html">액티브 서포트(Active Support) 확장(Core Extensions)</a></dd>
               <dd><a href="i18n.html">레일즈 국제화I(nternationalization) API</a></dd>
               <dd><a href="action_mailer_basics.html">액션 메일러의 기본</a></dd>
               <dd><a href="testing.html">레일즈 어플리케이션 테스트하기</a></dd>
@@ -91,31 +91,32 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2>Active Record Query Interface</h2>
-<p>This guide covers different ways to retrieve data from the database using Active Record. By referring to this guide, you will be able to:</p>
+      <h2>액티브 레코드 쿼리 인터페이스</h2>
+<p>아 가이드는 액티브 레코드를 이용해서 데이터베이스에서 자료를 가지고 오는 다양한 방법을 다룹니다. 이 가이드를 익히면 여러분은 다음을 내용을 알 수 있습니다.:</p>
 <ul>
-	<li>Find records using a variety of methods and conditions</li>
-	<li>Specify the order, retrieved attributes, grouping, and other properties of the found records</li>
-	<li>Use eager loading to reduce the number of database queries needed for data retrieval</li>
-	<li>Use dynamic finders methods</li>
-	<li>Check for the existence of particular records</li>
-	<li>Perform various calculations on Active Record models</li>
+	<li>다양한 메소드와 조건을 이용해서 레코드 찾기</li>
+	<li>검색한 레코드의 순서 지정, 속성 가져오기, 그룹 짓기 그리고 다른 요소들</li>
+	<li>데이터 조회 쿼리 요청을 줄이기 위한 Eager Loading 사용</li>
+	<li>동적(Dynamic) finder 메소드 사용</li>
+	<li>특정 레코드의 존재여부 검사</li>
+	<li>액티브 레코드 모델에서 다양한 계산 수행</li>
 </ul>
 
             <div id="subCol">
         <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
         <ol class="chapters">
-<li><a href="#retrieving-objects-from-the-database">Retrieving Objects from the Database</a><ul><li><a href="#retrieving-a-single-object">Retrieving a Single Object</a></li> <li><a href="#retrieving-multiple-objects">Retrieving Multiple Objects</a></li> <li><a href="#retrieving-multiple-objects-in-batches">Retrieving Multiple Objects in Batches</a></li></ul></li><li><a href="#conditions">Conditions</a><ul><li><a href="#pure-string-conditions">Pure String Conditions</a></li> <li><a href="#array-conditions">Array Conditions</a></li> <li><a href="#hash-conditions">Hash Conditions</a></li></ul></li><li><a href="#ordering">Ordering</a></li><li><a href="#selecting-specific-fields">Selecting Specific Fields</a></li><li><a href="#limit-and-offset">Limit and Offset</a></li><li><a href="#group">Group</a></li><li><a href="#having">Having</a></li><li><a href="#overriding-conditions">Overriding Conditions</a></li><li><a href="#readonly-objects">Readonly Objects</a></li><li><a href="#locking-records-for-update">Locking Records for Update</a><ul><li><a href="#optimistic-locking">Optimistic Locking</a></li> <li><a href="#pessimistic-locking">Pessimistic Locking</a></li></ul></li><li><a href="#joining-tables">Joining Tables</a><ul><li><a href="#using-a-string-sql-fragment">Using a String <span class="caps">SQL</span> Fragment</a></li> <li><a href="#using-array-hash-of-named-associations">Using Array/Hash of Named Associations</a></li> <li><a href="#specifying-conditions-on-the-joined-tables">Specifying Conditions on the Joined Tables</a></li></ul></li><li><a href="#eager-loading-associations">Eager Loading Associations</a><ul><li><a href="#eager-loading-multiple-associations">Eager Loading Multiple Associations</a></li> <li><a href="#specifying-conditions-on-eager-loaded-associations">Specifying Conditions on Eager Loaded Associations</a></li></ul></li><li><a href="#scopes">Scopes</a><ul><li><a href="#working-with-times">Working with times</a></li> <li><a href="#passing-in-arguments">Passing in arguments</a></li></ul></li><li><a href="#dynamic-finders">Dynamic Finders</a></li><li><a href="#finding-by-sql">Finding by <span class="caps">SQL</span></a></li><li><a href="#select_all"><tt>select_all</tt></a></li><li><a href="#existence-of-objects">Existence of Objects</a></li><li><a href="#calculations">Calculations</a><ul><li><a href="#count">Count</a></li> <li><a href="#average">Average</a></li> <li><a href="#minimum">Minimum</a></li> <li><a href="#maximum">Maximum</a></li> <li><a href="#sum">Sum</a></li></ul></li><li><a href="#changelog">Changelog</a></li></ol></div>
+<li><a href="#retrieving-objects-from-the-database">데이터베이스에서 객체 조회하기</a><ul><li><a href="#retrieving-multiple-objects">복수 객체 검색</a></li> <li><a href="#retrieving-multiple-objects-in-batches">일괄 작업(Batch)에서 여러 객체 검색하기</a></li></ul></li><li><a href="#conditions">Conditions</a><ul><li><a href="#pure-string-conditions">Pure String Conditions</a></li> <li><a href="#array-conditions">Array Conditions</a></li> <li><a href="#hash-conditions">Hash Conditions</a></li></ul></li><li><a href="#ordering">Ordering</a></li><li><a href="#selecting-specific-fields">Selecting Specific Fields</a></li><li><a href="#limit-and-offset">Limit and Offset</a></li><li><a href="#group">Group</a></li><li><a href="#having">Having</a></li><li><a href="#overriding-conditions">Overriding Conditions</a></li><li><a href="#readonly-objects">Readonly Objects</a></li><li><a href="#locking-records-for-update">Locking Records for Update</a><ul><li><a href="#optimistic-locking">Optimistic Locking</a></li> <li><a href="#pessimistic-locking">Pessimistic Locking</a></li></ul></li><li><a href="#joining-tables">Joining Tables</a><ul><li><a href="#using-a-string-sql-fragment">Using a String <span class="caps">SQL</span> Fragment</a></li> <li><a href="#using-array-hash-of-named-associations">Using Array/Hash of Named Associations</a></li> <li><a href="#specifying-conditions-on-the-joined-tables">Specifying Conditions on the Joined Tables</a></li></ul></li><li><a href="#eager-loading-associations">Eager Loading Associations</a><ul><li><a href="#eager-loading-multiple-associations">Eager Loading Multiple Associations</a></li> <li><a href="#specifying-conditions-on-eager-loaded-associations">Specifying Conditions on Eager Loaded Associations</a></li></ul></li><li><a href="#scopes">Scopes</a><ul><li><a href="#working-with-times">Working with times</a></li> <li><a href="#passing-in-arguments">Passing in arguments</a></li></ul></li><li><a href="#dynamic-finders">Dynamic Finders</a></li><li><a href="#finding-by-sql">Finding by <span class="caps">SQL</span></a></li><li><a href="#select_all"><tt>select_all</tt></a></li><li><a href="#existence-of-objects">Existence of Objects</a></li><li><a href="#calculations">Calculations</a><ul><li><a href="#count">Count</a></li> <li><a href="#average">Average</a></li> <li><a href="#minimum">Minimum</a></li> <li><a href="#maximum">Maximum</a></li> <li><a href="#sum">Sum</a></li></ul></li><li><a href="#changelog">Changelog</a></li></ol></div>
     </div>
   </div>
 
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <div class='warning'><p>This Guide is based on Rails 3.0. Some of the code shown here will not work in other versions of Rails.</p></div>
-<p>If you&#8217;re used to using raw <span class="caps">SQL</span> to find database records then, generally, you will find that there are better ways to carry out the same operations in Rails. Active Record insulates you from the need to use <span class="caps">SQL</span> in most cases.</p>
-<p>Code examples throughout this guide will refer to one or more of the following models:</p>
-<div class='info'><p>All of the following models use <tt>id</tt> as the primary key, unless specified otherwise.</p></div>
+        <div class='warning'><p>이 가이드는 레일즈 3.0에 기초합니다. 기존 버전의 레일즈에서는 이 문서의 코드가 동작하지 않을 수 있습니다.</p></div>
+<div class='warning'><p>이 가이드의 원본은 영문 버전인 <a href="http://guides.rubyonrails.org/active_record_querying.html">Active Record Query Interface</a> 입니다. 번역 과정에서 원본과 차이가 발생할 수 있습니다. 번역본은 원본의 참고로 생각해 주세요.</p></div>
+<p>만약 여러분이 데이터베이스의 레코드를 찾기 위해 표준 SQL을 이용한다면, 일반적으로 여러분은 레일즈로 동일 작업에 대하여 더 좋은 방법을 알게 될 것입니다. 액티브 레코드는 <span class="caps">SQL</span> 사용이 필요한 많은 경우에서 여러분을 해방 시킵니다.</p>
+<p>이 가이드의 코드 예제는 다음의 한가지 혹은 그 이상의 모델을 참고합니다.:</p>
+<div class='info'><p>특별한 경우가 아니면, 아래의 모든 모델은 <tt>id</tt>를 기본키로 사용합니다.</p></div>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -158,10 +159,10 @@ end
 </div>
 </notextile>
 
-<p>Active Record will perform queries on the database for you and is compatible with most database systems (MySQL, PostgreSQL and SQLite to name a few). Regardless of which database system you&#8217;re using, the Active Record method format will always be the same.</p>
-<h3 id="retrieving-objects-from-the-database">1 Retrieving Objects from the Database</h3>
-<p>To retrieve objects from the database, Active Record provides several finder methods. Each finder method allows you to pass arguments into it to perform certain queries on your database without writing raw <span class="caps">SQL</span>.</p>
-<p>The methods are:</p>
+<p>액티브 레코드는 데이터베이스 상에서 쿼리를 실행하며 대부분의 데이터베이스와 호환됩니다. (MySQL, PostgresSQL, SQLite). 여러분이 사용하는 데이터베이스가 상이해도, 액티브 레코드 메소드 사용 방식은 항상 동일합니다.</p>
+<h3 id="retrieving-objects-from-the-database">1 데이터베이스에서 객체 조회하기</h3>
+<p>데이터베이스에서 객체를 조회하기 위해, 액티브 레코드는 몇가지 찾기(finder) 메소드를 제공합니다. 각 찾기 메소드는 기본 SQL을 사용하지 않고, 데이터베이스에 정확한 쿼리를 수행하기 위해서 인자를 받습니다.</p>
+<p>메소드는 다음과 같습니다.:</p>
 <ul>
 	<li><tt>where</tt></li>
 	<li><tt>select</tt></li>
@@ -176,29 +177,29 @@ end
 	<li><tt>from</tt></li>
 	<li><tt>having</tt></li>
 </ul>
-<p>All of the above methods return an instance of <tt>ActiveRecord::Relation</tt>.</p>
-<p>Primary operation of <tt>Model.find(options)</tt> can be summarized as:</p>
+<p>위의 모든 메소드는 <tt>ActiveRecord::Relation</tt>의 인스턴스를 반환합니다.</p>
+<p><tt>Model.find(options)</tt>의 주요 동작은 다음으로 요약됩니다.:</p>
 <ul>
-	<li>Convert the supplied options to an equivalent <span class="caps">SQL</span> query.</li>
-	<li>Fire the <span class="caps">SQL</span> query and retrieve the corresponding results from the database.</li>
-	<li>Instantiate the equivalent Ruby object of the appropriate model for every resulting row.</li>
-	<li>Run <tt>after_find</tt> callbacks if any.</li>
+	<li>옵션을 동일 <span class="caps">SQL</span> 쿼리로 변환</li>
+	<li><span class="caps">SQL</span> 쿼리를 실행하고, 데이터베이스에서 관련 결과를 검색</li>
+	<li>모든 결과 열을 수용하는 적절한 루비 객체의 인스턴스를 생성</li>
+	<li><tt>after_find</tt> 콜백 실행</li>
 </ul>
-<h4 id="retrieving-a-single-object">1.1 Retrieving a Single Object</h4>
-<p>Active Record lets you retrieve a single object using three different ways.</p>
-<h5 id="using-a-primary-key">1.1.1 Using a Primary Key</h5>
-<p>Using <tt>Model.find(primary_key)</tt>, you can retrieve the object corresponding to the supplied <em>primary key</em> and matching the supplied options (if any). For example:</p>
+<h4 class="retrieving-a-single-object">단일 객체 검색</h4>
+<p>액티브 레코드는 단일 객체 조회를 위해 3가지 다른 방법을 제공합니다.</p>
+<h5 id="using-a-primary-key">기본키 이용하기</h5>
+<p><tt>Model.find(primary_key)</tt>를 사용해서, 주어진 <em>기본키(primary key)</em>와 조건에 일치하는 객체를 찾을 수 있습니다. 예를들어:</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-# Find the client with primary key (id) 10.
+# 기본키(id) 10 을 가지고 client 찾기
 client = Client.find(10)
 =&gt; #&lt;Client id: 10, first_name: =&gt; &quot;Ryan&quot;&gt;
 </pre>
 </div>
 </notextile>
 
-<p><span class="caps">SQL</span> equivalent of the above is:</p>
+<p>위와 동일한 SQL은 다음과 같습니다.:</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
@@ -207,9 +208,9 @@ SELECT * FROM clients WHERE (clients.id = 10)
 </div>
 </notextile>
 
-<p><tt>Model.find(primary_key)</tt> will raise an <tt>ActiveRecord::RecordNotFound</tt> exception if no matching record is found.</p>
-<h5 id="first">1.1.2 <tt>first</tt></h5>
-<p><tt>Model.first</tt> finds the first record matched by the supplied options. For example:</p>
+<p>만약 일치하는 레코드가 존재하지 않으면, <tt>Model.find(primary_key)</tt> 호출은 <tt>ActiveRecord::RecordNotFound</tt>을 발생시킵니다.</p>
+<h5 id="first"><tt>first</tt></h5>
+<p><tt>Model.first</tt>는 주어진 조건과 일치하는 첫번째 레코드를 찾습니다. 예를들어:</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -219,7 +220,7 @@ client = Client.first
 </div>
 </notextile>
 
-<p><span class="caps">SQL</span> equivalent of the above is:</p>
+<p>위와 동일한 SQL은 다음과 같습니다.:</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
@@ -228,9 +229,9 @@ SELECT * FROM clients LIMIT 1
 </div>
 </notextile>
 
-<p><tt>Model.first</tt> returns <tt>nil</tt> if no matching record is found. No exception will be raised.</p>
-<h5 id="last">1.1.3 <tt>last</tt></h5>
-<p><tt>Model.last</tt> finds the last record matched by the supplied options. For example:</p>
+<p>만약 일치하는 레코드가 없다면, <tt>Model.first</tt>는 <tt>nil</tt>을 반환합니다. 예외가 발생하지는 않습니다.</p>
+<h5 id="last"><tt>last</tt></h5>
+<p><tt>Model.last</tt>는 주어진 조건과 일치하는 마지막 레코드를 찾습니다. 예를들어:</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -240,7 +241,7 @@ client = Client.last
 </div>
 </notextile>
 
-<p><span class="caps">SQL</span> equivalent of the above is:</p>
+<p>위와 동일한 SQL은 다음과 같습니다.:</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
@@ -249,21 +250,21 @@ SELECT * FROM clients ORDER BY clients.id DESC LIMIT 1
 </div>
 </notextile>
 
-<p><tt>Model.last</tt> returns <tt>nil</tt> if no matching record is found. No exception will be raised.</p>
-<h4 id="retrieving-multiple-objects">1.2 Retrieving Multiple Objects</h4>
-<h5 id="using-multiple-primary-keys">1.2.1 Using Multiple Primary Keys</h5>
-<p><tt>Model.find(array_of_primary_key)</tt> also accepts an array of <em>primary keys</em>. An array of all the matching records for the supplied <em>primary keys</em> is returned. For example:</p>
+<p>만약 일치하는 레코드가 없다면, <tt>Model.last</tt>는 <tt>nil</tt>을 반환합니다. 예외가 발생하지는 않습니다.</p>
+<h4 id="retrieving-multiple-objects">1.1 복수 객체 검색</h4>
+<h5 id="using-multiple-primary-keys">1.1.1 복수 기본키 사용하기</h5>
+<p><tt>Model.find(array_of_primary_key)</tt>는 <tt>기본키(primary key)</tt>의 배열도 허용합니다. 주어진 <tt>여러 기본키</tt>와 일치하는 모든 레코드 배열이 반환됩니다. 예를들어:</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-# Find the clients with primary keys 1 and 10.
+# 기본키 1과 0에 해당하는 client 객체 찾기
 client = Client.find(1, 10) # Or even Client.find([1, 10])
 =&gt; [#&lt;Client id: 1, first_name: =&gt; &quot;Lifo&quot;&gt;, #&lt;Client id: 10, first_name: =&gt; &quot;Ryan&quot;&gt;]
 </pre>
 </div>
 </notextile>
 
-<p><span class="caps">SQL</span> equivalent of the above is:</p>
+<p>위와 동일한 SQL은 다음과 같습니다.:</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
@@ -272,14 +273,14 @@ SELECT * FROM clients WHERE (clients.id IN (1,10))
 </div>
 </notextile>
 
-<div class='warning'><p><tt>Model.find(array_of_primary_key)</tt> will raise an <tt>ActiveRecord::RecordNotFound</tt> exception unless a matching record is found for <strong>all</strong> of the supplied primary keys.</p></div>
-<h4 id="retrieving-multiple-objects-in-batches">1.3 Retrieving Multiple Objects in Batches</h4>
-<p>Sometimes you need to iterate over a large set of records. For example to send a newsletter to all users, to export some data, etc.</p>
-<p>The following may seem very straight forward at first:</p>
+<div class='warning'><p><tt>Model.find(array_of_primary_key)</tt>는 입력된 여러 기본키 값들과 일치하는 레코드를 <strong>모두</strong> 찾을수 없다면 <tt>ActiveRecord::RecordNotFound</tt> 예외를 발생합니다. (한개라도 못찾으면 발생)</p></div>
+<h4 id="retrieving-multiple-objects-in-batches">1.2 일괄 작업(Batch)에서 여러 객체 검색하기</h4>
+<p>때로 많은 양의 레코드를 순회할 필요가 있습니다. 예를들어, 모든 사용자에게 뉴스레터를 보낼때나, 필요한 데이터를 빼낼때(export) 등 말이죠.</p>
+<p>다음 코드는 아마도 맨 처음으로 곧바로 생각할 수 있는 방법일 겁니니다.:</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-# Very inefficient when users table has thousands of rows.
+# 열의 수가 수천개가 되는 사용자 테이블이라면 매우 비효율적입니다.
 User.all.each do |user|
   NewsLetter.weekly_deliver(user)
 end
@@ -287,10 +288,11 @@ end
 </div>
 </notextile>
 
-<p>But if the total number of rows in the table is very large, the above approach may vary from being under performant to just plain impossible.</p>
-<p>This is because <tt>User.all.each</tt> makes Active Record fetch <em>the entire table</em>, build a model object per row, and keep the entire array in the memory. Sometimes that is just too many objects and demands too much memory.</p>
-<h5 id="find_each">1.3.1 <tt>find_each</tt></h5>
-<p>To efficiently iterate over a large table, Active Record provides a batch finder method called <tt>find_each</tt>:</p>
+<p>그러나 테이블의 전체 열의 수가 매우 크다면, 위의 접근 방식은 아마도 
+But if the total number of rows in the table is very large, the above approach may vary from being under performant to just plain impossible.</p>
+<p><tt>User.all.each</tt>는 액티브 레코드로 하여금 <em>전체 테이블</em> 정보를 가지고 오게 만들고, 각 행마다 모델 객체를 만들며 메모리에 전체 배열을 유지하게 하기 때문입니다. 때로는 너무 많은 객체를 만들고 굉장히 많은 매모리를 차지합니다.</p>
+<h5 id="find_each">1.2.1 <tt>find_each</tt></h5>
+<p>큰 테이블을 효율적으로 순회하기 위해서, 액티브 레코드는 <tt>find_each</tt>로 불리는 일괄 작업용 파인더 메소드를 제공합니다.:</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -301,9 +303,9 @@ end
 </div>
 </notextile>
 
-<p><strong>Configuring the batch size</strong></p>
-<p>Behind the scenes <tt>find_each</tt> fetches rows in batches of <tt>1000</tt> and yields them one by one. The size of the underlying batches is configurable via the <tt>:batch_size</tt> option.</p>
-<p>To fetch <tt>User</tt> records in batch size of <tt>5000</tt>:</p>
+<p><strong>일괄 작업(batch) 크기 설정</strong></p>
+<p><tt>find_each</tt>는 기본적으로 1000개 단위로 열을 가지고 와서 하나씩 블록을 실행합니다. 이 단위는 <tt>:batch_size</tt> 옵션을 통해서 설정할 수 있습니다.</p>
+<p><tt>User</tt> 레코드를 <tt>5000</tt>개 단위로 가지고 와서 처리하려면:</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -314,7 +316,7 @@ end
 </div>
 </notextile>
 
-<p><strong>Starting batch find from a specific primary key</strong></p>
+<p><strong>정해진 기본키 부터 일괄 작업(batch) 조회 시작하기</strong></p>
 <p>Records are fetched in ascending order on the primary key, which must be an integer. The <tt>:start</tt> option allows you to configure the first ID of the sequence if the lowest is not the one you need. This may be useful for example to be able to resume an interrupted batch process if it saves the last processed ID as a checkpoint.</p>
 <p>To send newsletters only to users with the primary key starting from <tt>2000</tt>:</p>
 <notextile>
@@ -329,7 +331,7 @@ end
 
 <p><strong>Additional options</strong></p>
 <p><tt>find_each</tt> accepts the same options as the regular <tt>find</tt> method. However, <tt>:order</tt> and <tt>:limit</tt> are needed internally and hence not allowed to be passed explicitly.</p>
-<h5 id="find_in_batches">1.3.2 <tt>find_in_batches</tt></h5>
+<h5 id="find_in_batches">1.2.2 <tt>find_in_batches</tt></h5>
 <p>You can also work by chunks instead of row by row using <tt>find_in_batches</tt>. This method is analogous to <tt>find_each</tt>, but it yields arrays of models instead:</p>
 <notextile>
 <div class="code_container">
