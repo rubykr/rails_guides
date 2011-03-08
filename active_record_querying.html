@@ -317,8 +317,9 @@ end
 </notextile>
 
 <p><strong>정해진 기본키 부터 일괄 작업(batch) 조회 시작하기</strong></p>
-<p>Records are fetched in ascending order on the primary key, which must be an integer. The <tt>:start</tt> option allows you to configure the first ID of the sequence if the lowest is not the one you need. This may be useful for example to be able to resume an interrupted batch process if it saves the last processed ID as a checkpoint.</p>
-<p>To send newsletters only to users with the primary key starting from <tt>2000</tt>:</p>
+<div class='warning'><p><tt>find_each</tt>는 레일즈 2.3.8까지만 존재하며, 이후 버전에서는 제거되었습니다. <tt>find_in_batches</tt>를 사용하세요.</p></div>
+<p>레코드는 정수형 기본키에 의해 오름차순으로 불립니다. <tt>:start</tt> 옵션으로 최소 기본키를 설정할 수 있으며, 이 옵션은  이미 처리된 마지막 ID를 체크포인트 용도로 저장했다가, 다시 그 지점부터 일괄 작업을 재시작할때 유용하게 사용할 수 있습니다.</p>
+<p>기본키 <tt>2000</tt> 이상의 사용자에게만 뉴스레터를 보내려면:</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -329,8 +330,8 @@ end
 </div>
 </notextile>
 
-<p><strong>Additional options</strong></p>
-<p><tt>find_each</tt> accepts the same options as the regular <tt>find</tt> method. However, <tt>:order</tt> and <tt>:limit</tt> are needed internally and hence not allowed to be passed explicitly.</p>
+<p><strong>부가 옵션</strong></p>
+<p><tt>find_each</tt>는 표준 <tt>find</tt> 메소드와 동일한 옵션을 허용합니다. 그렇지만 <tt>:order</tt>와 <tt>:limit</tt>는 내부적으로 필요해서 이 옵션들은 명시적으로 넘길수 없습니다.</p>
 <h5 id="find_in_batches">1.2.2 <tt>find_in_batches</tt></h5>
 <p>You can also work by chunks instead of row by row using <tt>find_in_batches</tt>. This method is analogous to <tt>find_each</tt>, but it yields arrays of models instead:</p>
 <notextile>

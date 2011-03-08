@@ -102,14 +102,14 @@
             <div id="subCol">
         <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
         <ol class="chapters">
-<li><a href="#">사용법</a></li><li><a href="#api">템플릿 <span class="caps">API</span></a><ul><li><a href="#gem-name-options">gem(name, options = {})</a></li> <li><a href="#add_source-source-options">add_source(source, options = {})</a></li> <li><a href="#plugin-name-options">plugin(name, options = {})</a></li> <li><a href="#vendor-lib-file-initializer-filename-data-nil-block">vendor/lib/file/initializer(filename, data = nil, &amp;block)</a></li> <li><a href="#rakefile-filename-data-nil-block">rakefile(filename, data = nil, &amp;block)</a></li> <li><a href="#generate-what-args">generate(what, args)</a></li> <li><a href="#run-command">run(command)</a></li> <li><a href="#rake-command-options">rake(command, options = {})</a></li> <li><a href="#route-routing_code">route(routing_code)</a></li> <li><a href="#inside-dir">inside(dir)</a></li> <li><a href="#ask-question">ask(question)</a></li> <li><a href="#yes-question-no-question">yes?(question) 혹은 no?(question)</a></li> <li><a href="#git-must-a-love">git(:must =&gt; &#8220;-a love&#8221;)</a></li></ul></li><li><a href="#changelog">Changelog</a></li></ol></div>
+<li><a href="#usage">사용법</a></li><li><a href="#template-api">템플릿 <span class="caps">API</span></a><ul><li><a href="#gem-name-options">gem(name, options = {})</a></li> <li><a href="#add_source-source-options">add_source(source, options = {})</a></li> <li><a href="#plugin-name-options">plugin(name, options = {})</a></li> <li><a href="#vendor-lib-file-initializer-filename-data-nil-block">vendor/lib/file/initializer(filename, data = nil, &amp;block)</a></li> <li><a href="#rakefile-filename-data-nil-block">rakefile(filename, data = nil, &amp;block)</a></li> <li><a href="#generate-what-args">generate(what, args)</a></li> <li><a href="#run-command">run(command)</a></li> <li><a href="#rake-command-options">rake(command, options = {})</a></li> <li><a href="#route-routing_code">route(routing_code)</a></li> <li><a href="#inside-dir">inside(dir)</a></li> <li><a href="#ask-question">ask(question)</a></li> <li><a href="#yes-question-no-question">yes?(question) 혹은 no?(question)</a></li> <li><a href="#git-must-a-love">git(:must =&gt; &#8220;-a love&#8221;)</a></li></ul></li><li><a href="#changelog">Changelog</a></li></ol></div>
     </div>
   </div>
 
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <p>h3(#). 1 사용법</p>
+        <h3 id="usage">1 사용법</h3>
 <p>템플릿을 적용하려면, -m 옵션을 이용하여 적용할 템플릿의 위치를 레일즈 제너레이터에 알려줘야 합니다 :</p>
 <notextile>
 <div class="code_container">
@@ -137,7 +137,7 @@ $ rake rails:template LOCATION=~/template.rb
 </div>
 </notextile>
 
-<h3 id="api">2 템플릿 <span class="caps">API</span></h3>
+<h3 id="template-api">2 템플릿 <span class="caps">API</span></h3>
 <p>레일즈 템플릿 <span class="caps">API</span> 는 매우 직관적이고 이해하기 쉽습니다. 일반적인 레일즈 템플릿의 예는 다음과 같습니다 :</p>
 <notextile>
 <div class="code_container">
