@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-<title>Ruby on Rails Guides: Rails Application Templates</title>
+<title>Ruby on Rails Guides: 레일즈 어플리케이션 템플릿</title>
 
 <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
@@ -42,9 +42,9 @@
               <dd><a href="getting_started.html">레일즈 시작하기</a></dd>
               <dt>모델(Models)</dt>
               <dd><a href="migrations.html">레일즈 데이터베이스 마이그레이션</a></dd>
-              <dd><a href="active_record_validations_callbacks.html">엑티브 레코드 데이터 검증(Validation)과 Callback(콜백)</a></dd>
-              <dd><a href="association_basics.html">엑티브 레코드 Association(관계)</a></dd>
-              <dd><a href="active_record_querying.html">엑티브 레코드 쿼리 인터페이스</a></dd>
+              <dd><a href="active_record_validations_callbacks.html">액티브 레코드 데이터 검증(Validation)과 Callback(콜백)</a></dd>
+              <dd><a href="association_basics.html">액티브 레코드 Association(관계)</a></dd>
+              <dd><a href="active_record_querying.html">액티브 레코드 쿼리 인터페이스</a></dd>
               <dt>뷰(Views)</dt>
               <dd><a href="layouts_and_rendering.html">레이아웃(Layouts)과 렌더링(Rendering)</a></dd>
               <dd><a href="form_helpers.html">액션 뷰 폼 핼퍼(Action View Form Helpers)</a></dd>
@@ -54,7 +54,7 @@
             </dl>
             <dl class="R">
               <dt>심화내용</dt>
-              <dd><a href="active_support_core_extensions.html">엑티브 서포트(Active Support) 확장(Core Extensions)</a></dd>
+              <dd><a href="active_support_core_extensions.html">액티브 서포트(Active Support) 확장(Core Extensions)</a></dd>
               <dd><a href="i18n.html">레일즈 국제화I(nternationalization) API</a></dd>
               <dd><a href="action_mailer_basics.html">액션 메일러의 기본</a></dd>
               <dd><a href="testing.html">레일즈 어플리케이션 테스트하기</a></dd>
@@ -91,26 +91,26 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2>Rails Application Templates</h2>
-<p>Application templates are simple ruby files containing <span class="caps">DSL</span> for adding plugins/gems/initializers etc. to your freshly created Rails project or an existing Rails project.</p>
-<p>By referring to this guide, you will be able to:</p>
+      <h2>레일즈 어플리케이션 템플릿</h2>
+<p>어플리케이션 템플릿은 새 레일즈 프로젝트(또는 이미 생성된 레일즈 프로젝트)에 plugin/gems/initializer 등을 추가하기 위한 <span class="caps">DSL</span> 을 포함한 간단한 루비 파일들입니다.</p>
+<p>이 가이드를 통해서 다음과 같은 것을 익히실 수 있습니다 :</p>
 <ul>
-	<li>Use templates to generate/customize Rails applications</li>
-	<li>Write your own reusable application templates using the Rails template <span class="caps">API</span></li>
+	<li>레일즈 어플리케이션을 생성/커스터마이즈 하기 위한 템플릿을 사용할 수 있습니다.</li>
+	<li>레일즈 템플릿 <span class="caps">API</span> 를 이용하여 자신만의 재사용 가능한 어플리케이션 템플릿을 작성할 수 있습니다.</li>
 </ul>
 
             <div id="subCol">
         <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
         <ol class="chapters">
-<li><a href="#usage">Usage</a></li><li><a href="#template-api">Template <span class="caps">API</span></a><ul><li><a href="#gem-name-options">gem(name, options = {})</a></li> <li><a href="#add_source-source-options">add_source(source, options = {})</a></li> <li><a href="#plugin-name-options">plugin(name, options = {})</a></li> <li><a href="#vendor-lib-file-initializer-filename-data-nil-block">vendor/lib/file/initializer(filename, data = nil, &amp;block)</a></li> <li><a href="#rakefile-filename-data-nil-block">rakefile(filename, data = nil, &amp;block)</a></li> <li><a href="#generate-what-args">generate(what, args)</a></li> <li><a href="#run-command">run(command)</a></li> <li><a href="#rake-command-options">rake(command, options = {})</a></li> <li><a href="#route-routing_code">route(routing_code)</a></li> <li><a href="#inside-dir">inside(dir)</a></li> <li><a href="#ask-question">ask(question)</a></li> <li><a href="#yes-question-or-no-question">yes?(question) or no?(question)</a></li> <li><a href="#git-must-a-love">git(:must =&gt; &#8220;-a love&#8221;)</a></li></ul></li><li><a href="#changelog">Changelog</a></li></ol></div>
+<li><a href="#">사용법</a></li><li><a href="#api">템플릿 <span class="caps">API</span></a><ul><li><a href="#gem-name-options">gem(name, options = {})</a></li> <li><a href="#add_source-source-options">add_source(source, options = {})</a></li> <li><a href="#plugin-name-options">plugin(name, options = {})</a></li> <li><a href="#vendor-lib-file-initializer-filename-data-nil-block">vendor/lib/file/initializer(filename, data = nil, &amp;block)</a></li> <li><a href="#rakefile-filename-data-nil-block">rakefile(filename, data = nil, &amp;block)</a></li> <li><a href="#generate-what-args">generate(what, args)</a></li> <li><a href="#run-command">run(command)</a></li> <li><a href="#rake-command-options">rake(command, options = {})</a></li> <li><a href="#route-routing_code">route(routing_code)</a></li> <li><a href="#inside-dir">inside(dir)</a></li> <li><a href="#ask-question">ask(question)</a></li> <li><a href="#yes-question-no-question">yes?(question) 혹은 no?(question)</a></li> <li><a href="#git-must-a-love">git(:must =&gt; &#8220;-a love&#8221;)</a></li></ul></li><li><a href="#changelog">Changelog</a></li></ol></div>
     </div>
   </div>
 
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="usage">1 Usage</h3>
-<p>To apply a template, you need to provide the Rails generator with the location of the template you wish to apply, using -m option :</p>
+        <p>h3(#). 1 사용법</p>
+<p>템플릿을 적용하려면, -m 옵션을 이용하여 적용할 템플릿의 위치를 레일즈 제너레이터에 알려줘야 합니다 :</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -119,7 +119,7 @@ $ rails new blog -m ~/template.rb
 </div>
 </notextile>
 
-<p>It&#8217;s also possible to apply a template using a <span class="caps">URL</span> :</p>
+<p><span class="caps">URL</span> 을 이용하여 템플릿을 적용하는 것도 가능합니다 :</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -128,7 +128,7 @@ $ rails new blog -m https://gist.github.com/755496.txt
 </div>
 </notextile>
 
-<p>Alternatively, you can use the rake task <tt>rails:template</tt> to apply a template to an existing Rails application :</p>
+<p>또한 이미 생성된 레일즈 어플리케이션의 경우, <tt>rails:template</tt> rake 태스크를 이용할 수 있습니다 :</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -137,8 +137,8 @@ $ rake rails:template LOCATION=~/template.rb
 </div>
 </notextile>
 
-<h3 id="template-api">2 Template <span class="caps">API</span></h3>
-<p>Rails templates <span class="caps">API</span> is very self explanatory and easy to understand. Here&#8217;s an example of a typical Rails template :</p>
+<h3 id="api">2 템플릿 <span class="caps">API</span></h3>
+<p>레일즈 템플릿 <span class="caps">API</span> 는 매우 직관적이고 이해하기 쉽습니다. 일반적인 레일즈 템플릿의 예는 다음과 같습니다 :</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -155,10 +155,10 @@ git :commit =&gt; &quot;-a -m 'Initial commit'&quot;
 </div>
 </notextile>
 
-<p>The following sections outlines the primary methods provided by the <span class="caps">API</span> :</p>
+<p>다음 절에서는 <span class="caps">API</span> 에서 제공하는 주요 메소드의 개요를 설명합니다 :</p>
 <h4 id="gem-name-options">2.1 gem(name, options = {})</h4>
-<p>Adds a <tt>gem</tt> entry for the supplied gem to the generated application’s <tt>Gemfile</tt>.</p>
-<p>For example, if your application depends on the gems <tt>bj</tt> and <tt>nokogiri</tt> :</p>
+<p>생성된 어플리케이션의 <tt>Gemfile</tt> 에 <tt>gem</tt> 항목을 추가합니다.</p>
+<p>만약 어플리케이션이 <tt>bj</tt> 와 <tt>nokogiri</tt> gem 에 의존하고 있다면 다음과 같이 사용합니다 :</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -168,7 +168,7 @@ gem &quot;nokogiri&quot;
 </div>
 </notextile>
 
-<p>Please note that this will <span class="caps">NOT</span> install the gems for you. So you may want to run the <tt>rake gems:install</tt> task too :</p>
+<p>이 메소드는 gem 을 설치하지 않는다는 것에 주의하세요.  그렇게 때문에 <tt>rake gems:install</tt> 태스크를 수행하고 싶을지도 모릅니다 :</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -177,10 +177,10 @@ rake &quot;gems:install&quot;
 </div>
 </notextile>
 
-<p>And let Rails take care of installing the required gems if they’re not already installed.</p>
+<p>그러면 설치가 되지 않은 필요한 젬이 있다면 레일즈가 설치를 합니다.</p>
 <h4 id="add_source-source-options">2.2 add_source(source, options = {})</h4>
-<p>Adds the given source to the generated application&#8217;s <tt>Gemfile</tt>.</p>
-<p>For example, if you need to source a gem from &#8220;http://code.whytheluckystiff.net&#8221;:</p>
+<p>생성된 어플리케이션의 <tt>Gemfile</tt> 에 주어진 source 를 추가합니다.</p>
+<p>예를들어 만약 &#8220;http://code.whytheluckystiff.net&#8221; 에서 gem 을 받아오고 싶다면  :</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -190,8 +190,8 @@ add_source &quot;http://code.whytheluckystiff.net&quot;
 </notextile>
 
 <h4 id="plugin-name-options">2.3 plugin(name, options = {})</h4>
-<p>Installs a plugin to the generated application.</p>
-<p>Plugin can be installed from Git :</p>
+<p>생성된 어플리케이션에 플러그인을 설치합니다.</p>
+<p>Git 으로부터 플러그인을 설치합니다 :</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -200,7 +200,7 @@ plugin 'authentication', :git =&gt; 'git://github.com/foor/bar.git'
 </div>
 </notextile>
 
-<p>You can even install plugins as git submodules :</p>
+<p>git 서브모듈을 통해 플러그인을 설치하는 것도 가능합니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -210,8 +210,8 @@ plugin 'authentication', :git =&gt; 'git://github.com/foor/bar.git',
 </div>
 </notextile>
 
-<p>Please note that you need to <tt>git :init</tt> before you can install a plugin as a submodule.</p>
-<p>Or use plain old <span class="caps">SVN</span> :</p>
+<p>서브모듈로 플러그인을 설치하기 전에 <tt>git :init</tt> 을 해야합니다.</p>
+<p>혹은 <span class="caps">SVN</span> 을 이용할 수도 있습니다 :</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -221,8 +221,8 @@ plugin 'usingsvn', :svn =&gt; 'svn://example.com/usingsvn/trunk'
 </notextile>
 
 <h4 id="vendor-lib-file-initializer-filename-data-nil-block">2.4 vendor/lib/file/initializer(filename, data = nil, &amp;block)</h4>
-<p>Adds an initializer to the generated application’s <tt>config/initializers</tt> directory.</p>
-<p>Lets say you like using <tt>Object#not_nil?</tt> and <tt>Object#not_blank?</tt> :</p>
+<p><tt>config/initializer</tt> 디렉토리에 initializer 를 추가합니다.</p>
+<p><tt>Object#not_nil?</tt> 와 <tt>Object#not_blank?</tt> 를 사용하고 싶다고 가정합시다 :</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -241,8 +241,8 @@ CODE
 </div>
 </notextile>
 
-<p>Similarly <tt>lib()</tt> creates a file in the <tt>lib/</tt> directory and <tt>vendor()</tt> creates a file in the <tt>vendor/</tt> directory.</p>
-<p>There is even <tt>file()</tt>, which accepts a relative path from <tt>Rails.root</tt> and creates all the directories/file needed :</p>
+<p>비슷하게 <tt>lib()</tt> 은 <tt>lib/</tt> 디렉토리에 파일을 만들고, <tt>vendor()</tt> 는 <tt>vendor/</tt> 디렉토리에 파일을 만듭니다.</p>
+<p>심지어 <tt>file()</tt> 도 있어서, <tt>Rails.root</tt> 로 부터의 상대경로에 필요한 디렉토리/파일을 만들 수 있습니다 :</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -254,9 +254,9 @@ CODE
 </div>
 </notextile>
 
-<p>That’ll create <tt>app/components</tt> directory and put <tt>foo.rb</tt> in there.</p>
+<p>이렇게 하면 <tt>app/components</tt> 디렉토리를 만들고 그 안에 <tt>foo.rb</tt> 를 넣습니다.</p>
 <h4 id="rakefile-filename-data-nil-block">2.5 rakefile(filename, data = nil, &amp;block)</h4>
-<p>Creates a new rake file under <tt>lib/tasks</tt> with the supplied tasks :</p>
+<p><tt>lib/tasks</tt> 에 주어진 태스크를 포함한 새 rake 파일을 생성합니다 :</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -273,9 +273,9 @@ end
 </div>
 </notextile>
 
-<p>The above creates <tt>lib/tasks/bootstrap.rake</tt> with a <tt>boot:strap</tt> rake task.</p>
+<p>위 코드는 <tt>boot:strap</tt> rake 태스크를 포함한 <tt>lib/tasks/bootstrap.rake</tt> 를 생성합니다.</p>
 <h4 id="generate-what-args">2.6 generate(what, args)</h4>
-<p>Runs the supplied rails generator with given arguments. For example, I love to scaffold some whenever I’m playing with Rails :</p>
+<p>주어진 인자로 레일즈 제너레이터를 실행시킵니다.  예를 들어, 레일즈를 가지고 놀 때마다 발판 코드를 만들기를 원한다면 :</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -285,7 +285,7 @@ generate(:scaffold, &quot;person&quot;, &quot;name:string&quot;, &quot;address:t
 </notextile>
 
 <h4 id="run-command">2.7 run(command)</h4>
-<p>Executes an arbitrary command. Just like the backticks. Let&#8217;s say you want to remove the <tt>public/index.html</tt> file :</p>
+<p>임의의 명령어를 수행합니다.  backtick(`) 과 비슷합니다. <tt>public/index.html</tt> 파일을 지우길 원한다면 :</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -295,7 +295,7 @@ run &quot;rm public/index.html&quot;
 </notextile>
 
 <h4 id="rake-command-options">2.8 rake(command, options = {})</h4>
-<p>Runs the supplied rake tasks in the Rails application. Let&#8217;s say you want to migrate the database :</p>
+<p>레일즈 어플리케이션의 Rake 태스크를 실행합니다.  데이터베이스를 마이그레이션하고 싶다면 :</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -304,7 +304,7 @@ rake &quot;db:migrate&quot;
 </div>
 </notextile>
 
-<p>You can also run rake tasks with a different Rails environment :</p>
+<p>또한 다른 레일즈 환경의 rake 태스크를 실행할 수 있습니다 :</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -313,7 +313,7 @@ rake &quot;db:migrate&quot;, :env =&gt; 'production'
 </div>
 </notextile>
 
-<p>Or even use sudo :</p>
+<p>sudo 를 사용할 수도 있습니다 :</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -323,7 +323,7 @@ rake &quot;gems:install&quot;, :sudo =&gt; true
 </notextile>
 
 <h4 id="route-routing_code">2.9 route(routing_code)</h4>
-<p>This adds a routing entry to the <tt>config/routes.rb</tt> file. In above steps, we generated a person scaffold and also removed <tt>public/index.html</tt>. Now to make <tt>PeopleController#index</tt> as the default page for the application :</p>
+<p><tt>config/routes.rb</tt> 파일에 라우팅 항목을 추가합니다.  아래와 같이 하면, person 발판 코드(scaffold)를 생성하고 <tt>public/index.html</tt> 도 삭제해 줍니다.  그러면 <tt>PeopleController#index</tt> 가 어플리케이션의 기본 페이지가 됩니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -333,7 +333,7 @@ route &quot;root :to =&gt; 'person#index'&quot;
 </notextile>
 
 <h4 id="inside-dir">2.10 inside(dir)</h4>
-<p>I have my edge rails lying at <tt>~/commit-rails/rails</tt>. So every time i have to manually symlink edge from my new app. But now :</p>
+<p>주어진 디렉토리에서 명령어를 수행할 수 있게 합니다.  예를 들어, 만약 edge rails 의 사본을 새로운 어플리케이션에 복사하고 싶다면, 아래와 같이 합니다:</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -344,9 +344,8 @@ end
 </div>
 </notextile>
 
-<p>So <tt>inside()</tt> runs the command from the given directory.</p>
 <h4 id="ask-question">2.11 ask(question)</h4>
-<p><tt>ask()</tt> gives you a chance to get some feedback from the user and use it in your templates. Lets say you want your user to name the new shiny library you’re adding :</p>
+<p><tt>ask()</tt> 는 사용자로부터 피드백을 받고 템플릿 내에서 사용할 수 있게 합니다.  사용자에게 당신이 추가하고 있는 새로운 라이브러리의 이름을 짓게 하고 싶다면 :</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -361,8 +360,8 @@ CODE
 </div>
 </notextile>
 
-<h4 id="yes-question-or-no-question">2.12 yes?(question) or no?(question)</h4>
-<p>These methods let you ask questions from templates and decide the flow based on the user’s answer. Lets say you want to freeze rails only if the user want to :</p>
+<h4 id="yes-question-no-question">2.12 yes?(question) 혹은 no?(question)</h4>
+<p>이 메소드들은 템플릿에서 사용자의 답변에 따른 흐름을 결정할 수 있게 해 줍니다.  만약 사용자가 원할때만 레일즈를 freeze 시키기를 원한다면 :</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -373,7 +372,7 @@ no?(question) acts just the opposite.
 </notextile>
 
 <h4 id="git-must-a-love">2.13 git(:must =&gt; &#8220;-a love&#8221;)</h4>
-<p>Rails templates let you run any git command :</p>
+<p>레일즈 템플릿은 모든 git 명령어를 수행할 수 있습니다.</p>
 <notextile>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
