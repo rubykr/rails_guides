@@ -16,7 +16,7 @@ task :make_guides do
     system("git checkout master")
     system("git pull")
     system("bundle install --path #{bun_path}")
-    system("cd railties;bundle exec rake  generate_guides LANGUAGE=ko-KR")
+    system("cd railties;bundle exec rake  generate_guides GUIDES_LANGUAGE=ko-KR")
   end
 
   system("cp -R #{doc_path}/* #{cur_path}")
